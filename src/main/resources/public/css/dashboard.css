@@ -1,0 +1,151 @@
+#nav {
+  padding: 0px 150px;
+}
+.pointer:hover {
+  cursor: pointer;
+}
+.no-margin {
+  margin: 0;
+}
+.padding {
+  padding: 4% 15%;
+}
+.padding-2 {
+  padding: 2% 6%;
+}
+.padding-3 {
+  padding: 2% 6%;
+}
+.padding-4 {
+  padding: 4% 0%;
+}
+.padding-5 {
+  padding: 2% 8%;
+}
+.opacity-1 {
+  opacity: 1;
+  transition: 0.5s;
+}
+.opacity-0 {
+  opacity: 0.2;
+  transition: 0.5s;
+}
+.opacity-2 {
+  opacity: 0;
+  transition: 0.5s;
+}
+.card-1 {
+  position: absolute;
+  top: -80px;
+  left: 10%;
+  width: 450px;
+  display: block;
+  box-shadow: 1px 1px 10px rgb(230, 230, 230);
+  transition: 1s;
+}
+
+.card-1-animated {
+  position: absolute;
+  top: -80px;
+  left: -100%;
+  width: 450px;
+  box-shadow: 1px 1px 10px rgb(230, 230, 230);
+  transition: 1s;
+}
+
+.card-2 {
+  position: absolute;
+  top: -40px;
+  width: 350px;
+  right: 100%;
+  height: 320px;
+  box-shadow: 1px 1px 10px rgb(230, 230, 230);
+  transition: 1s;
+}
+.card-2-animated {
+  position: absolute;
+  top: -80px;
+  width: 350px;
+  right: 10%;
+  height: 320px;
+  box-shadow: 1px 1px 10px rgb(230, 230, 230);
+  transition: 1s;
+}
+
+.card-3 {
+  position: absolute;
+  top: 360px;
+  width: 90%;
+  left: 5%;
+  box-shadow: 1px 1px 10px rgb(230, 230, 230);
+}
+
+.clearfix::after {
+  content: "";
+  clear: right;
+  display: table;
+}
+.input:focus {
+  outline: none;
+  border: none;
+}
+#dashboard-spinner {
+  left: 45%;
+}
+#chat-box:focus {
+  outline: none;
+}
+.center-mobile {
+  text-align: center;
+}
+.deposit-hr {
+  margin: 8px 0px;
+  border-width: 1px;
+  border-color: rgb(202, 202, 202);
+}
+.withdraw-hr {
+  margin: 8px 0px;
+  border-width: 1px;
+  border-color: rgb(202, 202, 202);
+}
+.card {
+  box-shadow: 1px 1px 10px rgb(230, 230, 230);
+  padding: 40px 32px;
+}
+
+input:focus {
+  outline: none;
+}
+.grey-border {
+	border-bottom: 3px;
+	border-style: solid;
+	border-color: rgb(230, 236, 240);
+}
+.green-border {
+	border-bottom: 3px;
+	border-style: solid;
+	border-color: rgb(76, 175, 80);
+	border-bottom-right-radius: 50%;
+	border-bottom-left-radius: 50%;
+}
+
+@media only screen and (min-width: 1000px) {
+  .card {
+    box-shadow: 1px 1px 10px rgb(230, 230, 230);
+    padding: 40px 64px;
+  }
+
+  .card-3 {
+    position: absolute;
+    top: 360px;
+    width: 90%;
+    left: 5%;
+    box-shadow: 1px 1px 10px rgb(230, 230, 230);
+  }
+  #dashboard-spinner {
+    left: 48%;
+  }
+  .center-mobile {
+    text-align: left;
+  }
+}
