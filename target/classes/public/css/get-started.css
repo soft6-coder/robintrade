@@ -1,8 +1,8 @@
 .card-form {
   position: absolute;
-  left: 5%;
-  top: 5%;
-  width: 90%;
+  left: 2%;
+  top: 8%;
+  width: 96%;
 }
 .card-prompt {
   position: absolute;
@@ -13,20 +13,33 @@
 }
 
 .card-form-animate {
-  top: -96%;
+  /* top: -96%; */
+  top: -600px;
   transition: 1s;
 }
 
 .card-form-animate-2 {
-  top: 5%;
+  top: 60px;
   transition: 1s;
 }
 
 input:focus {
   outline: none;
 }
+.button-padding {
+  padding: 0% 0%;
+}
+.button-padding-2 {
+  padding: 0% 0%;
+}
 
 @media only screen and (min-width: 1000px) {
+  .button-padding-2 {
+    padding: 0% 20%;
+  }
+  .button-padding {
+    padding: 0% 20%;
+  }
   .card-form {
     position: absolute;
     left: 20%;

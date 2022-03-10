@@ -1,740 +1,1058 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Document</title>
-<link rel="stylesheet"
-	href="./font awesome/FortAwesome-Font-Awesome-7d3d774/css/all.css" />
-<link rel="stylesheet" href="./css/w3.css" />
-<link rel="stylesheet" href="./css/colors.css" />
-<link rel="stylesheet" href="./css/dashboard.css" />
-<link rel="stylesheet" href="./css/fonts.css" />
-<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="/main.css" rel="stylesheet" />
-<script src="/webjars/jquery/jquery.min.js"></script>
-<script src="/webjars/sockjs-client/sockjs.min.js"></script>
-<script src="/webjars/stomp-websocket/stomp.min.js"></script>
-<script src="./js/moment.js"></script>
-</head>
-<body style="background-color: rgb(230, 236, 240)">
-	<div id="dashboard-spinner"
-		class="fa fa-spinner fa-spin w3-jumbo opacity-1 w3-text-blue"
-		style="position: absolute; top: 45%; display: block"></div>
-	<div id="dashboard-container" class="w3-animate-opacity"
-		style="display: none">
-		<section>
-			<div id="nav" class="w3-bar w3-hide-medium w3-hide-small"
-				style="background-color: rgb(230, 236, 240)">
-				<div class="w3-bar-item" style="margin-top: 18px">
-					<p id="logo" class="large pointer blue-text">Future Space</p>
-				</div>
-				<div style="padding-top: 12px; padding-left: 220px">
-					<div class="w3-bar-item" style="margin-top: 12px">
-						<p id="open-fund-modal" class="pointer big blue-text"
-							style="margin-left: 50px">
-							<span class="fa fa-plus x-small w3-padding-small"></span> Fund
-						</p>
-					</div>
-					<div class="w3-bar-item" style="margin-top: 12px">
-						<p id="open-withdraw-modal" class="pointer big blue-text"
-							style="margin-left: 50px">
-							<span class="fa fa-upload x-small w3-padding-small"></span>
-							Withdraw
-						</p>
-					</div>
-					<div class="w3-bar-item" style="margin-top: 12px">
-						<p id="open-borrow-modal" class="pointer big blue-text"
-							style="margin-left: 50px">
-							<span class="fa fa-download x-small w3-padding-small"></span>
-							Borrow
-						</p>
-					</div>
-					<div class="w3-bar-item">
-						<div id="refer-a-friend"
-							class="green-background w3-padding w3-round pointer big"
-							style="margin-top: 6px; margin-left: 50px">Refer a Friend</div>
-					</div>
-				</div>
-				<div class="w3-bar-item w3-right">
-					<div class="w3-padding w3-round pointer">
-						<span class="fa fa-user-circle w3-padding-small blue-text"
-							style="font-size: 22px"></span> <span id="firstname" class="big">Samuel</span>
-						<span class="fa fa-angle-down w3-padding-small"
-							style="font-size: 16px"></span>
-					</div>
-				</div>
-			</div>
-			<div id="settings"
-				class="w3-padding card w3-round w3-animate-opacity w3-white"
-				style="position: absolute; right: 50px; display: none; z-index: 1; width: 25%">
-				<div class="w3-row-padding">
-					<div class="w3-col s6">
-						<div id="profile-setting" class="w3-padding pointer blue-text">Profile
-							Settings</div>
-					</div>
-					<div class="w3-col s6 w3-center"
-						style="border-left: 1px solid rgb(0, 46, 157)">
-						<div id="logout-setting" class="w3-padding pointer blue-text">Logout</div>
-					</div>
-				</div>
-			</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="./font awesome/FortAwesome-Font-Awesome-7d3d774/css/all.css"
+    />
+    <link rel="stylesheet" href="./css/w3.css" />
+    <link rel="stylesheet" href="./css/colors.css" />
+    <link rel="stylesheet" href="./css/dashboard.css" />
+    <link rel="stylesheet" href="./css/fonts.css" />
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/main.css" rel="stylesheet" />
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="./js/moment.js"></script>
+  </head>
+  <body style="background-color: rgb(230, 236, 240)">
+    <div
+      id="dashboard-spinner"
+      class="fa fa-spinner fa-spin w3-jumbo opacity-1 w3-text-blue"
+      style="position: absolute; top: 45%; display: block"
+    ></div>
+    <div
+      id="dashboard-container"
+      class="w3-animate-opacity"
+      style="display: none"
+    >
+      <section>
+        <div
+          id="nav"
+          class="w3-bar w3-hide-medium w3-hide-small"
+          style="background-color: rgb(230, 236, 240)"
+        >
+          <div class="w3-bar-item" style="margin-top: 18px">
+            <p id="logo" class="large pointer blue-text">Future Space</p>
+          </div>
+          <div style="padding-top: 12px; padding-left: 220px">
+            <div class="w3-bar-item" style="margin-top: 12px">
+              <p
+                id="open-fund-modal"
+                class="pointer big blue-text"
+                style="margin-left: 50px"
+              >
+                <span class="fa fa-plus x-small w3-padding-small"></span> Fund
+              </p>
+            </div>
+            <div class="w3-bar-item" style="margin-top: 12px">
+              <p
+                id="open-withdraw-modal"
+                class="pointer big blue-text"
+                style="margin-left: 50px"
+              >
+                <span class="fa fa-upload x-small w3-padding-small"></span>
+                Withdraw
+              </p>
+            </div>
+            <div class="w3-bar-item" style="margin-top: 12px">
+              <p
+                id="open-borrow-modal"
+                class="pointer big blue-text"
+                style="margin-left: 50px"
+              >
+                <span class="fa fa-download x-small w3-padding-small"></span>
+                Borrow
+              </p>
+            </div>
+            <div class="w3-bar-item">
+              <div
+                id="refer-a-friend"
+                class="green-background w3-padding w3-round pointer big"
+                style="margin-top: 6px; margin-left: 50px"
+              >
+                Refer a Friend
+              </div>
+            </div>
+          </div>
+          <div class="w3-bar-item w3-right">
+            <div class="w3-padding w3-round pointer">
+              <span
+                class="fa fa-user-circle w3-padding-small blue-text"
+                style="font-size: 22px"
+              ></span>
+              <span id="firstname" class="big"></span>
+              <span
+                class="fa fa-angle-down w3-padding-small"
+                style="font-size: 16px"
+              ></span>
+            </div>
+          </div>
+        </div>
+        <div
+          id="settings"
+          class="w3-padding card w3-round w3-animate-opacity w3-white"
+          style="
+            position: absolute;
+            right: 50px;
+            display: none;
+            z-index: 1;
+            width: 25%;
+          "
+        >
+          <div class="w3-row-padding">
+            <div class="w3-col s6">
+              <div id="profile-setting" class="w3-padding pointer blue-text">
+                Profile Settings
+              </div>
+            </div>
+            <div
+              class="w3-col s6 w3-center"
+              style="border-left: 1px solid rgb(0, 46, 157)"
+            >
+              <div id="logout-setting" class="w3-padding pointer blue-text">
+                Logout
+              </div>
+            </div>
+          </div>
+        </div>
 
-			<div class="w3-bar w3-hide-large"
-				style="padding: 0px 10px; background-color: rgb(230, 236, 240)">
-				<div class="w3-bar-item" style="margin-top: 18px">
-					<p class="large pointer blue-text">Future Space</p>
-				</div>
-				<div class="w3-bar-item w3-right blue-text">
-					<span id="toggle-nav" class="fa fa-bars large pointer"
-						style="margin-top: 24px"></span>
-				</div>
-			</div>
+        <div
+          class="w3-bar w3-hide-large"
+          style="padding: 0px 10px; background-color: rgb(230, 236, 240)"
+        >
+          <div class="w3-bar-item" style="margin-top: 8px">
+            <p class="large pointer blue-text">Future Space</p>
+          </div>
+          <div class="w3-bar-item w3-right blue-text">
+            <span
+              id="toggle-nav"
+              class="fa fa-bars large pointer"
+              style="margin-top: 12px"
+            ></span>
+          </div>
+        </div>
 
-			<div id="nav-items" class="w3-bar-block w3-center opacity-0"
-				style="display: none; background-color: rgb(230, 236, 240)">
-				<div class="w3-bar-item">
-					<p class="big pointer blue-text">
-						<span class="fa fa-plus x-small w3-padding-small"></span>Fund
-					</p>
-				</div>
-				<div class="w3-bar-item">
-					<p class="big pointer blue-text">
-						<span class="fa fa-upload x-small w3-padding-small"></span>Withdraw
-					</p>
-				</div>
-				<div class="w3-bar-item">
-					<p class="big pointer blue-text">
-						<span class="fa fa-download x-small w3-padding-small"></span>Borrow
-					</p>
-				</div>
-				<div class="w3-bar-item">
-					<div
-						class="big pointer blue-text green-background w3-padding-large w3-round">
-						Refer a friend</div>
-				</div>
-				<div class="w3-bar-item">
-					<div class="w3-padding w3-round pointer">
-						<span class="fa fa-user-circle w3-padding-small blue-text"
-							style="font-size: 22px"></span> <span style="font-weight: 600">Samuel</span>
-						<span class="fa fa-angle-down w3-padding-small"
-							style="font-size: 16px"></span>
-					</div>
-				</div>
-			</div>
-		</section>
-		<section>
-			<div class="padding"
-				style="height: 320px; background-color: rgb(230, 236, 240)">
-				<p class="huge blue-text center-mobile">Account Summary</p>
-				<p class="big blue-text center-mobile" style="font-weight: 500">
-					TOTAL DOLLAR VALUE OF CRYPTO</p>
-				<p class="huge blue-text">
-					<span><img class="image-currency" alt="" src=""
-						style="width: 2%; margin-top: -10px"></span> <span
-						id="account-balance"></span>
-				</p>
-			</div>
-		</section>
+        <div
+          id="nav-items"
+          class="w3-bar-block opacity-0"
+          style="display: none; background-color: rgb(230, 236, 240)"
+        >
+          <div class="w3-bar-item">
+            <p id="open-fund-modal-mobile" class="big pointer blue-text">
+              <span class="fa fa-plus x-small w3-padding-small"></span>Fund
+            </p>
+          </div>
+          <div class="w3-bar-item">
+            <p id="open-withdraw-modal-mobile" class="big pointer blue-text">
+              <span class="fa fa-upload x-small w3-padding-small"></span
+              >Withdraw
+            </p>
+          </div>
+          <div class="w3-bar-item">
+            <p id="open-borrow-modal-mobile" class="big pointer blue-text">
+              <span class="fa fa-download x-small w3-padding-small"></span
+              >Borrow
+            </p>
+          </div>
+          <div id="refer-a-friend-modal-mobile" class="w3-bar-item">
+            <div
+              class="big pointer blue-text green-background w3-padding-small w3-round"
+            >
+              Refer a friend
+            </div>
+          </div>
+          <div class="w3-bar-item">
+            <div class="w3-round pointer">
+              <span
+                class="fa fa-user-circle w3-padding-small blue-text"
+                style="font-size: 22px"
+              ></span>
+              <span id="firstname-mobile" style="font-weight: 600"></span>
+              <span
+                class="fa fa-angle-down w3-padding-small"
+                style="font-size: 16px"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div
+          class="padding"
+          style="height: 320px; background-color: rgb(230, 236, 240)"
+        >
+          <p class="huge blue-text center-mobile">Account Summary</p>
+          <p class="big blue-text center-mobile" style="font-weight: 500">
+            TOTAL DOLLAR VALUE OF CRYPTO
+          </p>
+          <p class="huge blue-text center-mobile">
+            <span
+              ><img
+                class="image-currency image-currency-width"
+                alt=""
+                src=""
+                style="margin-top: -10px"
+            /></span>
+            <span id="account-balance"></span>
+          </p>
+        </div>
+      </section>
 
-		<section>
-			<div class="w3-white" style="height: 1800px; position: relative">
-				<div class="w3-row"
-					style="position: absolute; top: -70px; width: 100%">
-					<div class="w3-col l7" style="padding: 0% 2% 0% 10%">
-						<div class="card w3-white w3-card w3-round"
-							style="padding: 70px 0px 50px 120px">
-							<p class="huge blue-text" style="margin-bottom: 32px">
-								Interest Account</p>
-							<p class="blue-text small">INTEREST ACCOUNT BALANCE</p>
-							<div class="w3-row">
-								<div class="w3-col s1 w3-center">
-									<img class="image-currency" alt="" src=""
-										style="width: 40%; margin-top: 16px">
-								</div>
-								<div class="w3-col s11">
-									<p id="interest-account" class="huge blue-text"
-										style="margin: 16px 0px"></p>
-								</div>
-							</div>
-							<div class="w3-row">
-								<div class="w3-col s6">
-									<p class="blue-text small" style="margin-top: 16px">TOTAL
-										INTEREST PAID</p>
-									<div class="w3-row">
-										<div class="w3-col s1">
-											<img class="image-currency" alt="" src=""
-												style="width: 80%; margin-top: 16px">
-										</div>
-										<div class="w3-col s11">
-											<p id="paid-interest" class="huge blue-text"
-												style="margin: 16px 0px"></p>
-										</div>
-									</div>
+      <section>
+        <div class="w3-white" style="height: 1800px; position: relative">
+          <div
+            class="w3-row"
+            style="position: absolute; top: -70px; width: 100%"
+          >
+            <div class="w3-col l7 interest-padding">
+              <div
+                class="card w3-white w3-card w3-round inner-interest-padding"
+              >
+                <p class="huge blue-text" style="margin-bottom: 32px">
+                  Interest Account
+                </p>
+                <p class="blue-text small">INTEREST ACCOUNT BALANCE</p>
+                <div class="w3-row center-mobile">
+                  <div class="w3-col s1 center-mobile">
+                    <img
+                      class="image-currency image-width"
+                      alt=""
+                      src=""
+                      style="margin-top: 16px"
+                    />
+                  </div>
+                  <div class="w3-col s2">
+                    <p
+                      id="interest-account"
+                      class="huge blue-text"
+                      style="margin: 16px 0px"
+                    ></p>
+                  </div>
+                </div>
+                <div class="w3-row">
+                  <div class="w3-col s6">
+                    <p class="blue-text small" style="margin-top: 16px">
+                      TOTAL INTEREST PAID
+                    </p>
+                    <div class="w3-row">
+                      <div class="w3-col s1">
+                        <img
+                          class="image-currency image-width-2"
+                          alt=""
+                          src=""
+                          style="margin-top: 16px"
+                        />
+                      </div>
+                      <div class="w3-col s11">
+                        <p
+                          id="paid-interest"
+                          class="huge blue-text"
+                          style="margin: 16px 0px"
+                        ></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="w3-col s6">
+                    <p class="blue-text small" style="margin-top: 16px">
+                      ACCRUED INTEREST
+                    </p>
+                    <div class="w3-row">
+                      <div class="w3-col s1">
+                        <img
+                          class="image-currency image-width-2"
+                          alt=""
+                          src=""
+                          style="margin-top: 16px"
+                        />
+                      </div>
+                      <div class="w3-col s11">
+                        <p
+                          id="accrued-interest"
+                          class="huge blue-text"
+                          style="margin: 16px 0px"
+                        ></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w3-col l5 w3-hide-small" style="padding: 0% 15% 0% 1%">
+              <div
+                class="green-background w3-card w3-round"
+                style="padding-top: 2px"
+              >
+                <div class="w3-white card" style="height: 390px">
+                  <p
+                    class="huge blue-text"
+                    style="margin-bottom: 32px; margin-top: 15px"
+                  >
+                    Get USD without selling your crypto
+                  </p>
+                  <p class="blue-text">
+                    <span class="fa fa-arrow-right w3-padding-small"></span
+                    >Apply for a Loan
+                  </p>
+                  <p class="blue-text">
+                    <span class="fa fa-arrow-right w3-padding-small"></span>Loan
+                    History
+                  </p>
+                  <p class="blue-text">
+                    <span class="fa fa-arrow-right w3-padding-small"></span
+                    >Learn more
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="padding-2"
+            style="position: absolute; top: 350px; width: 100%"
+          >
+            <div class="card" style="height: 1250px">
+              <p class="huge w3-padding-16 blue-text" style="font-weight: 500">
+                Market
+              </p>
+              <div style="position: relative">
+                <div class="w3-row">
+                  <div class="w3-col l6">
+                    <p
+                      class="blue-text"
+                      style="font-weight: 500; margin-left: 10px"
+                    >
+                      Cryptocurrency
+                    </p>
+                  </div>
+                  <div class="w3-col l2">
+                    <p class="blue-text" style="font-weight: 500">Price</p>
+                  </div>
+                  <div class="w3-col l2">
+                    <p class="blue-text" style="font-weight: 500">
+                      24hrs change
+                    </p>
+                  </div>
+                  <div class="w3-col l2">
+                    <p class="blue-text" style="font-weight: 500">Market cap</p>
+                  </div>
+                </div>
+                <hr
+                  style="
+                    margin: 0px 50px 8px 10px;
+                    border-width: 2px;
+                    border-color: rgb(248, 248, 248);
+                  "
+                />
+              </div>
+              <div id="crypto-root">
+                <div
+                  class="fa fa-spinner fa-spin xx-large blue-text"
+                  style="position: absolute; left: 680px; top: 230px"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-								</div>
-								<div class="w3-col s6">
-									<p class="blue-text small" style="margin-top: 16px">
-										ACCRUED INTEREST</p>
-									<div class="w3-row">
-										<div class="w3-col s1">
-											<img class="image-currency" alt="" src=""
-												style="width: 80%; margin-top: 16px">
-										</div>
-										<div class="w3-col s11">
-											<p id="accrued-interest" class="huge blue-text"
-												style="margin: 16px 0px"></p>
-										</div>
-									</div>
+      <section>
+        <div id="fund-modal" class="w3-modal w3-animate-opacity">
+          <div class="w3-modal-content w3-round blue-text-2" style="width: 30%">
+            <div class="padding-4">
+              <span
+                id="close-fund-modal"
+                class="fa fa-times w3-right w3-text-red pointer"
+                style="margin-right: 28px"
+              ></span>
+              <div class="padding-5">
+                <p class="w3-center x-big" style="font-weight: 500">Deposit</p>
 
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="w3-col l5 w3-hide-small" style="padding: 0% 15% 0% 1%">
-						<div class="green-background w3-card w3-round"
-							style="padding-top: 2px">
-							<div class="w3-white card" style="height: 390px">
-								<p class="huge blue-text"
-									style="margin-bottom: 32px; margin-top: 15px">Get USD
-									without selling your crypto</p>
-								<p class="blue-text">
-									<span class="fa fa-arrow-right w3-padding-small"></span>Apply
-									for a Loan
-								</p>
-								<p class="blue-text">
-									<span class="fa fa-arrow-right w3-padding-small"></span>Loan
-									History
-								</p>
-								<p class="blue-text">
-									<span class="fa fa-arrow-right w3-padding-small"></span>Learn
-									more
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="padding-2"
-					style="position: absolute; top: 350px; width: 100%">
-					<div class="card" style="height: 1250px">
-						<p class="huge w3-padding-16 blue-text" style="font-weight: 500">Market</p>
-						<div style="position: relative">
-							<div class="w3-row">
-								<div class="w3-col l6">
-									<p class="blue-text"
-										style="font-weight: 500; margin-left: 10px">
-										Cryptocurrency</p>
-								</div>
-								<div class="w3-col l2">
-									<p class="blue-text" style="font-weight: 500">Price</p>
-								</div>
-								<div class="w3-col l2">
-									<p class="blue-text" style="font-weight: 500">24hrs change</p>
-								</div>
-								<div class="w3-col l2">
-									<p class="blue-text" style="font-weight: 500">Market cap</p>
-								</div>
-							</div>
-							<hr
-								style="margin: 0px 50px 8px 10px; border-width: 2px; border-color: rgb(248, 248, 248)" />
-						</div>
-						<div id="crypto-root">
-							<div class="fa fa-spinner fa-spin xx-large blue-text"
-								style="position: absolute; left: 680px; top: 230px"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+                <div>
+                  <p class="grey-text x-small">CURRENCY</p>
+                  <div class="w3-row">
+                    <div class="w3-col s11">
+                      <p class="no-margin small w3-margin-left">
+                        Select Crypto or USD
+                      </p>
+                    </div>
+                    <div class="w3-col s1">
+                      <span
+                        class="fa fa-angle-down w3-right w3-margin-right"
+                      ></span>
+                    </div>
+                  </div>
+                  <hr class="deposit-hr" />
+                </div>
+              </div>
+            </div>
+            <div class="padding-4 grey-background-2">
+              <div class="padding-5">
+                <p class="w3-center no-margin big">Select Payment Method</p>
+                <hr class="deposit-hr" style="margin-top: 30px" />
+                <div class="w3-row">
+                  <div class="w3-col s11">
+                    <p class="x-small no-margin">Via Wire</p>
+                  </div>
+                  <div class="w3-col s1">
+                    <span class="fa fa-angle-right w3-right"></span>
+                  </div>
+                </div>
+                <p class="x-small">
+                  Sent from your financial institution to Future Equity's bank
+                  account. No maximum deposit limits. Funds take 1-2 business
+                  days to show on the platform.
+                </p>
+                <hr class="deposit-hr" style="margin-top: 30px" />
+              </div>
+            </div>
+          </div>
+        </div>
 
-		<section>
-			<div id="fund-modal" class="w3-modal w3-animate-opacity">
-				<div class="w3-modal-content w3-round blue-text-2"
-					style="width: 30%">
-					<div class="padding-4">
-						<span id="close-fund-modal"
-							class="fa fa-times w3-right w3-text-red pointer"
-							style="margin-right: 28px"></span>
-						<div class="padding-5">
-							<p class="w3-center x-big" style="font-weight: 500">Deposit</p>
+        <div id="withdraw-modal" class="w3-modal w3-animate-opacity">
+          <div class="w3-modal-content blue-text-2 w3-round" style="width: 30%">
+            <div class="padding-4">
+              <span
+                id="close-withdraw-modal"
+                class="fa fa-times w3-right w3-text-red pointer"
+                style="margin-right: 28px"
+              ></span>
+              <div class="padding-5">
+                <div class="w3-center">
+                  <p class="x-big" style="font-weight: 500">Withdraw USD</p>
+                  <p class="x-small">Allow Listing is Off</p>
+                  <p class="x-small">
+                    All withdrawals are subject to a 1 business day security
+                    hold and are processed by 8:00PM EST on weekdays
+                  </p>
+                </div>
+                <input class="w3-input" type="text" name="" id="" />
+                <p class="small">
+                  Available to withdraw
+                  <span id="available-to-withdraw" class="blue-text"></span> USD
+                </p>
 
-							<div>
-								<p class="grey-text x-small">CURRENCY</p>
-								<div class="w3-row">
-									<div class="w3-col s11">
-										<p class="no-margin small w3-margin-left">Select Crypto or
-											USD</p>
-									</div>
-									<div class="w3-col s1">
-										<span class="fa fa-angle-down w3-right w3-margin-right"></span>
-									</div>
-								</div>
-								<hr class="deposit-hr" />
-							</div>
-						</div>
-					</div>
-					<div class="padding-4 grey-background-2">
-						<div class="padding-5">
-							<p class="w3-center no-margin big">Select Payment Method</p>
-							<hr class="deposit-hr" style="margin-top: 30px" />
-							<div class="w3-row">
-								<div class="w3-col s11">
-									<p class="x-small no-margin">Via Wire</p>
-								</div>
-								<div class="w3-col s1">
-									<span class="fa fa-angle-right w3-right"></span>
-								</div>
-							</div>
-							<p class="x-small">Sent from your financial institution to
-								Future Equity's bank account. No maximum deposit limits. Funds
-								take 1-2 business days to show on the platform.</p>
-							<hr class="deposit-hr" style="margin-top: 30px" />
-						</div>
-					</div>
-				</div>
-			</div>
+                <div class="w3-row">
+                  <div class="w3-col s6">
+                    <p class="small">
+                      Fees: <span style="font-style: italic">Fees Waived</span>
+                    </p>
+                  </div>
+                  <div class="w3-col s6">
+                    <p class="small w3-right">0 USD</p>
+                  </div>
+                  <div class="w3-col s6">
+                    <p class="small">You will receive</p>
+                  </div>
+                  <div class="w3-col s6">
+                    <p class="small w3-right">0 USD</p>
+                  </div>
+                </div>
+                <p class="small blue-text">Withdrawal Terms</p>
+                <p class="small w3-margin-bottom">Select an Account</p>
+                <div class="w3-row">
+                  <div class="w3-col s11">
+                    <p class="w3-margin-left small no-margin">Select Account</p>
+                  </div>
+                  <div class="w3-col s1">
+                    <span
+                      class="fa fa-angle-down w3-right w3-margin-right"
+                    ></span>
+                  </div>
+                </div>
+                <hr class="withdraw-hr" />
+                <div
+                  class="blue-background-inactive w3-padding-large w3-center w3-round pointer"
+                  style="margin-top: 16px"
+                >
+                  Receive Withdrawal
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-			<div id="withdraw-modal" class="w3-modal w3-animate-opacity">
-				<div class="w3-modal-content blue-text-2 w3-round"
-					style="width: 30%">
-					<div class="padding-4">
-						<span id="close-withdraw-modal"
-							class="fa fa-times w3-right w3-text-red pointer"
-							style="margin-right: 28px"></span>
-						<div class="padding-5">
-							<div class="w3-center">
-								<p class="x-big" style="font-weight: 500">Withdraw USD</p>
-								<p class="x-small">Allow Listing is Off</p>
-								<p class="x-small">All withdrawals are subject to a 1
-									business day security hold and are processed by 8:00PM EST on
-									weekdays</p>
-							</div>
-							<input class="w3-input" type="text" name="" id="" />
-							<p class="small">
-								Available to withdraw <span id="available-to-withdraw"
-									class="blue-text"></span> USD
-							</p>
+        <div id="trade-modal" class="w3-modal w3-animate-opacity">
+          <div class="w3-modal-content blue-text-2" style="width: 25%">
+            <div class="padding-4">
+              <span
+                id="close-trade-modal"
+                class="fa fa-times w3-right w3-text-red pointer"
+                style="margin-right: 28px"
+              ></span>
+              <div class="padding-5">
+                <div class="w3-center">
+                  <p class="x-big" style="font-weight: 500">Future Space</p>
+                  <p>Technical Support team</p>
+                  <p class="small">
+                    Hello Samuel, The feature to trade your Future Space asset
+                    is currently unavailable. Please try again later or Contact
+                    Future Space Customer Support
+                  </p>
+                  <div>
+                    <div
+                      id="contact-support-trade"
+                      class="blue-background w3-padding-large w3-center w3-round pointer"
+                      style="margin-top: 16px"
+                    >
+                      Contact Support
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-							<div class="w3-row">
-								<div class="w3-col s6">
-									<p class="small">
-										Fees: <span style="font-style: italic">Fees Waived</span>
-									</p>
-								</div>
-								<div class="w3-col s6">
-									<p class="small w3-right">0 USD</p>
-								</div>
-								<div class="w3-col s6">
-									<p class="small">You will receive</p>
-								</div>
-								<div class="w3-col s6">
-									<p class="small w3-right">0 USD</p>
-								</div>
-							</div>
-							<p class="small blue-text">Withdrawal Terms</p>
-							<p class="small w3-margin-bottom">Select an Account</p>
-							<div class="w3-row">
-								<div class="w3-col s11">
-									<p class="w3-margin-left small no-margin">Select Account</p>
-								</div>
-								<div class="w3-col s1">
-									<span class="fa fa-angle-down w3-right w3-margin-right"></span>
-								</div>
-							</div>
-							<hr class="withdraw-hr" />
-							<div
-								class="blue-background-inactive w3-padding-large w3-center w3-round pointer"
-								style="margin-top: 16px">Receive Withdrawal</div>
-						</div>
-					</div>
-				</div>
-			</div>
+        <div id="borrow-modal" class="w3-modal w3-animate-opacity">
+          <div class="w3-modal-content blue-text-2" style="width: 25%">
+            <div class="padding-4">
+              <span
+                id="close-borrow-modal"
+                class="fa fa-times w3-right w3-text-red pointer"
+                style="margin-right: 28px"
+              ></span>
+              <div class="padding-5">
+                <div class="w3-center">
+                  <p class="x-big" style="font-weight: 500">Future Space</p>
+                  <p>Technical Support team</p>
+                  <p class="small">
+                    Hello Samuel, The feature to borrow Future Space asset is
+                    currently unavailable. Please try again later or Contact
+                    Future Space Customer Support
+                  </p>
+                  <div>
+                    <div
+                      id="contact-support-borrow"
+                      class="blue-background w3-padding-large w3-center w3-round pointer"
+                      style="margin-top: 16px"
+                    >
+                      Contact Support
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-			<div id="trade-modal" class="w3-modal w3-animate-opacity">
-				<div class="w3-modal-content blue-text-2" style="width: 25%">
-					<div class="padding-4">
-						<span id="close-trade-modal"
-							class="fa fa-times w3-right w3-text-red pointer"
-							style="margin-right: 28px"></span>
-						<div class="padding-5">
-							<div class="w3-center">
-								<p class="x-big" style="font-weight: 500">Future Space</p>
-								<p>Technical Support team</p>
-								<p class="small">Hello Samuel, The feature to trade your
-									Future Space asset is currently unavailable. Please try again
-									later or Contact Future Space Customer Support</p>
-								<div>
-									<div id="contact-support-trade"
-										class="blue-background w3-padding-large w3-center w3-round pointer"
-										style="margin-top: 16px">Contact Support</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+      <div style="position: fixed; bottom: 40px; right: 40px">
+        <div
+          class="w3-card w3-center w3-white"
+          style="padding: 18px 18px 14px; border-radius: 50%"
+        >
+          <span
+            id="customer-support"
+            class="fa fa-comment-alt green-text pointer w3-animate-fading"
+            style="font-size: 20px"
+          ></span>
+        </div>
+      </div>
+      <div
+        id="start-conversation-card"
+        class="w3-card w3-animate-right w3-white live-chat"
+      >
+        <div
+          id="start-conversation-spinner"
+          class="fa fa-spinner fa-spin w3-jumbo opacity-2 w3-text-blue"
+          style="position: absolute; top: 45%; right: 42%; z-index: 1"
+        ></div>
+        <div id="start-conversation-white" class="opacity-2">
+          <div
+            class="green-background"
+            style="
+              padding: 24px 32px 96px;
+              border-top-left-radius: 4px;
+              border-top-right-radius: 4px;
+            "
+          >
+            <p class="large no-margin" style="font-weight: 500">
+              Hi <span id="firstname-customer-support">Samuel</span>
+            </p>
+            <p class="no-margin">Ask us anything, we are here to help you!</p>
+          </div>
+          <div
+            class="w3-round w3-white w3-card"
+            style="position: absolute; left: 5%; top: 120px; width: 90%"
+          >
+            <div class="blue-background w3-round" style="height: 4px"></div>
+            <div class="w3-padding w3-padding-32">
+              <p style="margin-top: 0px">Start a new Conversation</p>
+              <div class="w3-row">
+                <div class="w3-col s2">
+                  <img
+                    src="./images/paulius.png"
+                    alt=""
+                    style="width: 100%; border-radius: 50%"
+                  />
+                </div>
+                <div class="w3-col s10" style="padding: 4px 0px 0px 8px">
+                  <p class="no-margin grey-text small">
+                    Chris <span id="support-status"></span>
+                  </p>
+                  <p class="no-margin grey-text small">
+                    <span
+                      class="fa fa-clock blue-text-inactive"
+                      style="padding: 0px 2px 0px 0px"
+                    ></span>
+                    Usual reply time : Under 1 minute
+                  </p>
+                </div>
+              </div>
+              <div
+                id="start-conversation"
+                class="w3-padding w3-round-xxlarge blue-border w3-margin-top pointer blue-text"
+                style="width: 80%"
+              >
+                <span class="fa fa-paper-plane w3-padding-small"></span> Send us
+                a message
+              </div>
+            </div>
+          </div>
+          <div
+            class="w3-round w3-white w3-card"
+            style="position: absolute; left: 5%; top: 340px; width: 90%"
+          >
+            <div class="blue-background w3-round" style="height: 4px"></div>
+            <div class="w3-padding w3-padding-16">
+              <div class="w3-row">
+                <div class="w3-col s2">
+                  <div
+                    class="fa fa-check-circle green-text"
+                    style="font-size: 40px"
+                  ></div>
+                </div>
+                <div class="w3-col s10" style="padding: 4px 0px 0px 8px">
+                  <p class="small no-margin blue-text">
+                    Status: 50 open incidents
+                  </p>
+                  <p class="small no-margin grey-text">
+                    Updated Jan 25, 22:00 UTC
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="w3-white" style="height: 450px"></div>
+        </div>
+      </div>
 
-			<div id="borrow-modal" class="w3-modal w3-animate-opacity">
-				<div class="w3-modal-content blue-text-2" style="width: 25%">
-					<div class="padding-4">
-						<span id="close-borrow-modal"
-							class="fa fa-times w3-right w3-text-red pointer"
-							style="margin-right: 28px"></span>
-						<div class="padding-5">
-							<div class="w3-center">
-								<p class="x-big" style="font-weight: 500">Future Space</p>
-								<p>Technical Support team</p>
-								<p class="small">Hello Samuel, The feature to borrow Future
-									Space asset is currently unavailable. Please try again later or
-									Contact Future Space Customer Support</p>
-								<div>
-									<div id="contact-support-borrow"
-										class="blue-background w3-padding-large w3-center w3-round pointer"
-										style="margin-top: 16px">Contact Support</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+      <div
+        id="conversation-card"
+        class="w3-animate-opacity w3-card w3-white live-chat"
+      >
+        <div
+          id="conversation-spinner"
+          class="fa fa-spinner fa-spin w3-jumbo opacity-1 w3-text-blue opacity-1"
+          style="position: absolute; top: 45%; right: 42%; z-index: 1"
+        ></div>
+        <div id="conversation-white" class="w3-round opacity-0">
+          <div class="green-background" style="padding: 16px 24px">
+            <div class="w3-row">
+              <div class="w3-col s2">
+                <div
+                  id="back-to-start-conversation-card"
+                  class="fa fa-angle-left large pointer"
+                  style="margin-top: 6px"
+                ></div>
+              </div>
+              <div class="w3-col s2">
+                <div style="position: relative">
+                  <img
+                    src="./images/paulius.png"
+                    alt=""
+                    style="width: 90%; border-radius: 50%"
+                  />
+                  <div
+                    id="status-indicator"
+                    class="green-background"
+                    style="
+                      position: absolute;
+                      right: 0px;
+                      bottom: 8px;
+                      border-radius: 50%;
+                      height: 12px;
+                      width: 12px;
+                      outline: 2px solid rgb(76, 175, 80);
+                    "
+                  ></div>
+                </div>
+              </div>
+              <div class="w3-col s8 w3-padding-small">
+                <p class="no-margin small">Chris</p>
+                <p id="support-status-2" class="no-margin small"></p>
+              </div>
+            </div>
+            
+          </div>
+          <div class="w3-white chat-box-height" style="position: relative;">
+            <div
+              id="message-container"
+              class="w3-padding"
+              style="
+                height: 510px;
+                overflow-y: scroll;
+                scrollbar-width: none;
+                display: flex;
+                flex-direction: column-reverse;
+              "
+            ></div>
+            <div
+              class="w3-padding"
+              style="position: absolute; bottom: 0px; width: 100%"
+            >
+              <div class="w3-row w3-margin-top">
+                <div class="w3-col s10">
+                  <input
+                    id="chat-box"
+                    class="w3-input"
+                    type="text"
+                    placeholder="Type your message here"
+                  />
+                </div>
+                <div class="w3-col s2">
+                  <span
+                    id="send-message"
+                    class="fa fa-paper-plane green-text w3-padding x-big pointer"
+                    style="margin-top: 4px"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		<div style="position: fixed; bottom: 40px; right: 40px">
-			<div class="w3-card w3-center w3-white"
-				style="padding: 18px 18px 14px; border-radius: 50%">
-				<span id="customer-support"
-					class="fa fa-comment-alt green-text pointer w3-animate-fading"
-					style="font-size: 20px"></span>
-			</div>
-		</div>
-		<div id="start-conversation-card"
-			class="w3-card w3-animate-right w3-white"
-			style="position: fixed; bottom: 90px; right: 10px; display: none; width: 350px; z-index: 2">
-			<div id="start-conversation-spinner"
-				class="fa fa-spinner fa-spin w3-jumbo opacity-2 w3-text-blue"
-				style="position: absolute; top: 45%; right: 42%; z-index: 1"></div>
-			<div id="start-conversation-white" class="opacity-2">
-				<div class="green-background"
-					style="padding: 24px 32px 96px; border-top-left-radius: 4px; border-top-right-radius: 4px;">
-					<p class="large no-margin" style="font-weight: 500">
-						Hi <span id="firstname-customer-support">Samuel</span>
-					</p>
-					<p class="no-margin">Ask us anything, we are here to help you!</p>
-				</div>
-				<div class="w3-round w3-white w3-card"
-					style="position: absolute; left: 5%; top: 120px; width: 90%">
-					<div class="blue-background w3-round" style="height: 4px"></div>
-					<div class="w3-padding w3-padding-32">
-						<p style="margin-top: 0px">Start a new Conversation</p>
-						<div class="w3-row">
-							<div class="w3-col s2">
-								<img src="./images/paulius.png" alt=""
-									style="width: 100%; border-radius: 50%" />
-							</div>
-							<div class="w3-col s10" style="padding: 4px 0px 0px 8px">
-								<p class="no-margin grey-text small">
-									Chris <span id="support-status"></span>
-								</p>
-								<p class="no-margin grey-text small">
-									<span class="fa fa-clock blue-text-inactive"
-										style="padding: 0px 2px 0px 0px"></span> Usual reply time :
-									Under 1 minute
-								</p>
-							</div>
-						</div>
-						<div id="start-conversation"
-							class="w3-padding w3-round-xxlarge blue-border w3-margin-top pointer blue-text"
-							style="width: 80%">
-							<span class="fa fa-paper-plane w3-padding-small"></span> Send us
-							a message
-						</div>
-					</div>
-				</div>
-				<div class="w3-round w3-white w3-card"
-					style="position: absolute; left: 5%; top: 340px; width: 90%">
-					<div class="blue-background w3-round" style="height: 4px"></div>
-					<div class="w3-padding w3-padding-16">
-						<div class="w3-row">
-							<div class="w3-col s2">
-								<div class="fa fa-check-circle green-text"
-									style="font-size: 40px"></div>
-							</div>
-							<div class="w3-col s10" style="padding: 4px 0px 0px 8px">
-								<p class="small no-margin blue-text">Status: 50 open
-									incidents</p>
-								<p class="small no-margin grey-text">Updated Jan 25, 22:00
-									UTC</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="w3-white" style="height: 450px"></div>
-			</div>
-		</div>
+    <div
+      id="app-settings"
+      class="w3-animate-opacity"
+      style="position: absolute; top: 80px; width: 100%; display: none"
+    >
+      <div class="w3-white">
+        <div class="green-background w3-padding-large">
+          <p class="w3-center no-margin">
+            Do More With Your Crypto. Fill Out Profile To Get Started With The
+            FutureSpace Product Suite
+          </p>
+        </div>
+        <div class="w3-row w3-padding-large" style="height: 2000px">
+          <div class="w3-col l4" style="padding: 32px 0px 32px 128px">
+            <div class="w3-padding-16">
+              <p
+                id="profile"
+                class="no-margin green-text pointer setting-option"
+              >
+                Profile
+              </p>
+              <hr class="green-border" style="margin: 8px 0px" />
+            </div>
+            <div class="w3-padding-16">
+              <p id="security" class="no-margin pointer setting-option">
+                Security
+              </p>
+              <hr class="grey-border" style="margin: 8px 0px" />
+            </div>
+            <div class="w3-padding-16">
+              <p id="wallet" class="no-margin pointer setting-option">
+                Wallet Addresses
+              </p>
+              <hr class="grey-border" style="margin: 8px 0px" />
+            </div>
+            <div class="w3-padding-16">
+              <p id="interest" class="no-margin pointer setting-option">
+                Interest
+              </p>
+              <hr class="grey-border" style="margin: 8px 0px" />
+            </div>
+            <!-- 					<div class="w3-padding-16"> -->
+            <!-- 						<p id="wire-details" class="no-margin pointer setting-option"> -->
+            <!-- 							Wire Details</p> -->
+            <!-- 						<hr class="grey-border" style="margin: 8px 0px" /> -->
+            <!-- 					</div> -->
+          </div>
+          <div
+            class="w3-col l8"
+            style="padding: 32px 356px 32px 128px; position: relative"
+          >
+            <div
+              id="settings-spinner"
+              style="
+                position: absolute;
+                top: 200px;
+                left: 450px;
+                display: block;
+              "
+            >
+              <span class="fa fa-spinner fa-spin xx-large blue-text"></span>
+            </div>
+            <div
+              id="profile-options"
+              class="setting-option-detail w3-animate-opacity"
+              style="display: none"
+            >
+              <p class="huge" style="font-weight: 500; margin-top: 0px">
+                Personal <span class="fa fa-pen-circle green-text"></span>
+              </p>
+              <div style="margin-top: 32px">
+                <p class="small no-margin">Fullname</p>
+                <input
+                  id="fullname-etx"
+                  class="w3-input w3-pading-large"
+                  readonly
+                />
+              </div>
+              <div class="w3-row" style="margin-top: 24px">
+                <p class="small no-margin">Mobile number</p>
+                <div class="w3-col s11">
+                  <input
+                    id="mobile-number-etx"
+                    class="w3-input w3-pading-large"
+                    readonly
+                  />
+                </div>
+                <div class="w3-col s1" style="padding-top: 8px">
+                  <p
+                    class="no-margin green-text small pointer change"
+                    style="font-weight: 600"
+                  >
+                    Change
+                  </p>
+                </div>
+              </div>
+              <div class="w3-row" style="margin-top: 24px">
+                <p class="small no-margin">Address Line 1</p>
+                <div class="w3-col s11">
+                  <input
+                    id="address-line-1-etx"
+                    class="w3-input w3-pading-large"
+                    readonly
+                  />
+                </div>
+                <div class="w3-col s1" style="padding-top: 8px">
+                  <p
+                    class="no-margin green-text small pointer change"
+                    style="font-weight: 600"
+                  >
+                    Change
+                  </p>
+                </div>
+              </div>
+              <div class="w3-row" style="margin-top: 24px">
+                <p class="small no-margin">Address Line 2</p>
+                <div class="w3-col s11">
+                  <input
+                    id="address-line-2-etx"
+                    class="w3-input w3-pading-large"
+                    readonly
+                  />
+                </div>
+                <div class="w3-col s1" style="padding-top: 8px">
+                  <p
+                    class="no-margin green-text small pointer change"
+                    style="font-weight: 600"
+                  >
+                    Change
+                  </p>
+                </div>
+              </div>
+              <div style="margin-top: 24px">
+                <p class="small no-margin">Account Type</p>
+                <select
+                  id="account-type-sel"
+                  class="w3-select w3-pading-large w3-white"
+                ></select>
+              </div>
+              <div class="w3-row" style="margin-top: 24px">
+                <p class="small no-margin">SSN (US Residents only)</p>
+                <div class="w3-col s11">
+                  <input
+                    id="ssn-etx"
+                    class="w3-input w3-pading-large"
+                    readonly
+                  />
+                </div>
+                <div class="w3-col s1" style="padding-top: 8px">
+                  <p
+                    class="no-margin green-text small pointer change"
+                    style="font-weight: 600"
+                  >
+                    Change
+                  </p>
+                </div>
+              </div>
 
-		<div id="conversation-card"
-			class="w3-animate-opacity w3-card w3-white"
-			style="position: fixed; bottom: 90px; right: 10px; display: none; width: 350px; z-index: 2">
-			<div id="conversation-spinner"
-				class="fa fa-spinner fa-spin w3-jumbo opacity-1 w3-text-blue opacity-1"
-				style="position: absolute; top: 45%; right: 42%; z-index: 1"></div>
-			<div id="conversation-white" class="w3-round opacity-0">
-				<div class="green-background" style="padding: 16px 24px">
-					<div class="w3-row">
-						<div class="w3-col s2">
-							<div id="back-to-start-conversation-card"
-								class="fa fa-angle-left large pointer" style="margin-top: 6px"></div>
-						</div>
-						<div class="w3-col s2">
-							<div style="position: relative">
-								<img src="./images/paulius.png" alt=""
-									style="width: 90%; border-radius: 50%" />
-								<div id="status-indicator" class="green-background"
-									style="position: absolute; right: 0px; bottom: 8px; border-radius: 50%; height: 12px; width: 12px; outline: 2px solid rgb(76, 175, 80);"></div>
-							</div>
-						</div>
-						<div class="w3-col s8 w3-padding-small">
-							<p class="no-margin small">Chris</p>
-							<p id="support-status-2" class="no-margin small"></p>
-						</div>
-					</div>
-					<div class="w3-margin-top" style="display: none">
-						<p class="small no-margin">10:00 am in Quezon city Philiphines</p>
-						<p class="small no-margin">Transhumanism!</p>
-					</div>
-				</div>
-				<div class="w3-white" style="position: relative; height: 520px">
-					<div id="message-container" class="w3-padding"
-						style="height: 470px; overflow-y: scroll; scrollbar-width: none; display: flex; flex-direction: column-reverse;"></div>
-					<div class="w3-padding"
-						style="position: absolute; bottom: 0px; width: 100%">
-						<div class="w3-row w3-margin-top">
-							<div class="w3-col s10">
-								<input id="chat-box" class="w3-input" type="text"
-									placeholder="Type your message here" />
-							</div>
-							<div class="w3-col s2">
-								<span id="send-message"
-									class="fa fa-paper-plane green-text w3-padding x-big pointer"
-									style="margin-top: 4px"></span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+              <div class="w3-row" style="margin-top: 32px">
+                <div class="w3-col s6">
+                  <p
+                    id="save-profile"
+                    class="blue-text pointer small"
+                    style="font-weight: 600"
+                  >
+                    SAVE CHANGES
+                  </p>
+                </div>
+                <div
+                  class="w3-col s6 w3-center"
+                  style="border-left: 1px solid rgb(226, 226, 226)"
+                >
+                  <p
+                    id="cancel-profile"
+                    class="w3-text-red pointer small"
+                    style="font-weight: 600"
+                  >
+                    CANCEL
+                  </p>
+                </div>
+              </div>
+              <hr style="margin: 0px 0px" />
+            </div>
+            <div
+              id="interest-options"
+              class="setting-option-detail w3-animate-opacity"
+              style="display: none"
+            >
+              <p class="huge" style="font-weight: 500; margin-top: 0px">
+                Interest Preference
+              </p>
+              <div style="margin-top: 32px">
+                <p>
+                  Future Space offers clients the flexibility to have interest
+                  paid in the same currency deposited by default (default) or
+                  have all interest paid in the currency of your choice (flex)
+                </p>
+                <div class="w3-row" style="margin-top: 32px">
+                  <div class="w3-col s1">
+                    <input name="crypto" type="radio" checked />
+                  </div>
+                  <div class="w3-col s11">
+                    Be paid interest in the same currency you deposited
+                  </div>
+                </div>
+                <hr />
+                <p>
+                  Choose all interest to be paid in the currency of your choice
+                </p>
+                <div id="crypto-root-2"></div>
+                <div class="w3-row" style="margin-top: 32px">
+                  <div class="w3-col s6">
+                    <p
+                      id="save-interest-preference"
+                      class="blue-text pointer small"
+                      style="font-weight: 600"
+                    >
+                      SAVE CHANGES
+                    </p>
+                  </div>
+                  <div
+                    class="w3-col s6 w3-center"
+                    style="border-left: 1px solid rgb(226, 226, 226)"
+                  >
+                    <p
+                      id="cancel-interest-preference"
+                      class="w3-text-red pointer small"
+                      style="font-weight: 600"
+                    >
+                      CANCEL
+                    </p>
+                  </div>
+                </div>
+                <hr style="margin: 0px 0px" />
+              </div>
+            </div>
+            <div
+              id="security-options"
+              class="setting-option-detail w3-animate-opacity"
+              style="display: none"
+            >
+              <p class="huge" style="font-weight: 500; margin-top: 0px">
+                Account & Security
+              </p>
+              <div style="margin-top: 32px">
+                <p class="blue-text">Change Password</p>
+              </div>
 
-	<div id="app-settings" class="w3-animate-opacity"
-		style="position: absolute; top: 80px; width: 100%; display: none">
-		<div class="w3-white">
-			<div class="green-background w3-padding-large">
-				<p class="w3-center no-margin">Do More With Your Crypto. Fill
-					Out Profile To Get Started With The FutureSpace Product Suite</p>
-			</div>
-			<div class="w3-row w3-padding-large" style="height: 2000px">
-				<div class="w3-col l4" style="padding: 32px 0px 32px 128px">
-					<div class="w3-padding-16">
-						<p id="profile"
-							class="no-margin green-text pointer setting-option">Profile</p>
-						<hr class="green-border" style="margin: 8px 0px" />
-					</div>
-					<div class="w3-padding-16">
-						<p id="security" class="no-margin pointer setting-option">
-							Security</p>
-						<hr class="grey-border" style="margin: 8px 0px" />
-					</div>
-					<div class="w3-padding-16">
-						<p id="wallet" class="no-margin pointer setting-option">
-							Wallet Addresses</p>
-						<hr class="grey-border" style="margin: 8px 0px" />
-					</div>
-					<div class="w3-padding-16">
-						<p id="interest" class="no-margin pointer setting-option">
-							Interest</p>
-						<hr class="grey-border" style="margin: 8px 0px" />
-					</div>
-					<!-- 					<div class="w3-padding-16"> -->
-					<!-- 						<p id="wire-details" class="no-margin pointer setting-option"> -->
-					<!-- 							Wire Details</p> -->
-					<!-- 						<hr class="grey-border" style="margin: 8px 0px" /> -->
-					<!-- 					</div> -->
-				</div>
-				<div class="w3-col l8"
-					style="padding: 32px 356px 32px 128px; position: relative">
-					<div id="settings-spinner"
-						style="position: absolute; top: 200px; left: 450px; display: block;">
-						<span class="fa fa-spinner fa-spin xx-large blue-text"></span>
-					</div>
-					<div id="profile-options"
-						class="setting-option-detail w3-animate-opacity"
-						style="display: none">
-						<p class="huge" style="font-weight: 500; margin-top: 0px">
-							Personal <span class="fa fa-pen-circle green-text"></span>
-						</p>
-						<div style="margin-top: 32px">
-							<p class="small no-margin">Fullname</p>
-							<input id="fullname-etx" class="w3-input w3-pading-large"
-								readonly />
-						</div>
-						<div class="w3-row" style="margin-top: 24px">
-							<p class="small no-margin">Mobile number</p>
-							<div class="w3-col s11">
-								<input id="mobile-number-etx" class="w3-input w3-pading-large" readonly />
-							</div>
-							<div class="w3-col s1" style="padding-top: 8px">
-								<p class="no-margin green-text small pointer change"
-									style="font-weight: 600">Change</p>
-							</div>
+              <div style="margin-top: 32px">
+                <input
+                  id="current-password-etx"
+                  class="w3-input w3-padding-16"
+                  placeholder="Enter current password"
+                  style="padding-left: 0px"
+                />
+              </div>
+              <div style="margin-top: 24px">
+                <input
+                  id="new-password-etx"
+                  class="w3-input w3-padding-16"
+                  placeholder="Choose new password"
+                  style="padding-left: 0px"
+                />
+              </div>
+              <div style="margin-top: 24px">
+                <input
+                  id="confirm-password-etx"
+                  class="w3-input w3-padding-16"
+                  placeholder="Confirm new password"
+                  style="padding-left: 0px"
+                />
+              </div>
+              <div style="margin-top: 32px">
+                <div class="w3-row">
+                  <div class="w3-col s6">
+                    <p
+                      id="save-security"
+                      class="blue-text pointer small"
+                      style="font-weight: 600"
+                    >
+                      SAVE CHANGES
+                    </p>
+                  </div>
+                  <div
+                    class="w3-col s6 w3-center"
+                    style="border-left: 1px solid rgb(226, 226, 226)"
+                  >
+                    <p
+                      id="cancel-security"
+                      class="pointer small w3-text-red"
+                      style="font-weight: 600"
+                    >
+                      CANCEL
+                    </p>
+                  </div>
+                </div>
+                <hr style="margin: 0px 0px" />
+                <div style="margin-top: 32px">
+                  <p class="blue-text">TWO-FACTOR AUTHENTICATION</p>
+                </div>
+                <div style="margin-top: 32px">
+                  <p>
+                    Two-Factor auhentication (2FA) adds an extra layer of
+                    protection to your Future Space account. By enabling this
+                    security feature, you protect your account by requiring more
+                    than just a password to perform actions like logging in and
+                    withdrawing funds
+                  </p>
+                </div>
+                <div style="margin-top: 32px">
+                  <p class="blue-text">
+                    Enable 2FA
+                    <span class="w3-padding-small fa fa-arrow-right"></span>
+                  </p>
+                  <hr style="margin: 4px 0px" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-						</div>
-						<div class="w3-row" style="margin-top: 24px">
-							<p class="small no-margin">Address Line 1</p>
-							<div class="w3-col s11">
-								<input id="address-line-1-etx" class="w3-input w3-pading-large" readonly />
-							</div>
-							<div class="w3-col s1" style="padding-top: 8px">
-								<p class="no-margin green-text small pointer change"
-									style="font-weight: 600">Change</p>
-							</div>
-						</div>
-						<div class="w3-row" style="margin-top: 24px">
-							<p class="small no-margin">Address Line 2</p>
-							<div class="w3-col s11">
-								<input id="address-line-2-etx" class="w3-input w3-pading-large" readonly />
-							</div>
-							<div class="w3-col s1" style="padding-top: 8px">
-								<p class="no-margin green-text small pointer change"
-									style="font-weight: 600">Change</p>
-							</div>
-
-						</div>
-						<div style="margin-top: 24px">
-							<p class="small no-margin">Account Type</p>
-							<select id="account-type-sel"
-								class="w3-select w3-pading-large w3-white"></select>
-						</div>
-						<div class="w3-row" style="margin-top: 24px">
-							<p class="small no-margin">SSN (US Residents only)</p>
-							<div class="w3-col s11">
-								<input id="ssn-etx" class="w3-input w3-pading-large" readonly />
-							</div>
-							<div class="w3-col s1" style="padding-top: 8px">
-								<p class="no-margin green-text small pointer change"
-									style="font-weight: 600">Change</p>
-							</div>
-
-						</div>
-
-						<div class="w3-row" style="margin-top: 32px">
-							<div class="w3-col s6">
-								<p id="save-profile" class="blue-text pointer small"
-									style="font-weight: 600">SAVE CHANGES</p>
-							</div>
-							<div class="w3-col s6 w3-center"
-								style="border-left: 1px solid rgb(226, 226, 226)">
-								<p id="cancel-profile" class="w3-text-red pointer small"
-									style="font-weight: 600">CANCEL</p>
-							</div>
-						</div>
-						<hr style="margin: 0px 0px" />
-					</div>
-					<div id="interest-options"
-						class="setting-option-detail w3-animate-opacity"
-						style="display: none">
-						<p class="huge" style="font-weight: 500; margin-top: 0px">
-							Interest Preference</p>
-						<div style="margin-top: 32px">
-							<p>Future Space offers clients the flexibility to have
-								interest paid in the same currency deposited by default
-								(default) or have all interest paid in the currency of your
-								choice (flex)</p>
-							<div class="w3-row" style="margin-top: 32px">
-								<div class="w3-col s1">
-									<input name="crypto" type="radio" checked />
-								</div>
-								<div class="w3-col s11">Be paid interest in the same
-									currency you deposited</div>
-							</div>
-							<hr />
-							<p>Choose all interest to be paid in the currency of your
-								choice</p>
-							<div id="crypto-root-2"></div>
-							<div class="w3-row" style="margin-top: 32px">
-								<div class="w3-col s6">
-									<p id="save-interest-preference"
-										class="blue-text pointer small" style="font-weight: 600">SAVE
-										CHANGES</p>
-								</div>
-								<div class="w3-col s6 w3-center"
-									style="border-left: 1px solid rgb(226, 226, 226)">
-									<p id="cancel-interest-preference"
-										class="w3-text-red pointer small" style="font-weight: 600">CANCEL</p>
-								</div>
-							</div>
-							<hr style="margin: 0px 0px" />
-
-						</div>
-					</div>
-					<div id="security-options"
-						class="setting-option-detail w3-animate-opacity"
-						style="display: none">
-						<p class="huge" style="font-weight: 500; margin-top: 0px">
-							Account & Security</p>
-						<div style="margin-top: 32px">
-							<p class="blue-text">Change Password</p>
-						</div>
-
-						<div style="margin-top: 32px">
-							<input id="current-password-etx" class="w3-input w3-padding-16"
-								placeholder="Enter current password" style="padding-left: 0px" />
-						</div>
-						<div style="margin-top: 24px">
-							<input id="new-password-etx" class="w3-input w3-padding-16"
-								placeholder="Choose new password" style="padding-left: 0px" />
-						</div>
-						<div style="margin-top: 24px">
-							<input id="confirm-password-etx" class="w3-input w3-padding-16"
-								placeholder="Confirm new password" style="padding-left: 0px" />
-						</div>
-						<div style="margin-top: 32px">
-							<div class="w3-row">
-								<div class="w3-col s6">
-									<p id="save-security" class="blue-text pointer small"
-										style="font-weight: 600">SAVE CHANGES</p>
-								</div>
-								<div class="w3-col s6 w3-center"
-									style="border-left: 1px solid rgb(226, 226, 226)">
-									<p id="cancel-security" class="pointer small w3-text-red"
-										style="font-weight: 600">CANCEL</p>
-								</div>
-							</div>
-							<hr style="margin: 0px 0px" />
-							<div style="margin-top: 32px">
-								<p class="blue-text">TWO-FACTOR AUTHENTICATION</p>
-							</div>
-							<div style="margin-top: 32px">
-								<p>Two-Factor auhentication (2FA) adds an extra layer of
-									protection to your Future Space account. By enabling this
-									security feature, you protect your account by requiring more
-									than just a password to perform actions like logging in and
-									withdrawing funds</p>
-							</div>
-							<div style="margin-top: 32px">
-								<p class="blue-text">
-									Enable 2FA <span class="w3-padding-small fa fa-arrow-right"></span>
-								</p>
-								<hr style="margin: 4px 0px" />
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<script src="./js/dashboard.js"></script>
-	<script src="./js/navBar.js"></script>
-</body>
+    <script src="./js/dashboard.js"></script>
+    <script src="./js/navBar.js"></script>
+  </body>
 </html>

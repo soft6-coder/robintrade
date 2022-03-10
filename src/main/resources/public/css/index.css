@@ -45,7 +45,7 @@
   transition: 0.5s;
 }
 .padding-2 {
-  padding: 4% 10% 8%;
+  padding: 0% 2% 8%;
 }
 .button {
   width: 200px;
@@ -73,6 +73,9 @@
 .padding {
   padding: 5% 5%;
 }
+.padding-nav {
+  padding: 8px 0px;
+}
 
 a {
   text-decoration: none;
@@ -94,8 +97,32 @@ a {
 #address-spinner {
   left: 45%;
 }
+.image-width {
+  width: 100%;
+}
+.image-width-2 {
+  width: 100%;
+}
+.info {
+  padding: 0px 10px;
+}
+.padding-form-2 {
+  padding: 32% 2%;
+}
 
 @media only screen and (min-width: 800px) {
+  .info {
+    padding: 0px 40px;
+  }
+  .image-width {
+    width: 70%;
+  }
+  .image-width-2 {
+    width: 90%;
+  }
+  .padding-nav {
+    padding: 0px 30px;
+  }
   .padding-form {
     padding: 4% 16%;
   }

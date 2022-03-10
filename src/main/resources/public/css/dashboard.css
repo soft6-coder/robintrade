@@ -5,13 +5,13 @@
   cursor: pointer;
 }
 .no-margin {
-  margin: 0;
+  margin: 0px;
 }
 .padding {
-  padding: 4% 15%;
+  padding: 16% 15%;
 }
 .padding-2 {
-  padding: 2% 6%;
+  padding: 2%;
 }
 .padding-3 {
   padding: 2% 6%;
@@ -90,7 +90,7 @@
   border: none;
 }
 #dashboard-spinner {
-  left: 45%;
+  left: 42%;
 }
 #chat-box:focus {
   outline: none;
@@ -117,19 +117,77 @@ input:focus {
   outline: none;
 }
 .grey-border {
-	border-bottom: 3px;
-	border-style: solid;
-	border-color: rgb(230, 236, 240);
+  border-bottom: 3px;
+  border-style: solid;
+  border-color: rgb(230, 236, 240);
 }
 .green-border {
-	border-bottom: 3px;
-	border-style: solid;
-	border-color: rgb(76, 175, 80);
-	border-bottom-right-radius: 50%;
-	border-bottom-left-radius: 50%;
+  border-bottom: 3px;
+  border-style: solid;
+  border-color: rgb(76, 175, 80);
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
 }
-
+.interest-padding {
+  padding: 0% 2%;
+}
+.inner-interest-padding {
+  padding: 32px;
+}
+.image-currency-width {
+  width: 6%;
+}
+.image-width {
+  width: 100%;
+}
+.image-width-2 {
+  width: 100%;
+}
+.live-chat {
+  position: fixed;
+  bottom: 0px;
+  top: 2%;
+  right: 2%;
+  display: none;
+  width: 96%;
+  z-index: 2;
+}
+.chat-box-height {
+  height: 570px;
+}
 @media only screen and (min-width: 1000px) {
+  .chat-box-height {
+    height: 560px;
+  }
+  .live-chat {
+    position: fixed;
+    bottom: 90px;
+    right: 10px;
+    display: none;
+    width: 350px;
+    z-index: 2;
+  }
+  .image-width {
+    width: 40%;
+  }
+  .image-currency-width {
+    width: 2%;
+  }
+  .image-width-2 {
+    width: 80%;
+  }
+  .padding-2 {
+    padding: 2% 6%;
+  }
+  .inner-interest-padding {
+    padding: 70px 0px 50px 120px;
+  }
+  .interest-padding {
+    padding: 0% 2% 0% 10%;
+  }
+  .padding {
+    padding: 4% 15%;
+  }
   .card {
     box-shadow: 1px 1px 10px rgb(230, 230, 230);
     padding: 40px 64px;
