@@ -45,7 +45,7 @@
   transition: 0.5s;
 }
 .padding-2 {
-  padding: 0% 2% 8%;
+  padding: 3% 3.5% 10%;
 }
 .button {
   width: 200px;
@@ -109,8 +109,14 @@ a {
 .padding-form-2 {
   padding: 32% 2%;
 }
+.logo {
+  margin-top: 0px;
+}
 
 @media only screen and (min-width: 800px) {
+  .logo {
+    margin-top: 20px;
+  }
   .info {
     padding: 0px 40px;
   }

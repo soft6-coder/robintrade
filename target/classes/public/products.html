@@ -19,7 +19,7 @@
       <div class="w3-bar w3-white padding-nav">
         <div class="w3-bar-item">
           <a href="./index.html">
-            <p class="large no-margin">Future Space</p>
+            <p class="large no-margin logo">Future Space</p>
           </a>
         </div>
 
@@ -175,33 +175,98 @@
                 <div style="margin: 16px 0px">
                   <div class="w3-row">
                     <div class="w3-col s10">
-                      <p class="huge-3 no-margin w3-padding">Starter</p>
+                      <div class="w3-row">
+                        <div class="w3-col s2">
+                          <img
+                            class="image-currency"
+                            alt=""
+                            src=""
+                            style="width: 100%"
+                          />
+                        </div>
+                        <div class="w3-col s10">
+                          <p
+                            id="currency"
+                            class="huge-3 no-margin w3-padding"
+                            style="text-transform: uppercase"
+                          ></p>
+                        </div>
+                      </div>
                     </div>
-                    <div class="w3-col s2 w3-padding">
+                    <div class="w3-col s2 w3-padding" style="margin-top: 8px">
                       <span
-                        class="fa fa-angle-up"
+                        id="currency-up"
+                        class="fa fa-angle-up pointer"
                         style="display: block"
                       ></span>
                       <span
-                        class="fa fa-angle-down"
+                        id="currency-down"
+                        class="fa fa-angle-down pointer"
+                        style="display: block; margin-top: 8px"
+                      ></span>
+                    </div>
+                  </div>
+                  <hr style="margin: 2px 0px" />
+                  <p class="small no-margin">Currency</p>
+                </div>
+                <div style="margin: 16px 0px">
+                  <div class="w3-row">
+                    <div class="w3-col s10">
+                      <div class="w3-row">
+                        <div class="w3-col s1">
+                          <img
+                            class="image-currency"
+                            alt=""
+                            src=""
+                            style="width: 150%"
+                          />
+                        </div>
+                        <div class="w3-col s11">
+                          <p class="no-margin huge w3-padding blue-text">
+                            <span id="currency-amount" class="huge-3"></span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="w3-col s2 w3-padding" style="margin-top: 8px">
+                      <span
+                        id="currency-amount-up"
+                        class="fa fa-angle-up pointer"
                         style="display: block"
+                      ></span>
+                      <span
+                        id="currency-amount-down"
+                        class="fa fa-angle-down pointer"
+                        style="display: block; margin-top: 8px"
                       ></span>
                     </div>
                   </div>
                   <hr style="margin: 4px 0px" />
-                  <p class="small no-margin">Packages</p>
-                </div>
-                <div style="margin: 16px 0px">
-                  <p class="no-margin huge w3-padding blue-text">
-                    $ <span class="huge-3">500</span>
-                  </p>
-                  <hr style="margin: 4px 0px" />
                   <p class="small no-margin">Currency Amount</p>
                 </div>
                 <div style="margin: 16px 0px">
-                  <p class="small no-margin w3-padding blue-text">
-                    <span class="huge-3">2</span> Weeks
-                  </p>
+                  <div class="w3-row">
+                    <div class="w3-col s10">
+                      <p class="small no-margin w3-padding blue-text">
+                        <span id="weeks" class="huge-3"></span> Weeks
+                      </p>
+                    </div>
+                    <div class="w3-col s2">
+                      <div class="w3-col s2 w3-padding" style="margin-top: 8px">
+                        <span
+                          id="weeks-up"
+                          class="fa fa-angle-up pointer"
+                          style="display: block"
+                        ></span>
+                        <span
+                          id="weeks-down"
+                          class="fa fa-angle-down pointer"
+                          style="display: block; margin-top: 8px"
+                        ></span>
+                      </div>
+                    </div>
+                  </div>
+
                   <hr style="margin: 4px 0px" />
                   <p class="small no-margin">Number of weeks</p>
                 </div>
@@ -210,26 +275,77 @@
             <div class="w3-col l6">
               <div class="blue-background-2 w3-padding-large">
                 <div style="margin: 28px 0px">
-                  <p class="huge no-margin">
-                    $ <span class="huge-3">17.86</span>
-                  </p>
+                  <div class="w3-row">
+                    <div class="w3-col s1">
+                      <img
+                        class="image-currency"
+                        alt=""
+                        src=""
+                        style="width: 80%"
+                      />
+                    </div>
+                    <div class="w3-col s11">
+                      <p class="huge no-margin">
+                        <span id="interest-per-day" class="huge-3"></span>
+                      </p>
+                    </div>
+                  </div>
                   <hr style="margin: 4px 0px; border-color: rgb(46, 46, 202)" />
                   <p class="no-margin small">USD interest per day</p>
                 </div>
                 <div style="margin: 28px 0px">
-                  <p class="huge no-margin">
-                    $ <span class="huge-3 yellow-text">750</span>
-                  </p>
+                  <div class="w3-row">
+                    <div class="w3-col s1">
+                      <img
+                        class="image-currency"
+                        alt=""
+                        src=""
+                        style="width: 80%"
+                      />
+                    </div>
+                    <div class="w3-col s11">
+                      <p class="huge no-margin">
+                        <span
+                          id="total-earnings"
+                          class="huge-3 yellow-text"
+                        ></span>
+                      </p>
+                    </div>
+                  </div>
+
                   <hr style="margin: 4px 0px; border-color: rgb(46, 46, 202)" />
                   <p class="small no-margin">Total Earnings</p>
                 </div>
                 <div style="margin: 28px 0px">
-                  <p class="huge no-margin">
-                    $ <span class="huge-3 yellow-text">250</span>
-                  </p>
+                  <div class="w3-row">
+                    <div class="w3-col s1">
+                      <img
+                        class="image-currency"
+                        alt=""
+                        src=""
+                        style="width: 80%"
+                      />
+                    </div>
+                    <div class="w3-col s11">
+                      <p class="huge no-margin">
+                        <span id="total-interest" class="huge-3 yellow-text"
+                          >250</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+
                   <hr style="margin: 4px 0px; border-color: rgb(46, 46, 202)" />
                   <p class="no-margin small">
-                    Total USD interest under <span>2</span> Weeks
+                    Total
+                    <span id="currency-2"
+                      ><img
+                        class="image-currency"
+                        alt=""
+                        src=""
+                        style="width: 5%"
+                    /></span>
+                    interest under <span id="weeks-2"></span> Weeks
                   </p>
                 </div>
               </div>
@@ -413,7 +529,7 @@
         <hr style="border-color: rgb(15, 0, 51); margin-bottom: 64px" />
         <div class="w3-row-padding">
           <div class="w3-col s2">
-            <p>Future Space</p>
+            <p style="font-weight: 600">FS</p>
           </div>
           <div class="w3-col s10">
             <p class="x-small">
@@ -438,5 +554,7 @@
         </div>
       </div>
     </section>
+
+    <script src="./js/interestAccount.js"></script>
   </body>
 </html>

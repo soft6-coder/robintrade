@@ -319,7 +319,7 @@
               <p class="huge w3-padding-16 blue-text" style="font-weight: 500">
                 Market
               </p>
-              <div style="position: relative">
+              <div class="w3-hide-small" style="position: relative">
                 <div class="w3-row">
                   <div class="w3-col l6">
                     <p
@@ -349,11 +349,14 @@
                   "
                 />
               </div>
-              <div id="crypto-root">
+              <div class="w3-hide-small" id="crypto-root">
                 <div
                   class="fa fa-spinner fa-spin xx-large blue-text"
                   style="position: absolute; left: 680px; top: 230px"
                 ></div>
+              </div>
+              <div class="w3-hide-large w3-hide-medium">
+                <div id="crypto-root-mobile"></div>
               </div>
             </div>
           </div>
@@ -688,9 +691,8 @@
                 <p id="support-status-2" class="no-margin small"></p>
               </div>
             </div>
-            
           </div>
-          <div class="w3-white chat-box-height" style="position: relative;">
+          <div class="w3-white chat-box-height" style="position: relative">
             <div
               id="message-container"
               class="w3-padding"

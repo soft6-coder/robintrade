@@ -175,19 +175,31 @@ document.body.addEventListener("click", function (e) {
     }, 500);
   } else if (targetId == "send-message") {
     prepareForSending();
-  } else if (targetId == "open-fund-modal" || targetId == "open-fund-modal-mobile" ) {
+  } else if (
+    targetId == "open-fund-modal" ||
+    targetId == "open-fund-modal-mobile"
+  ) {
     document.getElementById("fund-modal").style.display = "block";
   } else if (targetId == "close-fund-modal") {
     document.getElementById("fund-modal").style.display = "none";
-  } else if (targetId == "open-withdraw-modal" || targetId == "open-withdraw-modal-mobile") {
+  } else if (
+    targetId == "open-withdraw-modal" ||
+    targetId == "open-withdraw-modal-mobile"
+  ) {
     document.getElementById("withdraw-modal").style.display = "block";
   } else if (targetId == "close-withdraw-modal") {
     document.getElementById("withdraw-modal").style.display = "none";
-  } else if (targetId == "open-trade-modal" || targetId == "open-trade-modal-mobile") {
+  } else if (
+    targetId == "open-trade-modal" ||
+    targetId == "open-trade-modal-mobile"
+  ) {
     document.getElementById("trade-modal").style.display = "block";
   } else if (targetId == "close-trade-modal") {
     document.getElementById("trade-modal").style.display = "none";
-  } else if (targetId == "open-borrow-modal" || targetId == "open-borrow-modal-mobile") {
+  } else if (
+    targetId == "open-borrow-modal" ||
+    targetId == "open-borrow-modal-mobile"
+  ) {
     document.getElementById("borrow-modal").style.display = "block";
   } else if (targetId == "close-borrow-modal") {
     document.getElementById("borrow-modal").style.display = "none";
@@ -580,8 +592,6 @@ function getCryptoUpdate() {
         image.src = cryptoUpdate[0].image;
       });
 
-      console.log(cryptoUpdate);
-
       response.forEach(function (crypto) {
         let color;
         let plus = "";
@@ -601,6 +611,8 @@ function getCryptoUpdate() {
           plus,
           direction
         );
+        document.getElementById("crypto-root-mobile").innerHTML +=
+          displayCryptoUpdateMobile(crypto, color, plus, direction);
       });
     }
   };
@@ -827,6 +839,51 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+function displayCryptoUpdateMobile(crypto, color, plus, direction) {
+  return `<div>
+  <div class="w3-row">
+    <div class="w3-col s4">
+      <p class="blue-text" style="font-weight: 600">Cryptocurrency:</p>
+    </div>
+    <div class="w3-col s8 w3-center"><p><span><img src="${
+      crypto.image
+    }" alt="" style="width: 10%" /></span> ${crypto.name} (${
+    crypto.symbol
+  })</p></div>
+    </div>
+    <div class="w3-row">
+    <div class="w3-col s4">
+      <p class="blue-text" style="font-weight: 600">Price:</p>
+    </div>
+    <div class="w3-col s8 w3-center"><p>$${numberWithCommas(
+      crypto.current_price
+    )}</p></div>
+    </div>
+    <div class="w3-row">
+    <div class="w3-col s4">
+      <p class="blue-text" style="font-weight: 600">24hrs change:</p>
+    </div>
+    <div class="w3-col s8 w3-center"><p class="${color}">${plus}${crypto.price_change_percentage_24h.toFixed(
+    2
+  )}% <span class="w3-padding-small fa fa-angle-${direction} color"></span></p></div>
+  </div>
+  <div class="w3-row">
+    <div class="w3-col s4">
+      <p class="blue-text" style="font-weight: 600">Market cap:</p>
+    </div>
+    <div class="w3-col s8 w3-center"><p>$${numberWithCommas(
+      crypto.market_cap
+    )}</p></div>
+  </div>
+  </div>
+  <hr
+    style="
+      border-width: 2px;
+      border-color: rgb(248, 248, 248);
+    "
+  />
+</div>`;
+}
 function displayCryptoUpdate(crypto, color, plus, direction) {
   return `<div>
 	<div class="w3-row">
