@@ -1,6 +1,7 @@
 package com.soft6creators.futurespace.app.account;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +20,17 @@ public class AccountController {
 	public Account addAccount(@RequestBody Account account) {
 		return accountService.addAccount(account);
 	}
+	@RequestMapping("/account/{accountId}")
+	public Optional<Account> getAccount(@PathVariable int accountId) {
+		return accountService.getAccount(accountId);
+	}
 	@RequestMapping("/account")
 	public List<Account> getAccounts() {
 		return accountService.getAccounts();
 	}
-
+	@RequestMapping(method = RequestMethod.PUT, value = "/account")
+	public Account updateAccount(@RequestBody Account account) {
+		return accountService.addAccount(account);
+	}
+	
 }

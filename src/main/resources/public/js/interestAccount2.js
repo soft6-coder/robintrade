@@ -1,32 +1,32 @@
 getCryptoUpdate();
 
-let currencyAmountTxt = document.getElementById("currency-amount");
-let timeTxt = document.getElementById("weeks");
-let interestPerDayTxt = document.getElementById("interest-per-day");
-let totalEarningsTxt = document.getElementById("total-earnings");
-let totalInterestTxt = document.getElementById("total-interest");
-let timeTxt2 = document.getElementById("weeks-2");
-let currencyTxt = document.getElementById("currency");
-let image = document.getElementById("image");
-
 let currencyAmount = 500;
 let cryptoAmount;
-let days = 2;
-let percent1 = 10;
-let percent2 = 20;
-let hours = 24;
+let weeks = 2;
+let percent1 = 1.5;
+let percent2 = 2;
+let days = 7;
 let cryptoValues = [];
 let cryptoChangeCount = 0;
 let currenctCurrencyCount = 0;
 
-let interestPerDay = ((currencyAmount * percent1) / (days * hours)).toFixed(3);
+let interestPerDay = ((currencyAmount * percent1) / (weeks * days)).toFixed(3);
 
 let totalEarnings = currencyAmount * percent1;
 let totalInterest = currencyAmount * percent1 - currencyAmount;
 
+let currencyAmountTxt = document.getElementById("currency-amount");
+let weeksTxt = document.getElementById("weeks");
+let interestPerDayTxt = document.getElementById("interest-per-day");
+let totalEarningsTxt = document.getElementById("total-earnings");
+let totalInterestTxt = document.getElementById("total-interest");
+let weeksTxt2 = document.getElementById("weeks-2");
+let currencyTxt = document.getElementById("currency");
+let image = document.getElementById("image");
+
 currencyAmountTxt.innerText = currencyAmount;
-timeTxt.innerText = days;
-timeTxt2.innerText = days;
+weeksTxt.innerText = weeks;
+weeksTxt2.innerText = weeks;
 totalEarningsTxt.innerText = totalEarnings;
 totalInterestTxt.innerText = totalInterest;
 interestPerDayTxt.innerText = interestPerDay;
@@ -52,7 +52,7 @@ function increaseCurrencyAmount() {
   if (currenctCurrencyCount != 8) {
     currenctCurrencyCount++;
     let percent = 2;
-    if (days == 2) {
+    if (weeks == 2) {
       percent = percent1;
     } else {
       percent = percent2;
@@ -61,7 +61,7 @@ function increaseCurrencyAmount() {
     if (cryptoChangeCount == 0) {
       totalEarnings = currencyAmount * percent;
       totalInterest = currencyAmount * percent - currencyAmount;
-      interestPerDay = ((currencyAmount * percent) / (days * hours)).toFixed(3);
+      interestPerDay = ((currencyAmount * percent) / (weeks * days)).toFixed(3);
       currencyAmountTxt.innerText = numberWithCommas(currencyAmount);
       totalEarningsTxt.innerText = numberWithCommas(totalEarnings);
       totalInterestTxt.innerText = numberWithCommas(totalInterest);
@@ -69,7 +69,7 @@ function increaseCurrencyAmount() {
     } else {
       totalEarnings = currencyAmount * percent;
       totalInterest = currencyAmount * percent - currencyAmount;
-      interestPerDay = ((currencyAmount * percent) / (days * hours)).toFixed(7);
+      interestPerDay = ((currencyAmount * percent) / (weeks * days)).toFixed(7);
       currencyAmountTxt.innerText = currencyAmount.toFixed(7);
       totalEarningsTxt.innerText = totalEarnings.toFixed(7);
       totalInterestTxt.innerText = totalInterest.toFixed(7);
@@ -82,7 +82,7 @@ function decreaseCurrencyAmount() {
   if (currenctCurrencyCount != 0) {
     currenctCurrencyCount--;
     let percent = 2;
-    if (days == 2) {
+    if (weeks == 2) {
       percent = percent1;
     } else {
       percent = percent2;
@@ -91,7 +91,7 @@ function decreaseCurrencyAmount() {
       currencyAmount = currencyAmount / 2;
       totalEarnings = currencyAmount * percent;
       totalInterest = currencyAmount * percent - currencyAmount;
-      interestPerDay = ((currencyAmount * percent) / (days * hours)).toFixed(3);
+      interestPerDay = ((currencyAmount * percent) / (weeks * days)).toFixed(3);
 
       currencyAmountTxt.innerText = numberWithCommas(currencyAmount);
       totalEarningsTxt.innerText = numberWithCommas(totalEarnings);
@@ -101,7 +101,7 @@ function decreaseCurrencyAmount() {
       currencyAmount = currencyAmount / 2;
       totalEarnings = currencyAmount * percent;
       totalInterest = currencyAmount * percent - currencyAmount;
-      interestPerDay = ((currencyAmount * percent) / (days * hours)).toFixed(3);
+      interestPerDay = ((currencyAmount * percent) / (weeks * days)).toFixed(3);
 
       currencyAmountTxt.innerText = currencyAmount.toFixed(7);
       totalEarningsTxt.innerText = totalEarnings.toFixed(7);
@@ -112,23 +112,23 @@ function decreaseCurrencyAmount() {
 }
 
 function increaseWeek() {
-  if (timeTxt.innerText != 4) {
-    days = days * 2;
-    timeTxt.innerText = days;
+  if (weeksTxt.innerText != 4) {
+    weeks = weeks * 2;
+    weeksTxt.innerText = weeks;
     totalCalc();
   }
 }
 function decreaseWeek() {
-  if (timeTxt.innerText != 2) {
-    days = days / 2;
-    timeTxt.innerText = days;
+  if (weeksTxt.innerText != 2) {
+    weeks = weeks / 2;
+    weeksTxt.innerText = weeks;
     totalCalc();
   }
 }
 
 function totalCalc() {
   let percent = 2;
-  if (days == 2) {
+  if (weeks == 2) {
     percent = percent1;
   } else {
     percent = percent2;
@@ -137,19 +137,19 @@ function totalCalc() {
   if (cryptoChangeCount == 0) {
     totalEarnings = currencyAmount * percent;
     totalInterest = currencyAmount * percent - currencyAmount;
-    interestPerDay = ((currencyAmount * percent) / (days * hours)).toFixed(3);
+    interestPerDay = ((currencyAmount * percent) / (weeks * days)).toFixed(3);
     totalEarningsTxt.innerText = numberWithCommas(totalEarnings);
     totalInterestTxt.innerText = numberWithCommas(totalInterest);
     interestPerDayTxt.innerText = numberWithCommas(interestPerDay);
-    timeTxt2.innerHTML = days;
+    weeksTxt2.innerHTML = weeks;
   } else {
     totalEarnings = currencyAmount * percent;
     totalInterest = currencyAmount * percent - currencyAmount;
-    interestPerDay = ((currencyAmount * percent) / (days * hours)).toFixed(7);
+    interestPerDay = ((currencyAmount * percent) / (weeks * days)).toFixed(7);
     totalEarningsTxt.innerText = totalEarnings.toFixed(7);
     totalInterestTxt.innerText = totalInterest.toFixed(7);
     interestPerDayTxt.innerText = interestPerDay;
-    timeTxt2.innerHTML = days;
+    weeksTxt2.innerHTML = weeks;
   }
 }
 

@@ -35,7 +35,7 @@ let userDetail;
 let cryptos;
 let cryptoUpdate = [];
 
-getCryptoUpdate();
+// getCryptoUpdate();
 
 let isSettingsOpened = false;
 let isAppSetingsOpened;
@@ -58,6 +58,7 @@ getUserXhr.onreadystatechange = function () {
     } else {
       let firstName = response.fullName.split(" ", 1);
       document.getElementById("firstname").innerText = firstName;
+      document.getElementById("firstname-mobile").innerText = firstName;
       document.getElementById("firstname-customer-support").innerText =
         firstName;
       connect();
@@ -66,12 +67,12 @@ getUserXhr.onreadystatechange = function () {
     }
   }
 };
-let spinner = document.getElementById("dashboard-spinner");
-spinner.className = spinner.className.replace("opacity-1", "opacity-2");
-document.getElementById("dashboard-container").style.display = "block";
-setTimeout(function () {
-  spinner.style.display = "block";
-}, 100);
+//let spinner = document.getElementById("dashboard-spinner");
+//spinner.className = spinner.className.replace("opacity-1", "opacity-2");
+//document.getElementById("dashboard-container").style.display = "block";
+//setTimeout(function () {
+//  spinner.style.display = "block";
+//}, 100);
 
 let conversationSpinner = document.getElementById("conversation-spinner");
 let conversationWhite = document.getElementById("conversation-white");
@@ -221,6 +222,13 @@ document.body.addEventListener("click", function (e) {
       "fa fa-angle-down"
     );
     contactSupport.parentElement.style.padding = "16px 20px 12px";
+  } else if (
+    targetId == "refer-a-friend" ||
+    targetId == "refer-a-friend-mobile"
+  ) {
+    document.getElementById("refer-modal").style.display = "block";
+  } else if (targetId == "close-refer-modal") {
+    document.getElementById("refer-modal").style.display = "none";
   } else if (targetId == "contact-support-borrow") {
     document.getElementById("borrow-modal").style.display = "none";
 
@@ -241,7 +249,7 @@ document.body.addEventListener("click", function (e) {
       "fa fa-angle-down"
     );
     contactSupport.parentElement.style.padding = "16px 20px 12px";
-  } else if (targetId == "firstname") {
+  } else if (targetId == "firstname" || targetId == "firstname-mobile") {
     if (isAppSetingsOpened) {
       document.getElementById("app-settings").style.display = "none";
       isAppSetingsOpened = false;
@@ -264,7 +272,7 @@ document.body.addEventListener("click", function (e) {
     setUserDetailsSetting(addressDetails);
   } else if (targetId == "logout-setting") {
     document.location.href = "logout";
-  } else if (targetId == "logo") {
+  } else if (targetId == "logo" || targetId == "logo-mobile") {
     if (isAppSetingsOpened) {
       document.getElementById("app-settings").style.display = "none";
       isAppSetingsOpened = false;
@@ -840,48 +848,25 @@ function numberWithCommas(x) {
 }
 
 function displayCryptoUpdateMobile(crypto, color, plus, direction) {
-  return `<div>
-  <div class="w3-row">
-    <div class="w3-col s4">
-      <p class="blue-text" style="font-weight: 600">Cryptocurrency:</p>
-    </div>
-    <div class="w3-col s8 w3-center"><p><span><img src="${
-      crypto.image
-    }" alt="" style="width: 10%" /></span> ${crypto.name} (${
-    crypto.symbol
-  })</p></div>
-    </div>
-    <div class="w3-row">
-    <div class="w3-col s4">
-      <p class="blue-text" style="font-weight: 600">Price:</p>
-    </div>
-    <div class="w3-col s8 w3-center"><p>$${numberWithCommas(
-      crypto.current_price
-    )}</p></div>
-    </div>
-    <div class="w3-row">
-    <div class="w3-col s4">
-      <p class="blue-text" style="font-weight: 600">24hrs change:</p>
-    </div>
-    <div class="w3-col s8 w3-center"><p class="${color}">${plus}${crypto.price_change_percentage_24h.toFixed(
+  return `<div class="w3-margin-bottom"><div class="w3-row">
+  <div class="w3-col s1"><img src="${
+    crypto.image
+  }.png" style="width: 80%" ></div>
+  <div class="w3-col s8">
+    <p class="no-margin big">${crypto.name}</p>
+    <p class="no-margin">(${crypto.symbol})</p>
+  </div>
+  <div class="w3-col s3">
+    <p class="no-margin">$${crypto.current_price}</p>
+    <p class="no-margin ${color}">${plus}${crypto.price_change_percentage_24h.toFixed(
     2
-  )}% <span class="w3-padding-small fa fa-angle-${direction} color"></span></p></div>
+  )}%
+    <span class="fa fa-angle-${direction} color"></span>
+    </p>
   </div>
-  <div class="w3-row">
-    <div class="w3-col s4">
-      <p class="blue-text" style="font-weight: 600">Market cap:</p>
-    </div>
-    <div class="w3-col s8 w3-center"><p>$${numberWithCommas(
-      crypto.market_cap
-    )}</p></div>
-  </div>
-  </div>
-  <hr
-    style="
-      border-width: 2px;
-      border-color: rgb(248, 248, 248);
-    "
-  />
+
+</div>
+	<hr style="margin: 10px 5px; border-width: 2px">
 </div>`;
 }
 function displayCryptoUpdate(crypto, color, plus, direction) {

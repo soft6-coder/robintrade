@@ -55,15 +55,13 @@
 						</div>
 					</div>
 					<div id="distinct-message-root" class="grey-background"
-						style="overflow-y: auto; height: 650px; scrollbar-width: thin; position: relative;">
-
-					</div>
+						style="overflow-y: auto; height: 650px; scrollbar-width: thin; position: relative;"></div>
 				</div>
 				<div class="w3-col l8" style="position: relative; padding-left: 2px">
 					<div class="grey-background w3-round" style="height: 711px">
 						<div id="user-profile"
 							class="w3-row w3-padding-large grey-background"
-							style="height: 60px; visibility: hidden;">
+							style="height: 60px; visibility: hidden">
 							<div class="w3-col s1">
 								<img id="image" src="./images/user.png" alt=""
 									style="width: 50%; border-radius: 50%; background-color: white;" />
@@ -72,12 +70,13 @@
 								<p id="full-name" class="no-margin"></p>
 								<p id="last-seen" class="no-margin small"></p>
 							</div>
-							<div class="w3-col s1"></div>
+							<div class="w3-col s1">
+								<span id="info"
+									class="fa fa-info-circle w3-padding large grey-text pointer"></span>
+							</div>
 						</div>
 						<div id="message-root" class="w3-padding w3-white"
-							style="height: 580px; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column-reverse; scrollbar-width: thin; position: relative;">
-
-						</div>
+							style="height: 580px; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column-reverse; scrollbar-width: thin; position: relative;"></div>
 						<div id="chat-box-container" class="w3-padding w3-row w3-white"
 							style="position: absolute; bottom: 8px; width: 100%; visibility: hidden;">
 							<div class="w3-col s1">
@@ -86,11 +85,7 @@
 							</div>
 							<div class="w3-col s10">
 								<input
-									class="
-                      w3-input w3-round-xxlarge w3-padding-large
-                      grey-background
-                      w3-border-0
-                    "
+									class="w3-input w3-round-xxlarge w3-padding-large grey-background w3-border-0"
 									type="text" name="" id="chat-box"
 									placeholder="Type your message here" />
 							</div>
@@ -104,6 +99,23 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</section>
+	<section>
+		<div id="info-modal" class="w3-modal" style="display: none">
+			<div class="w3-modal-content w3-round w3-animate-zoom">
+				<div class="w3-padding">
+					<span id="close-modal"
+						class="fa fa-times w3-right w3-text-red pointer"></span>
+				</div>
+				<div id="user-info-root">
+					<div class="w3-padding w3-center">
+						<span class="fa fa-spinner fa-spin x-large"></span>
+					</div>
+				</div>
+
+			</div>
+		</div>
 		</div>
 	</section>
 </body>

@@ -1,6 +1,5 @@
 package com.soft6creators.futurespace.app.user;
 
-import java.util.Calendar;
 import java.util.Optional;
 
 import javax.mail.MessagingException;
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.soft6creators.futurespace.app.account.Account;
 import com.soft6creators.futurespace.app.account.AccountService;
-import com.soft6creators.futurespace.app.crypto.Crypto;
-import com.soft6creators.futurespace.app.crypto.CryptoService;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -54,6 +51,9 @@ public class UserService {
 //		} catch (MessagingException e) {
 //			e.printStackTrace();
 //		}
+//		finally {
+//			System.out.println("Exception Found");
+//		}
 		Account account = new Account();
 		if (user.getReferral() != null) {
 			account.setAccountBalance(200);
@@ -76,11 +76,53 @@ public class UserService {
 
 	private void sendVerificationEmail(User user) throws MessagingException {
 		String toAddress = user.getEmail();
-		String fromAddress = "futurespaceinvestments@gmail.com";
+		String fromAddress = "soft6coder@gmail.com";
 		String subject = "Future Space (One time password)";
-		String content = "<h1>Future Space</h1><p>DO NOT DISCLOSE. Dear " + user.getFullName()
-				+ " Thank you for creating a FutureSpace Investment Account.</p> <p>The OTP for your Future Space Account confirmation is"
-				+ user.getVerificationCode() + " .</p> <p> Thank you for choosing Futurespace Investments </p>";
+//		String content = "<h1>Future Space</h1><p>DO NOT DISCLOSE. Dear " + user.getFullName()
+//				+ " Thank you for creating a FutureSpace Investment Account.</p> <p>The OTP for your Future Space Account confirmation is"
+//				+ user.getVerificationCode() + " .</p> <p> Thank you for choosing Futurespace Investments </p>";
+		String content = "<div style=\"margin: 8px; box-shadow: 1px 1px 10px rgb(236, 236, 236)\">\r\n"
+				+ "      <div\r\n"
+				+ "        style=\"\r\n"
+				+ "          padding: 8px 16px;\r\n"
+				+ "          background-color: rgb(0, 50, 235);\r\n"
+				+ "          color: white;\r\n"
+				+ "          font-family: Arial, Helvetica, sans-serif;\r\n"
+				+ "        \"\r\n"
+				+ "      >\r\n"
+				+ "        <p style=\"font-size: 20px; font-weight: bold\">\r\n"
+				+ "          FUTURE SPACE INVESTMENTS\r\n"
+				+ "        </p>\r\n"
+				+ "      </div>\r\n"
+				+ "      <div style=\"padding: 8px; font-family: Arial, Helvetica, sans-serif\">\r\n"
+				+ "        <p style=\"font-size: 14px; color: rgb(75, 75, 75)\">\r\n"
+				+ "         " + user.getFullName() + ",Welcome to FutureSpace\r\n"
+				+ "        </p>\r\n"
+				+ "        <p style=\"font-size: 14px\">Here is your account activation code</p>\r\n"
+				+ "        <p style=\"color: rgb(0, 50, 235)\">" + user.getVerificationCode() + "</p>\r\n"
+				+ "        <p style=\"font-size: 14px; font-weight: bold\">Security tips:</p>\r\n"
+				+ "        <ul style=\"font-size: 14px; font-weight: bold\">\r\n"
+				+ "          <li>Never give your password to anyone</li>\r\n"
+				+ "          <li>\r\n"
+				+ "            Never call any phone number for someone claiming to be FutureSpace\r\n"
+				+ "            Support\r\n"
+				+ "          </li>\r\n"
+				+ "          <li>\r\n"
+				+ "            Never send any money to anyone claiming to be a member of\r\n"
+				+ "            FutureSpace team\r\n"
+				+ "          </li>\r\n"
+				+ "          <li>Enable Google Two Factor Authentication.</li>\r\n"
+				+ "        </ul>\r\n"
+				+ "        <p style=\"font-size: 14px\">\r\n"
+				+ "          If you don't recognize this activity, please contact our customer\r\n"
+				+ "          support immediately.\r\n"
+				+ "        </p>\r\n"
+				+ "        <p style=\"font-size: 14px\">FutureSpace Team</p>\r\n"
+				+ "        <p style=\"font-size: 14px\">\r\n"
+				+ "          This is an automated message, Please do not reply\r\n"
+				+ "        </p>\r\n"
+				+ "      </div>\r\n"
+				+ "    </div>";
 
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);

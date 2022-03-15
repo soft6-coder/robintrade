@@ -25,6 +25,9 @@ option {
 .huge {
   font-size: 25px;
 }
+.huge-spc {
+	font-size: 20px;
+}
 .huge-2 {
   font-size: 25px;
   font-weight: 600;
@@ -62,4 +65,7 @@ option {
     line-height: 80px;
     margin: 50px 0px;
   }
+  .huge-spc {
+	font-size: 25px;
+}
 }

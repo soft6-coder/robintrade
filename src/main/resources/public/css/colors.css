@@ -20,7 +20,10 @@
   color: white;
 }
 .blue-text-inactive {
-  color: rgb(106, 145, 255);
+  color: rgb(34, 53, 100);
+}
+.blue-text-dash {
+  color: rgba(0, 33, 124, 0.938);
 }
 .yellow-background {
   background-color: rgb(255, 240, 1);

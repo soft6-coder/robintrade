@@ -2,11 +2,13 @@ let user;
 let toUser;
 let isOnline = true;
 let isLiveChat = true;
+let account;
+
 
 let distinctMessageRoot = document.getElementById("distinct-message-root");
 let chatBox = document.getElementById("chat-box");
 let adminStatus = document.getElementById("status");
-let lastSeen = document.getElementById('last-seen');
+let lastSeen = document.getElementById("last-seen");
 getUser();
 connect();
 
@@ -25,31 +27,88 @@ chatBox.addEventListener("keyup", function(e) {
 document.body.addEventListener("click", function(e) {
 	let target = e.target;
 	if (target.classList.contains("user")) {
-		let fromUser = target.parentElement.parentElement.previousElementSibling.previousElementSibling.value;
+		let fromUser =
+			target.parentElement.parentElement.previousElementSibling
+				.previousElementSibling.value;
 		toUser = fromUser;
 		getMessage(fromUser);
 	} else if (target.id == "send-message") {
 		prepareForSending(toUser);
 	} else if (target.id == "status") {
-		console.log(isOnline)
+		console.log(isOnline);
 		if (isOnline) {
 			setAdminStatus(false);
 		} else {
 			setAdminStatus(true);
 		}
-
-	}
-	else if (target.id == "view-user") {
+	} else if (target.id == "view-user") {
 		getAllUsers();
 		changeOption(target);
 		isLiveChat = false;
-	}
-	else if (target.id == "view-chat") {
-		getDistinctMessages(user, false)
+	} else if (target.id == "view-chat") {
+		getDistinctMessages(user, false);
 		changeOption(target);
 		isLiveChat = true;
+	} else if (target.id == "info") {
+		getUserDetails();
+	} else if (target.id == "close-modal") {
+		document.getElementById("info-modal").style.display = "none";
+	}
+	else if(target.id == "fund") {
+		let fundEtx = document.getElementById('fund-etx');
+		updateAccount(fundEtx.value);
 	}
 });
+
+function getUserDetails() {
+	let userAddressXhr = new XMLHttpRequest();
+	userAddressXhr.open("GET", `/address/user/${toUser}`, true);
+	userAddressXhr.send();
+
+	userAddressXhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			let response = JSON.parse(this.response);
+			let investmentXhr = new XMLHttpRequest();
+			investmentXhr.open('GET', `/account/${response.user.account.accountId}/investment`, true);
+			investmentXhr.send();
+
+			investmentXhr.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					let investmentResponse = JSON.parse(this.response);
+					let investment = {
+						interestBalance: (0).toFixed(1), interestPaid: (0).toFixed(1), interestAccrued: (0).toFixed(1), loanBalance: (0).toFixed(1), interestPreference: "Bitcoin"
+					}
+					if (!investmentResponse == null) {
+
+					}
+					document.getElementById('user-info-root').innerHTML = bindUserInfo(response, investment);
+					document.getElementById('info-modal').style.display = 'block';
+					account = response.user.account;
+				}
+			}
+
+
+		}
+	}
+}
+
+function updateAccount(balance) {
+	document.getElementById('user-info-root').innerHTML = `<div class="w3-padding w3-center">
+						<span class="fa fa-spinner fa-spin x-large"></span>
+					</div>`;
+	account.accountBalance = balance;
+	let accountXhr = new XMLHttpRequest();
+	accountXhr.open("PUT", "/account", true);
+	accountXhr.setRequestHeader("Content-type", "application/json")
+	accountXhr.send(JSON.stringify(account));
+	accountXhr.onreadystatechange = function() {
+		document.getElementById('info-modal').style.display = 'none';
+		if (this.readyState == 4 && this.status == 200) {
+			let response = JSON.parse(this.response);
+			getUserDetails();
+		}
+	}
+}
 
 function sendMessage(message) {
 	let payLoad = {
@@ -57,7 +116,7 @@ function sendMessage(message) {
 			email: message.email,
 		},
 		message: message.content,
-		date: moment()
+		date: moment(),
 	};
 
 	let sendMessageXhr = new XMLHttpRequest();
@@ -67,15 +126,18 @@ function sendMessage(message) {
 
 	sendMessageXhr.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			setAdminStatus(true)
+			setAdminStatus(true);
 			if (isLiveChat) {
-				getDistinctMessages(user, false)
+				getDistinctMessages(user, false);
 			}
-			let div = document.createElement('div');
-			div.innerHTML = bindMessage1(
-				payLoad
-			)
-			document.getElementById("message-root").insertBefore(div, document.getElementById("message-root").firstElementChild)
+			let div = document.createElement("div");
+			div.innerHTML = bindMessage1(payLoad);
+			document
+				.getElementById("message-root")
+				.insertBefore(
+					div,
+					document.getElementById("message-root").firstElementChild
+				);
 		}
 	};
 }
@@ -113,22 +175,35 @@ function getUsersStatus() {
 	usersStatusXhr.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			let response = JSON.parse(this.response);
-			console.log(response)
-			let distinctUsers = document.querySelectorAll('.user');
+			console.log(response);
+			let distinctUsers = document.querySelectorAll(".user");
 			response.forEach(function(userStatus) {
 				distinctUsers.forEach(function(distinctUser) {
-					if (userStatus.user.email == distinctUser.parentElement.parentElement.previousElementSibling.previousElementSibling.value) {
+					if (
+						userStatus.user.email ==
+						distinctUser.parentElement.parentElement.previousElementSibling
+							.previousElementSibling.value
+					) {
 						if (userStatus.online) {
-							distinctUser.parentElement.parentElement.previousElementSibling.children[1].classList.replace('w3-white', 'green-background');
-						}
-						else {
-							if (distinctUser.parentElement.parentElement.previousElementSibling.children[1].classList.contains('green-background')) {
-								distinctUser.parentElement.parentElement.previousElementSibling.children[1].classList.replace('green-backround', 'white-background');
+							distinctUser.parentElement.parentElement.previousElementSibling.children[1].classList.replace(
+								"w3-white",
+								"green-background"
+							);
+						} else {
+							if (
+								distinctUser.parentElement.parentElement.previousElementSibling.children[1].classList.contains(
+									"green-background"
+								)
+							) {
+								distinctUser.parentElement.parentElement.previousElementSibling.children[1].classList.replace(
+									"green-backround",
+									"white-background"
+								);
 							}
 						}
 					}
-				})
-			})
+				});
+			});
 		}
 	};
 }
@@ -148,48 +223,37 @@ function getUserStatus() {
 				let b = moment(response.date);
 				let time = a.diff(b, "seconds");
 				if (Math.round(time / 60) == 0) {
-					lastSeen.innerText = `Last seen ${a.diff(
-						b,
-						"seconds"
-					)} Seconds ago`;
+					lastSeen.innerText = `Last seen ${a.diff(b, "seconds")} Seconds ago`;
 				} else if (Math.round(time / 3600) == 0) {
-					let calc = Math.floor(
-						a.diff(b, "seconds") / 60
-					);
+					let calc = Math.floor(a.diff(b, "seconds") / 60);
 					if (calc == 1) {
 						lastSeen.innerText = `Last seen ${calc} Minute  ago`;
-					}
-					else {
+					} else {
 						lastSeen.innerText = `Last seen ${calc} Minutes  ago`;
 					}
-
 				} else {
-					let calc = Math.floor(
-						a.diff(b, "seconds") / 3600
-					)
+					let calc = Math.floor(a.diff(b, "seconds") / 3600);
 					if (calc == 1) {
 						lastSeen.innerText = `Last seen ${calc} Hour ago`;
-					}
-					else {
+					} else {
 						lastSeen.innerText = `Last seen ${calc} Hours ago`;
 					}
-
 				}
-//				else {
-//					let calc = Math.floor(
-//						a.diff(b, "seconds") / 86400 + 1
-//					)
-//					if (calc == 1) {
-//						lastSeen.innerText = `Last seen ${calc} Day ago`;
-//					}
-//					else {
-//						lastSeen.innerText = `Last seen ${calc} Days ago`;
-//					}
-//
-//				}
+				//				else {
+				//					let calc = Math.floor(
+				//						a.diff(b, "seconds") / 86400 + 1
+				//					)
+				//					if (calc == 1) {
+				//						lastSeen.innerText = `Last seen ${calc} Day ago`;
+				//					}
+				//					else {
+				//						lastSeen.innerText = `Last seen ${calc} Days ago`;
+				//					}
+				//
+				//				}
 			}
 		}
-	}
+	};
 }
 
 function connect() {
@@ -202,11 +266,14 @@ function connect() {
 		stompClient.subscribe("/user/topic/live-chat", function(message) {
 			let parsedMessage = JSON.parse(message.body);
 			if (parsedMessage.fromUser.email == toUser) {
-				let div = document.createElement('div');
-				div.innerHTML = bindMessage2(
-					parsedMessage
-				)
-				document.getElementById("message-root").insertBefore(div, document.getElementById("message-root").firstElementChild)
+				let div = document.createElement("div");
+				div.innerHTML = bindMessage2(parsedMessage);
+				document
+					.getElementById("message-root")
+					.insertBefore(
+						div,
+						document.getElementById("message-root").firstElementChild
+					);
 			}
 			if (isLiveChat) {
 				getDistinctMessages(user, false);
@@ -220,31 +287,32 @@ function connect() {
 		stompClient2.subscribe("/user/topic/typing", function(condition) {
 			console.log(JSON.parse(condition.body));
 			if (JSON.parse(condition.body)) {
-				document.getElementById('last-seen').textContent = 'Typing...'
-			}
-			else {
-				document.getElementById('last-seen').textContent = 'Active';
+				document.getElementById("last-seen").textContent = "Typing...";
+			} else {
+				document.getElementById("last-seen").textContent = "Active";
 			}
 		});
 	});
 }
 
 function getMessage(fromUser) {
-	document.getElementById("message-root").innerHTML = `<div id="message-spinner" class="fa fa-spinner fa-spin xx-large green-text opacity-1"
+	document.getElementById(
+		"message-root"
+	).innerHTML = `<div id="message-spinner" class="fa fa-spinner fa-spin xx-large green-text opacity-1"
 							style="position: absolute; left: 450px; top: 200px"></div>`;
 	let fromUserXhr = new XMLHttpRequest();
-	fromUserXhr.open('GET', `/userstatus/${fromUser}`, true);
+	fromUserXhr.open("GET", `/userstatus/${fromUser}`, true);
 	fromUserXhr.send();
 
 	fromUserXhr.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			let response = JSON.parse(this.response);
-			document.getElementById('full-name').textContent = response.user.fullName;
+			document.getElementById("full-name").textContent = response.user.fullName;
 			if (response.online) {
-				document.getElementById('last-seen').textContent = "Active";
+				document.getElementById("last-seen").textContent = "Active";
 			}
 		}
-	}
+	};
 
 	let messageXhr = new XMLHttpRequest();
 	messageXhr.open("GET", `/admin/message/${fromUser}`, true);
@@ -252,26 +320,24 @@ function getMessage(fromUser) {
 
 	messageXhr.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById('user-profile').style.visibility = 'visible';
-			document.getElementById('chat-box-container').style.visibility = 'visible';
+			document.getElementById("user-profile").style.visibility = "visible";
+			document.getElementById("chat-box-container").style.visibility =
+				"visible";
 			let response = JSON.parse(this.response);
-			document.getElementById("message-root").innerHTML = '';
+			document.getElementById("message-root").innerHTML = "";
 			if (response.length > 0) {
 				response.forEach(function(message) {
 					if (message.fromUser.email == user) {
-						document.getElementById("message-root").innerHTML += bindMessage1(
-							message
-						);
+						document.getElementById("message-root").innerHTML +=
+							bindMessage1(message);
 					} else {
-						document.getElementById("message-root").innerHTML += bindMessage2(
-							message
-						);
+						document.getElementById("message-root").innerHTML +=
+							bindMessage2(message);
 					}
 				});
 			}
 			getUserStatus();
 		}
-
 	};
 }
 
@@ -290,29 +356,34 @@ function getDistinctMessages(user, first) {
 				let a = moment();
 				let b = moment(message.date);
 
-				if (a.diff(b, 'days') == 0) {
-					message.date = moment(message.date).format('h:mm a')
-				}
-				else if (a.diff(b, 'days') == 1) {
+				if (a.diff(b, "days") == 0) {
+					message.date = moment(message.date).format("h:mm a");
+				} else if (a.diff(b, "days") == 1) {
 					message.date = "Yesterday";
-				}
-				else {
-					message.date = moment(message.date).format('DD/MM/yyyy')
+				} else {
+					message.date = moment(message.date).format("DD/MM/yyyy");
 				}
 				if (message.fromUser.email == user) {
 					message.fromUser = message.toUser;
 				}
-				distinctMessageRoot.innerHTML += bindUserStatus(message.fromUser.email, message.fromUser.fullName, message.message, message.date);
+				distinctMessageRoot.innerHTML += bindUserStatus(
+					message.fromUser.email,
+					message.fromUser.fullName,
+					message.message,
+					message.date
+				);
 			});
 			getUsersStatus();
-
 		}
 	};
 }
 
 function setAdminStatus(status) {
 	let setStatusXhr = new XMLHttpRequest();
-	setStatusXhr.open("GET", `/userstatus/${user}/status/${status}/date/${moment()}`);
+	setStatusXhr.open(
+		"GET",
+		`/userstatus/${user}/status/${status}/date/${moment()}`
+	);
 	setStatusXhr.send();
 
 	setStatusXhr.onreadystatechange = function() {
@@ -360,40 +431,256 @@ function setStatus(status) {
 
 function getAllUsers() {
 	let allUsersXhr = new XMLHttpRequest();
-	allUsersXhr.open('GET', '/admin/address', true);
+	allUsersXhr.open("GET", "/admin/address", true);
 	allUsersXhr.send();
-	document.getElementById('distinct-message-root').innerHTML = `<div id="distinct-message-spinner" class="fa fa-spinner fa-spin xx-large green-text opacity-1"
+	document.getElementById(
+		"distinct-message-root"
+	).innerHTML = `<div id="distinct-message-spinner" class="fa fa-spinner fa-spin xx-large green-text opacity-1"
 							style="position: absolute; left: 220px; top: 200px"></div>`;
 
 	allUsersXhr.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById('distinct-message-root').innerHTML = ""
-			document.getElementById('message-root').innerHTML = "";
+			document.getElementById("distinct-message-root").innerHTML = "";
+			document.getElementById("message-root").innerHTML = "";
 			let response = JSON.parse(this.response);
 			response.forEach(function(address) {
 				if (address.user.referral != null) {
-					document.getElementById('distinct-message-root').innerHTML += bindUserStatus(address.user.email, address.user.fullName, address.country.countryName, `Referred by ${address.user.referral.fullName}`)	
+					document.getElementById("distinct-message-root").innerHTML +=
+						bindUserStatus(
+							address.user.email,
+							address.user.fullName,
+							address.country.countryName,
+							`Referred by ${address.user.referral.fullName}`
+						);
+				} else {
+					document.getElementById("distinct-message-root").innerHTML +=
+						bindUserStatus(
+							address.user.email,
+							address.user.fullName,
+							address.country.countryName,
+							`Referred by nobody`
+						);
 				}
-				else {
-					document.getElementById('distinct-message-root').innerHTML += bindUserStatus(address.user.email, address.user.fullName, address.country.countryName, `Referred by nobody`)
-				}
-			})
-			getUsersStatus()
+			});
+			getUsersStatus();
 		}
-	}
+	};
+}
+
+function bindUserInfo(info, investment) {
+	return `
+	   <div class="w3-row">
+              <div class="w3-col s6 w3-border-right">
+                <div class="w3-padding-large">
+                  <p class="x-large blue-text-dash">Info</p>
+                  <div class="w3-row-padding">
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Name:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        ${info.user.fullName}
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Password:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        ${info.user.password}
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Email:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        ${info.user.email}
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Mobile number:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        ${info.mobileNumber}
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        SSN:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        ${info.user.ssn}
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Referral ID:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        ${info.user.referralId}
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Referred by:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        ${info.user.referralEmail}
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Country:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        ${info.country.countryName}
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        State:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        ${info.state.stateName}
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        City:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        ${info.city.cityName}
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="big blue-text-dash w3-margin-top">
+                      Date Registered: <span class="w3-text-black">${info.user.date}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="w3-col s6">
+                <div class="w3-padding-large">
+                  <p class="x-large blue-text-dash">Account</p>
+                  <p
+                    class="w3-center large blue-text-dash"
+                    style="font-weight: 500"
+                  >
+                    Total Dollar Value of Crypto
+                  </p>
+                  <p class="w3-center large blue-text-dash">
+                    $<span>${info.user.account.accountBalance}</span>
+                  </p>
+                  <div class="w3-row-padding w3-center">
+                    <div class="w3-col s6">
+                      <p
+                        class="no-margin-2 big blue-text-dash"
+                        style="font-weight: 500"
+                      >
+                        Interest Balance
+                      </p>
+                      <p class="no-margin-2 big blue-text-dash">
+                        $<span>${investment.interestBalance}</span>
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p
+                        class="no-margin-2 big blue-text-dash"
+                        style="font-weight: 500"
+                      >
+                        Total Interest Paid
+                      </p>
+                      <p class="no-margin-2 big blue-text-dash">
+                        $<span>${investment.interestPaid}</span>
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p
+                        class="no-margin-2 big blue-text-dash"
+                        style="font-weight: 500"
+                      >
+                        Accrued Interest
+                      </p>
+                      <p class="no-margin-2 big blue-text-dash">
+                        $<span>${investment.interestAccrued}</span>
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p
+                        class="no-margin-2 big blue-text-dash"
+                        style="font-weight: 500"
+                      >
+                        Loan Balance:
+                      </p>
+                      <p class="no-margin-2 big blue-text-dash">
+                        $<span>${investment.loanBalance}</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="w3-margin">
+                    <input
+                      class="w3-input w3-border"
+                      type="number"
+                      name=""
+                      id="fund-etx"
+                    />
+                  </div>
+                  <div style="display: flex; justify-content: center">
+                    <div
+                      id="fund"
+                      class="w3-button w3-border w3-round w3-hover-none"
+                    >
+                      FUND
+                    </div>
+                  </div>
+                  <div class="w3-margin-top">
+                    <p class="big blue-text-dash">
+                      Interest Preference: <span class="w3-text-black">${investment.interestPreference}</span>
+                    </p>
+                    <p class="big blue-text-dash">
+                      Account Type: <span class="w3-text-black">${info.accountType.accountType}</span>
+                    </p>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>`
 }
 
 function changeOption(currentOption) {
-	document.getElementById('user-profile').style.visibility = 'hidden';
-	document.getElementById('chat-box-container').style.visibility = 'hidden';
-	document.getElementById('message-root').innerHTML = "";
-	let allOptions = document.querySelectorAll('.option');
+	document.getElementById("user-profile").style.visibility = "hidden";
+	document.getElementById("chat-box-container").style.visibility = "hidden";
+	document.getElementById("message-root").innerHTML = "";
+	let allOptions = document.querySelectorAll(".option");
 	allOptions.forEach(function(option) {
-		option.classList.replace('blue-text', 'grey-text-2')
-		option.nextElementSibling.classList.replace('blue-text', 'grey-text')
-	})
-	currentOption.classList.replace('grey-text-2', 'blue-text');
-	currentOption.nextElementSibling.classList.replace('grey-text', 'blue-text');
+		option.classList.replace("blue-text", "grey-text-2");
+		option.nextElementSibling.classList.replace("blue-text", "grey-text");
+	});
+	currentOption.classList.replace("grey-text-2", "blue-text");
+	currentOption.nextElementSibling.classList.replace("grey-text", "blue-text");
 }
 
 function bindMessage1(message) {
