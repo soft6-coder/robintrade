@@ -50,14 +50,7 @@ public class UserService {
 			}
 		}
 
-		try {
-			sendVerificationEmail(user);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-		finally {
-			System.out.println("Exception Found");
-		}
+		sendVerificationEmail(user);
 		Account account = new Account();
 		if (user.getReferral() != null) {
 			account.setAccountBalance(200);
@@ -78,7 +71,7 @@ public class UserService {
 		return userRepository.existsById(email);
 	}
 
-	private void sendVerificationEmail(User user) throws MessagingException {
+	private void sendVerificationEmail(User user) {
 		String toAddress = user.getEmail();
 		String subject = "Future Space (One time password)";
 		String content = "<div style=\"margin: 8px 12px; box-shadow: 1px 1px 10px rgb(236, 236, 236)\">\r\n"
