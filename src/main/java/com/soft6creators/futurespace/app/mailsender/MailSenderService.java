@@ -12,7 +12,7 @@ public class MailSenderService {
 	
 	public void sendEmail(String toEmail, String subject, String body) {
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("futurespaceinvestments@gmail.com");
+		message.setFrom("soft6coder@gmail.com");
 		message.setTo(toEmail);
 		message.setSubject(subject);
 		message.setText(body);
