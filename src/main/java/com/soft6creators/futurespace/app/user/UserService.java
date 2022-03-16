@@ -55,19 +55,17 @@ public class UserService {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-		finally {
-			System.out.println("Exception Found");
-		}
-		Account account = new Account();
-		if (user.getReferral() != null) {
-			account.setAccountBalance(200);
-		}
-		else {
-			account.setAccountBalance(100);
-		}
-		accountService.addAccount(account);
-		user.setAccount(account);
-		return userRepository.save(user);
+//		Account account = new Account();
+//		if (user.getReferral() != null) {
+//			account.setAccountBalance(200);
+//		}
+//		else {
+//			account.setAccountBalance(100);
+//		}
+//		accountService.addAccount(account);
+//		user.setAccount(account);
+//		return userRepository.save(user);
+		return user;
 	}
 
 	public Optional<User> getUser(String email) {
