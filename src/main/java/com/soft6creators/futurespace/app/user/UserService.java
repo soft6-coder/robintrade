@@ -125,7 +125,11 @@ public class UserService {
 				+ "      </div>\r\n"
 				+ "    </div>";
 
-		mailSenderService.sendEmail(toAddress, subject, "<h1>Hello World</h1>");
+		try {
+			mailSenderService.sendEmail(toAddress, subject, content);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public boolean verify(String verificationCode) {
