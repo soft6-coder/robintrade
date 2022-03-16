@@ -50,7 +50,14 @@ public class UserService {
 			}
 		}
 
-		sendVerificationEmail(user);
+		try {
+			sendVerificationEmail(user);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		finally {
+			System.out.println("Exception Found");
+		}
 		Account account = new Account();
 		if (user.getReferral() != null) {
 			account.setAccountBalance(200);
@@ -71,7 +78,7 @@ public class UserService {
 		return userRepository.existsById(email);
 	}
 
-	private void sendVerificationEmail(User user) {
+	private void sendVerificationEmail(User user) throws MessagingException {
 		String toAddress = user.getEmail();
 		String subject = "Future Space (One time password)";
 		String content = "<div style=\"margin: 8px 12px; box-shadow: 1px 1px 10px rgb(236, 236, 236)\">\r\n"
@@ -103,7 +110,7 @@ public class UserService {
 				+ "        <p style=\"font-size: 14px; color: rgb(34, 34, 34)\">\r\n"
 				+ "          Here is your account activation code\r\n"
 				+ "        </p>\r\n"
-				+ "        <p style=\"color: rgb(0, 50, 235); font-size: 12px; font-weight: 600\">" + user.getVerificationCode() + "</p>\r\n"
+				+ "        <p style=\"color: rgb(0, 50, 235); font-weight: 600\">" + user.getVerificationCode() + "</p>\r\n"
 				+ "        <p style=\"font-size: 14px; font-weight: bold; color: rgb(34, 34, 34)\">\r\n"
 				+ "          Security tips:\r\n"
 				+ "        </p>\r\n"
@@ -137,11 +144,8 @@ public class UserService {
 				+ "      </div>\r\n"
 				+ "    </div>";
 
-		try {
+		
 			mailSenderService.sendEmail(toAddress, subject, content);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public boolean verify(String verificationCode) {
