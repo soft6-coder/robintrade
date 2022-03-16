@@ -6,6 +6,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.soft6creators.futurespace.app.account.Account;
 import com.soft6creators.futurespace.app.account.AccountService;
+import com.soft6creators.futurespace.app.mailsender.MailSenderService;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -27,6 +29,8 @@ public class UserService {
 	PasswordEncoder passwordEncoder;
 	@Autowired
 	AccountService accountService;
+	@Autowired
+	MailSenderService mailSenderService;
 
 	public User addUser(User user) {
 		if (checkUser(user.getEmail())) {
@@ -46,24 +50,25 @@ public class UserService {
 			}
 		}
 
-//		try {
-//			sendVerificationEmail(user);
-//		} catch (MessagingException e) {
-//			e.printStackTrace();
-//		}
-//		finally {
-//			System.out.println("Exception Found");
-//		}
-		Account account = new Account();
-		if (user.getReferral() != null) {
-			account.setAccountBalance(200);
+		try {
+			sendVerificationEmail(user);
+		} catch (MessagingException e) {
+			e.printStackTrace();
 		}
-		else {
-			account.setAccountBalance(100);
+		finally {
+			System.out.println("Exception Found");
 		}
-		accountService.addAccount(account);
-		user.setAccount(account);
-		return userRepository.save(user);
+//		Account account = new Account();
+//		if (user.getReferral() != null) {
+//			account.setAccountBalance(200);
+//		}
+//		else {
+//			account.setAccountBalance(100);
+//		}
+//		accountService.addAccount(account);
+//		user.setAccount(account);
+//		return userRepository.save(user);
+		return user;
 	}
 
 	public Optional<User> getUser(String email) {
@@ -76,11 +81,7 @@ public class UserService {
 
 	private void sendVerificationEmail(User user) throws MessagingException {
 		String toAddress = user.getEmail();
-		String fromAddress = "soft6coder@gmail.com";
 		String subject = "Future Space (One time password)";
-//		String content = "<h1>Future Space</h1><p>DO NOT DISCLOSE. Dear " + user.getFullName()
-//				+ " Thank you for creating a FutureSpace Investment Account.</p> <p>The OTP for your Future Space Account confirmation is"
-//				+ user.getVerificationCode() + " .</p> <p> Thank you for choosing Futurespace Investments </p>";
 		String content = "<div style=\"margin: 8px; box-shadow: 1px 1px 10px rgb(236, 236, 236)\">\r\n"
 				+ "      <div\r\n"
 				+ "        style=\"\r\n"
@@ -124,14 +125,7 @@ public class UserService {
 				+ "      </div>\r\n"
 				+ "    </div>";
 
-		MimeMessage message = mailSender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(message);
-
-		helper.setFrom(fromAddress);
-		helper.setTo(toAddress);
-		helper.setSubject(subject);
-		helper.setText(content, true);
-		mailSender.send(message);
+		mailSenderService.sendEmail(toAddress, subject, "Hello World");
 	}
 
 	public boolean verify(String verificationCode) {
