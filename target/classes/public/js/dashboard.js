@@ -35,7 +35,7 @@ let userDetail;
 let cryptos;
 let cryptoUpdate = [];
 
-// getCryptoUpdate();
+getCryptoUpdate();
 
 let isSettingsOpened = false;
 let isAppSetingsOpened;
@@ -570,7 +570,7 @@ function getCryptoUpdate() {
   let cryptoUpdateXhr = new XMLHttpRequest();
   cryptoUpdateXhr.open(
     "GET",
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=18&page=1&sparkline=false",
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=8&page=1&sparkline=false",
     true
   );
   cryptoUpdateXhr.send();

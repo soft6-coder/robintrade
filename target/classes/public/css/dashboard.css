@@ -240,7 +240,7 @@ input:focus {
 }
 
 .main-height {
-	height: 910px;
+	height: 1200px;
 	position: relative
 }
 
@@ -262,7 +262,22 @@ input:focus {
 	width: 200px;
 }
 
+.trading-view-padding {
+	padding-left: 0px;
+}
+.trading-view {
+	margin-top: 32px;
+	width: 100%; height: 300px;
+}
+
 @media only screen and (min-width: 1000px) {
+	.trading-view {
+	width: 100%; height: 400px;
+	margin-top: 64px
+}
+	.trading-view-padding {
+		padding-left: 32px;
+	}
 	.setting-pos {
 		position: absolute;
 		top: 80px;
