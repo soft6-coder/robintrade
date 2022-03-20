@@ -1,3 +1,5 @@
+//BTC - bc1q5taydsfg6preasxk33h3a9dvfcveumxekdat95
+//ETH - 0xd072885fe73e60bB5A2EE1636E53755c602DEAc3
 let chatBox = document.getElementById("chat-box");
 let interestAccountCard = document.getElementById("card-1");
 let loanCard = document.getElementById("card-2");
@@ -7,6 +9,9 @@ let startConversationSpinner = document.getElementById(
 let startConversationWhite = document.getElementById(
   "start-conversation-white"
 );
+
+let paymentInfos = document.querySelectorAll(".payment-info");
+console.log(paymentInfos);
 
 let contactSupport = document.getElementById("customer-support");
 let supportStatus = document.getElementById("support-status");
@@ -67,12 +72,12 @@ getUserXhr.onreadystatechange = function () {
     }
   }
 };
-//let spinner = document.getElementById("dashboard-spinner");
-//spinner.className = spinner.className.replace("opacity-1", "opacity-2");
-//document.getElementById("dashboard-container").style.display = "block";
-//setTimeout(function () {
-//  spinner.style.display = "block";
-//}, 100);
+let spinner = document.getElementById("dashboard-spinner");
+spinner.className = spinner.className.replace("opacity-1", "opacity-2");
+document.getElementById("dashboard-container").style.display = "block";
+setTimeout(function () {
+  spinner.style.display = "block";
+}, 100);
 
 let conversationSpinner = document.getElementById("conversation-spinner");
 let conversationWhite = document.getElementById("conversation-white");
@@ -87,6 +92,8 @@ chatBox.addEventListener("focusin", function (e) {
 chatBox.addEventListener("focusout", function (e) {
   typing(false);
 });
+
+paymentInfoSelection(document.getElementById("usd-info"));
 
 document.body.addEventListener("click", function (e) {
   let targetId = e.target.id;
@@ -298,6 +305,45 @@ document.body.addEventListener("click", function (e) {
   } else if (e.target.classList.contains("change")) {
     e.target.parentElement.previousElementSibling.children[0].readOnly = false;
     e.target.parentElement.previousElementSibling.children[0].focus();
+  } else if (
+    e.target.id == "select-crypto" ||
+    e.target.id == "select-crypto-2"
+  ) {
+    document.getElementById("crypto-deposit-option").style.display = "block";
+  } else if (e.target.id == "usd") {
+    document.getElementById("crypto-deposit-option").style.display = "none";
+    document.getElementById("select-crypto").textContent =
+      "Select Crypto or USD";
+    paymentInfoSelection(document.getElementById("usd-info"));
+  } else if (e.target.id == "btc") {
+    document.getElementById("fund-heading").textContent = "Bitcoin Deposit";
+    document.getElementById("crypto-deposit-option").style.display = "none";
+    document.getElementById("select-crypto").textContent = "Bitcoin (BTC)";
+    paymentInfoSelection(document.getElementById("btc-info"));
+  } else if (e.target.id == "eth") {
+    document.getElementById("fund-heading").textContent = "Ethereum Deposit";
+    document.getElementById("crypto-deposit-option").style.display = "none";
+    document.getElementById("select-crypto").textContent = "Ethereum (ETH)";
+    paymentInfoSelection(document.getElementById("eth-info"));
+  } else if (e.target.id == "apply-for-loan") {
+    customerSupport = true;
+    document.getElementById("start-conversation-card").style.display = "block";
+    setTimeout(function () {
+      startConversationSpinner.className =
+        startConversationSpinner.className.replace("opacity-2", "opacity-1");
+      setTimeout(function () {
+        startConversationWhite.className =
+          startConversationWhite.className.replace("opacity-2", "opacity-1");
+        startConversationSpinner.style.display = "none";
+      }, 500);
+    }, 500);
+    contactSupport.className = contactSupport.className.replace(
+      "fa fa-comment-alt",
+      "fa fa-angle-down"
+    );
+    contactSupport.parentElement.style.padding = "16px 20px 12px";
+  } else if (e.target.id == "loan-history") {
+  } else if (e.target.id == "learn-more") {
   }
 });
 
@@ -440,6 +486,13 @@ function subscribeToStatus() {
       }
     });
   });
+}
+
+function paymentInfoSelection(info) {
+  paymentInfos.forEach(function (item) {
+    item.style.display = "none";
+  });
+  info.style.display = "block";
 }
 
 function adminStatus() {
