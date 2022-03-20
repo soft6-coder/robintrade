@@ -311,6 +311,7 @@ document.body.addEventListener("click", function (e) {
   ) {
     document.getElementById("crypto-deposit-option").style.display = "block";
   } else if (e.target.id == "usd") {
+	document.getElementById("fund-heading").textContent = "Fund";
     document.getElementById("crypto-deposit-option").style.display = "none";
     document.getElementById("select-crypto").textContent =
       "Select Crypto or USD";
