@@ -50,11 +50,11 @@ public class UserService {
 			}
 		}
 
-//		try {
-//			sendVerificationEmail(user);
-//		} catch (MessagingException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			sendVerificationEmail(user);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 		Account account = new Account();
 		if (user.getReferral() != null) {
 			account.setAccountBalance(200);
