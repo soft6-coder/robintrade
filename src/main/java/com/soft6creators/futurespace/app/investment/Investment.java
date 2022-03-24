@@ -20,9 +20,10 @@ public class Investment {
 	@OneToOne
 	private Crypto currency;
 	private int investedAmount;
-	private int weeks;
+	private int days;
 	private boolean isActive;
-	private String date;
+	private String startDate;
+	private String endDate;
 	public int getInvestmentId() {
 		return investmentId;
 	}
@@ -47,11 +48,13 @@ public class Investment {
 	public void setInvestedAmount(int investedAmount) {
 		this.investedAmount = investedAmount;
 	}
-	public int getWeeks() {
-		return weeks;
+	
+	
+	public int getDays() {
+		return days;
 	}
-	public void setWeeks(int weeks) {
-		this.weeks = weeks;
+	public void setDays(int days) {
+		this.days = days;
 	}
 	public boolean isActive() {
 		return isActive;
@@ -59,12 +62,19 @@ public class Investment {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public String getDate() {
-		return date;
+	public String getStartDate() {
+		return startDate;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	
 	
 	
 }

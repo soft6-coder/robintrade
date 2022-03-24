@@ -189,6 +189,13 @@ function getCryptoUpdate() {
           image.src = cryptoValues[cryptoChangeCount].image;
         });
       }
+    } else {
+      cryptoValues.unshift({
+        name: "Dollar",
+        symbol: "usd",
+        price: 1,
+        image: "/images/dollar.png",
+      });
     }
   };
 }

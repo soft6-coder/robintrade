@@ -69,6 +69,10 @@
   background-color: rgb(76, 175, 80);
   color: white;
 }
+.green-background-inactive {
+  background-color: rgb(119, 189, 122);
+  color: rgba(255, 255, 255, 0.815);
+}
 .green-text {
   color: rgb(76, 175, 80);
 }

@@ -127,9 +127,7 @@ function addAddress() {
 		state: {
 			stateId: state.value,
 		},
-		city: {
-			cityId: city.value,
-		},
+		city: city.value,
 		addressLine1: addressLine1.value,
 		addressLine2: addressLine2.value,
 		isCitizen: true,

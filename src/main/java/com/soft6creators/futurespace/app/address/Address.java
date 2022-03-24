@@ -24,8 +24,7 @@ public class Address {
 	private Country country;
 	@OneToOne
 	private State state;
-	@OneToOne
-	private City city;
+	private String city;
 	private String addressLine1;
 	private String addressLine2;
 	private String zipCode;
@@ -85,10 +84,11 @@ public class Address {
 	public void setState(State state) {
 		this.state = state;
 	}
-	public City getCity() {
+	
+	public String getCity() {
 		return city;
 	}
-	public void setCity(City city) {
+	public void setCity(String city) {
 		this.city = city;
 	}
 	public String getAddressLine1() {
