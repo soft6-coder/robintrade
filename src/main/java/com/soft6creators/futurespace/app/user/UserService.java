@@ -60,7 +60,7 @@ public class UserService {
 			account.setAccountBalance(20);
 		}
 		else {
-			account.setAccountBalance(100);
+			account.setAccountBalance(20);
 		}
 		accountService.addAccount(account);
 		user.setAccount(account);
