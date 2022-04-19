@@ -10,6 +10,9 @@ document.getElementById("toggle-nav").addEventListener("click", function (e) {
       navItems.className = navItems.className.replace("opacity-0", "opacity-1");
     }, 100);
   } else {
+	if (document.getElementById("app-settings")) {
+		document.getElementById("app-settings").style.display = "none";
+	}
     isOpen = false;
     e.target.className = e.target.className.replace("fa-times", "fa-bars");
     navItems.className = navItems.className.replace("opacity-1", "opacity-0");

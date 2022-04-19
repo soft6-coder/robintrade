@@ -40,7 +40,7 @@ public class InvestmentService {
 			account.get().setInterestPreference(investment.getCurrency());
 			accountRepository.save(account.get());
 		}
-		account.get().setAccountBalance(account.get().getAccountBalance() - investment.getInvestedAmount());
+		account.get().setAccountBalance(investment.getInvestedAmount());
 		accountRepository.save(account.get());
 		return investmentRepository.save(investment);
 		

@@ -4,13 +4,15 @@ let isOnline = true;
 let isLiveChat = true;
 let account;
 
-
 let distinctMessageRoot = document.getElementById("distinct-message-root");
 let chatBox = document.getElementById("chat-box");
 let adminStatus = document.getElementById("status");
 let lastSeen = document.getElementById("last-seen");
 getUser();
 connect();
+getInterest();
+
+let days;
 
 chatBox.addEventListener("focusin", function(e) {
 	typing(true);
@@ -53,12 +55,54 @@ document.body.addEventListener("click", function(e) {
 		getUserDetails();
 	} else if (target.id == "close-modal") {
 		document.getElementById("info-modal").style.display = "none";
+	} else if (target.id == "close-fund-modal") {
+		document.getElementById("fund-modal").style.display = "none";
+	} else if (target.id == "fund") {
+		let fundModal = document.getElementById("fund-modal");
+		fundModal.style.display = "block";
+		// let fundEtx = document.getElementById("fund-etx");
+		// updateAccount(fundEtx.value);
 	}
-	else if(target.id == "fund") {
-		let fundEtx = document.getElementById('fund-etx');
-		updateAccount(fundEtx.value);
+	else if(target.id == "invest") {
+		startInvestment();
 	}
 });
+
+function startInvestment() {
+	let investment = {
+		account: { accountId: account.accountId },
+		investedAmount: investedAmountEtx.value,
+		days: daysEtx.value,
+		isActive: true,
+		currency: { crypto: "Bitcoin" },
+		percentage: percentEtx.value,
+		startDate: moment(),
+		endDate: moment(moment()).add(daysEtx.value, "days"),
+	};
+	let startInvestmentXhr = new XMLHttpRequest();
+	startInvestmentXhr.open("POST", "/investment", true);
+	startInvestmentXhr.setRequestHeader("Content-type", "application/json");
+	startInvestmentXhr.send(JSON.stringify(investment));
+
+	startInvestmentXhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			location.reload();
+		}
+	};
+}
+
+function getInterest() {
+	let interestXhr = new XMLHttpRequest();
+	interestXhr.open("GET", "/interest", true);
+	interestXhr.send();
+
+	interestXhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			let response = JSON.parse(this.response);
+			days = response[0].numberOfDays;
+		}
+	};
+}
 
 function getUserDetails() {
 	let userAddressXhr = new XMLHttpRequest();
@@ -69,45 +113,55 @@ function getUserDetails() {
 		if (this.readyState == 4 && this.status == 200) {
 			let response = JSON.parse(this.response);
 			let investmentXhr = new XMLHttpRequest();
-			investmentXhr.open('GET', `/account/${response.user.account.accountId}/investment`, true);
+			investmentXhr.open(
+				"GET",
+				`/account/${response.user.account.accountId}/investment`,
+				true
+			);
 			investmentXhr.send();
 
 			investmentXhr.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					let investmentResponse = JSON.parse(this.response);
 					let investment = {
-						interestBalance: (0).toFixed(1), interestPaid: (0).toFixed(1), interestAccrued: (0).toFixed(1), loanBalance: (0).toFixed(1), interestPreference: "Bitcoin"
-					}
+						interestBalance: (0).toFixed(1),
+						interestPaid: (0).toFixed(1),
+						interestAccrued: (0).toFixed(1),
+						loanBalance: (0).toFixed(1),
+						interestPreference: "Bitcoin",
+					};
 					if (!investmentResponse == null) {
-
 					}
-					document.getElementById('user-info-root').innerHTML = bindUserInfo(response, investment);
-					document.getElementById('info-modal').style.display = 'block';
+					document.getElementById("user-info-root").innerHTML = bindUserInfo(
+						response,
+						investment
+					);
+					document.getElementById("info-modal").style.display = "block";
 					account = response.user.account;
 				}
-			}
-
-
+			};
 		}
-	}
+	};
 }
 
 function updateAccount(balance) {
-	document.getElementById('user-info-root').innerHTML = `<div class="w3-padding w3-center">
+	document.getElementById(
+		"user-info-root"
+	).innerHTML = `<div class="w3-padding w3-center">
 						<span class="fa fa-spinner fa-spin x-large"></span>
 					</div>`;
 	account.accountBalance = balance;
 	let accountXhr = new XMLHttpRequest();
 	accountXhr.open("PUT", "/account", true);
-	accountXhr.setRequestHeader("Content-type", "application/json")
+	accountXhr.setRequestHeader("Content-type", "application/json");
 	accountXhr.send(JSON.stringify(account));
 	accountXhr.onreadystatechange = function() {
-		document.getElementById('info-modal').style.display = 'none';
+		document.getElementById("info-modal").style.display = "none";
 		if (this.readyState == 4 && this.status == 200) {
 			let response = JSON.parse(this.response);
 			getUserDetails();
 		}
-	}
+	};
 }
 
 function sendMessage(message) {
@@ -571,7 +625,7 @@ function bindUserInfo(info, investment) {
                     </div>
                     <div class="w3-col s6">
                       <p class="no-margin-2 big" style="font-weight: 500">
-                        ${info.city.cityName}
+                        ${info.city}
                       </p>
                     </div>
                   </div>
@@ -603,7 +657,7 @@ function bindUserInfo(info, investment) {
                         Interest Balance
                       </p>
                       <p class="no-margin-2 big blue-text-dash">
-                        $<span>${investment.interestBalance}</span>
+                        $<span>${info.user.account.accountBalance}</span>
                       </p>
                     </div>
                     <div class="w3-col s6">
@@ -640,34 +694,17 @@ function bindUserInfo(info, investment) {
                       </p>
                     </div>
                   </div>
-                  <div class="w3-margin">
-                    <input
-                      class="w3-input w3-border"
-                      type="number"
-                      name=""
-                      id="fund-etx"
-                    />
-                  </div>
-                  <div style="display: flex; justify-content: center">
+                  <div style="display: flex; justify-content: center; margin-top: 32px;">
                     <div
                       id="fund"
                       class="w3-button w3-border w3-round w3-hover-none"
                     >
                       FUND
                     </div>
-                  </div>
-                  <div class="w3-margin-top">
-                    <p class="big blue-text-dash">
-                      Interest Preference: <span class="w3-text-black">${investment.interestPreference}</span>
-                    </p>
-                    <p class="big blue-text-dash">
-                      Account Type: <span class="w3-text-black">${info.accountType.accountType}</span>
-                    </p>
-                  </div>
-                  
+                  </div>             
                 </div>
               </div>
-            </div>`
+            </div>`;
 }
 
 function changeOption(currentOption) {

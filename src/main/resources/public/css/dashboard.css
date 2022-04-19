@@ -201,7 +201,7 @@ input:focus {
 }
 
 .height {
-  height: 1000px;
+  height: 450px;
 }
 .animate {
   transition: 2s;
@@ -212,6 +212,7 @@ input:focus {
   bottom: 20px;
   right: 10px;
   z-index: 10;
+  display: "none";
 }
 
 .fund {
@@ -246,7 +247,7 @@ input:focus {
 }
 
 .main-height {
-  height: 1600px;
+  height: 800px;
   position: relative;
 }
 
@@ -302,7 +303,7 @@ input:focus {
     padding: 32px 0px 32px 128px;
   }
   .main-height {
-    height: 1900px;
+    height: 1200px;
     position: relative;
   }
   .card-spc {
@@ -331,12 +332,13 @@ input:focus {
     left: 210px;
   }
   .customer-support-pos {
+  	display: none;
     position: fixed;
     bottom: 40px;
     right: 40px;
   }
   .height {
-    height: 1400px;
+    height: 450px;
   }
   .chat-box-height {
     height: 560px;

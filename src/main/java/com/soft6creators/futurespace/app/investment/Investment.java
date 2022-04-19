@@ -17,13 +17,14 @@ public class Investment {
 	private int investmentId;
 	@ManyToOne
 	private Account account;
-	@OneToOne
-	private Crypto currency;
 	private int investedAmount;
 	private int days;
 	private boolean isActive;
 	private String startDate;
 	private String endDate;
+	private int percentage;
+	@ManyToOne
+	private Crypto currency;
 	public int getInvestmentId() {
 		return investmentId;
 	}
@@ -36,12 +37,6 @@ public class Investment {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-	public Crypto getCurrency() {
-		return currency;
-	}
-	public void setCurrency(Crypto currency) {
-		this.currency = currency;
-	}
 	public int getInvestedAmount() {
 		return investedAmount;
 	}
@@ -50,6 +45,12 @@ public class Investment {
 	}
 	
 	
+	public Crypto getCurrency() {
+		return currency;
+	}
+	public void setCurrency(Crypto currency) {
+		this.currency = currency;
+	}
 	public int getDays() {
 		return days;
 	}
@@ -74,6 +75,13 @@ public class Investment {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+	public int getPercentage() {
+		return percentage;
+	}
+	public void setPercentage(int percentage) {
+		this.percentage = percentage;
+	}
+	
 	
 	
 	

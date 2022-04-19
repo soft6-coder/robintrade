@@ -28,266 +28,264 @@ let verified;
 let signedIn;
 
 if (emailParam != null) {
-	email2.value = emailParam;
-	switchCards(
-		signUpCard,
-		signInPromptCard,
-		signInDesc,
-		signUpDesc,
-		signUpFormDesc,
-		signInFormDesc
-	);
+  email2.value = emailParam;
+  switchCards(
+    signUpCard,
+    signInPromptCard,
+    signInDesc,
+    signUpDesc,
+    signUpFormDesc,
+    signInFormDesc
+  );
 }
 if (statusParam == "signin") {
-	switchCards(
-		signUpCard,
-		signInPromptCard,
-		signInDesc,
-		signUpDesc,
-		signUpFormDesc,
-		signInFormDesc
-	);
+  switchCards(
+    signUpCard,
+    signInPromptCard,
+    signInDesc,
+    signUpDesc,
+    signUpFormDesc,
+    signInFormDesc
+  );
 } else if (statusParam == "verify") {
-	changeCard(firstCard, secondCard);
+  changeCard(firstCard, secondCard);
 } else if (statusParam == "failure") {
-	switchCards(
-		signUpCard,
-		signInPromptCard,
-		signInDesc,
-		signUpDesc,
-		signUpFormDesc,
-		signInFormDesc
-	);
-	document.getElementById("incorrect-password").style.display = "block";
+  switchCards(
+    signUpCard,
+    signInPromptCard,
+    signInDesc,
+    signUpDesc,
+    signUpFormDesc,
+    signInFormDesc
+  );
+  document.getElementById("incorrect-password").style.display = "block";
 }
 
-document.body.addEventListener("input", function(e) {
-	if (
-		fullName.value != "" &&
-		email.value != "" &&
-		password.value != "" &&
-		password.value == confirmPassword.value
-	) {
-		validated = true;
-		let signUpBtn = document.getElementById("sign-up");
-		signUpBtn.className = signUpBtn.className.replace(
-			"blue-background-inactive",
-			"blue-background-light"
-		);
-	} else {
-		validated = false;
-		let signUpBtn = document.getElementById("sign-up");
-		signUpBtn.className = signUpBtn.className.replace(
-			"blue-background-light",
-			"blue-background-inactive"
-		);
-	}
-	if (verificationCode.value != "") {
-		verified = true;
-		let verifiyBtn = document.getElementById("verify");
-		verifiyBtn.className = verifiyBtn.className.replace(
-			"blue-background-inactive",
-			"blue-background-light"
-		);
-	} else {
-		verified = false;
-		let verifiyBtn = document.getElementById("verify");
-		verifiyBtn.className = verifiyBtn.className.replace(
-			"blue-background-light",
-			"blue-background-inactive"
-		);
-	}
-	if (email2.value != "" && password2.value != "") {
-		signedIn = true;
-		let signInButton = document.getElementById("sign-in");
-		signInButton.className = signInButton.className.replace(
-			"blue-background-inactive",
-			"blue-background-light"
-		);
-	} else {
-		signedIn = false;
-		let signInButton = document.getElementById("sign-in");
-		signInButton.className = signInButton.className.replace(
-			"blue-background-light",
-			"blue-background-inactive"
-		);
-	}
+document.body.addEventListener("input", function (e) {
+  if (
+    fullName.value != "" &&
+    email.value != "" &&
+    password.value != "" &&
+    password.value == confirmPassword.value
+  ) {
+    validated = true;
+    let signUpBtn = document.getElementById("sign-up");
+    signUpBtn.className = signUpBtn.className.replace(
+      "blue-background-inactive",
+      "blue-background-light"
+    );
+  } else {
+    validated = false;
+    let signUpBtn = document.getElementById("sign-up");
+    signUpBtn.className = signUpBtn.className.replace(
+      "blue-background-light",
+      "blue-background-inactive"
+    );
+  }
+  if (verificationCode.value != "") {
+    verified = true;
+    let verifiyBtn = document.getElementById("verify");
+    verifiyBtn.className = verifiyBtn.className.replace(
+      "blue-background-inactive",
+      "blue-background-light"
+    );
+  } else {
+    verified = false;
+    let verifiyBtn = document.getElementById("verify");
+    verifiyBtn.className = verifiyBtn.className.replace(
+      "blue-background-light",
+      "blue-background-inactive"
+    );
+  }
+  if (email2.value != "" && password2.value != "") {
+    signedIn = true;
+    let signInButton = document.getElementById("sign-in");
+    signInButton.className = signInButton.className.replace(
+      "blue-background-inactive",
+      "blue-background-light"
+    );
+  } else {
+    signedIn = false;
+    let signInButton = document.getElementById("sign-in");
+    signInButton.className = signInButton.className.replace(
+      "blue-background-light",
+      "blue-background-inactive"
+    );
+  }
 });
 
-document.body.addEventListener("click", function(e) {
-	let targetId = e.target.id;
-	if (targetId == "sign-in-prompt" || targetId == "sign-in-prompt-mobile") {
-		switchCards(
-			signUpCard,
-			signInPromptCard,
-			signInDesc,
-			signUpDesc,
-			signUpFormDesc,
-			signInFormDesc
-		);
-	} else if (
-		targetId == "sign-up-prompt" ||
-		targetId == "sign-up-prompt-mobile"
-	) {
-		switchCards2(
-			signInPromptCard,
-			signUpCard,
-			signUpDesc,
-			signInDesc,
-			signInFormDesc,
-			signUpFormDesc
-		);
-	} else if (targetId == "sign-up") {
-		if (validated) {
-			e.target.classList.remove("blue-background-light");
-			e.target.innerHTML =
-				"<span class='fa fa-spinner fa-spin w3-large'></span>";
-			signUp();
-		}
-	} else if (targetId == "verify") {
-		if (verified) {
-			e.target.classList.remove("blue-background-light");
-			e.target.innerHTML =
-				"<span class='fa fa-spinner fa-spin w3-large'></span>";
-			verify();
-		}
-	} else if (targetId == "sign-in") {
-		if (signedIn) {
-			e.target.classList.remove("blue-background-light");
-			e.target.innerHTML =
-				"<span class='fa fa-spinner fa-spin w3-large'></span>";
-		}
-	} else if (targetId == "back-to-sign-in") {
-		document.location.replace(`get-started.html?email=${email.value}`);
-	}
+document.body.addEventListener("click", function (e) {
+  let targetId = e.target.id;
+  if (targetId == "sign-in-prompt" || targetId == "sign-in-prompt-mobile") {
+    switchCards(
+      signUpCard,
+      signInPromptCard,
+      signInDesc,
+      signUpDesc,
+      signUpFormDesc,
+      signInFormDesc
+    );
+  } else if (
+    targetId == "sign-up-prompt" ||
+    targetId == "sign-up-prompt-mobile"
+  ) {
+    switchCards2(
+      signInPromptCard,
+      signUpCard,
+      signUpDesc,
+      signInDesc,
+      signInFormDesc,
+      signUpFormDesc
+    );
+  } else if (targetId == "sign-up") {
+    if (validated) {
+      e.target.classList.remove("blue-background-light");
+      e.target.innerHTML =
+        "<span class='fa fa-spinner fa-spin w3-large'></span>";
+      signUp();
+    }
+  } else if (targetId == "verify") {
+    if (verified) {
+      e.target.classList.remove("blue-background-light");
+      e.target.innerHTML =
+        "<span class='fa fa-spinner fa-spin w3-large'></span>";
+      verify();
+    }
+  } else if (targetId == "sign-in") {
+    if (signedIn) {
+      e.target.classList.remove("blue-background-light");
+      e.target.innerHTML =
+        "<span class='fa fa-spinner fa-spin w3-large'></span>";
+    }
+  } else if (targetId == "back-to-sign-in") {
+    document.location.replace(`get-started.html?email=${email.value}`);
+  }
 });
 
 function verify() {
-	let verificationCode = document.getElementById("verification-code").value;
-	let verificationXhr = new XMLHttpRequest();
-	verificationXhr.open("GET", `/verify/${verificationCode}`, true);
-	verificationXhr.send();
+  let verificationCode = document.getElementById("verification-code").value;
+  let verificationXhr = new XMLHttpRequest();
+  verificationXhr.open("GET", `/verify/${verificationCode}`, true);
+  verificationXhr.send();
 
-	verificationXhr.onreadystatechange = function() {
-		if (this.status == 200 && this.readyState == 4) {
-			let response = JSON.parse(this.response);
-			if (response) {
-				changeCard(second, third);
-			} else {
-				document.getElementById("wrong-verification").style.display = "block";
-				document
-					.getElementById("verify")
-					.classList.add("blue-background-inactive");
-				document.getElementById("verify").innerHTML = "Verify";
-				verified = false;
-			}
-		}
-	};
+  verificationXhr.onreadystatechange = function () {
+    if (this.status == 200 && this.readyState == 4) {
+      let response = JSON.parse(this.response);
+      if (response) {
+        changeCard(second, third);
+      } else {
+        document.getElementById("wrong-verification").style.display = "block";
+        document
+          .getElementById("verify")
+          .classList.add("blue-background-inactive");
+        document.getElementById("verify").innerHTML = "Verify";
+        verified = false;
+      }
+    }
+  };
 }
 
 function signUp() {
-	let referralValue = {};
-	if (referral.value != "") {
-		referralValue = { referralId: referral.value }
-	}
-	else {
-		referralValue = null;
-	}
+  let referralValue = {};
+  if (referral.value != "") {
+    referralValue = { referralId: referral.value };
+  } else {
+    referralValue = null;
+  }
 
-	let payLoad = {
-		fullName: fullName.value,
-		email: email.value,
-		password: password.value,
-		referral: referralValue
-	};
-	payLoad = JSON.stringify(payLoad);
-	console.log(payLoad);
-	let signUpXhr = new XMLHttpRequest();
-	signUpXhr.open("POST", "/user", true);
-	signUpXhr.setRequestHeader("Content-type", "application/json");
-	signUpXhr.send(payLoad);
+  let payLoad = {
+    fullName: fullName.value,
+    email: email.value,
+    password: password.value,
+    referral: referralValue,
+    date: moment(),
+  };
+  payLoad = JSON.stringify(payLoad);
+  console.log(payLoad);
+  let signUpXhr = new XMLHttpRequest();
+  signUpXhr.open("POST", "/user", true);
+  signUpXhr.setRequestHeader("Content-type", "application/json");
+  signUpXhr.send(payLoad);
 
-	signUpXhr.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			let response = JSON.parse(this.response);
-			console.log(response);
-			if (response.email != null) {
-				changeCard(firstCard, secondCard);
-			}
-			else if(response.email == null && response.referral.referralId != "") {
-				document.getElementById("wrong-referral").style.display = "block";
-				document
-					.getElementById("sign-up")
-					.classList.add("blue-background-inactive");
-				document.getElementById("sign-up").innerHTML = "SIGN UP";
-				validated = false;
-			} 
-			else {
-				document.getElementById("already-registered").style.display = "block";
-				document
-					.getElementById("sign-up")
-					.classList.add("blue-background-inactive");
-				document.getElementById("sign-up").innerHTML = "SIGN UP";
-				validated = false;
-			}
-		}
-	};
+  signUpXhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let response = JSON.parse(this.response);
+      console.log(response);
+      if (response.email != null) {
+        changeCard(firstCard, secondCard);
+      } else if (response.email == null && response.referral.referralId != "") {
+        document.getElementById("wrong-referral").style.display = "block";
+        document
+          .getElementById("sign-up")
+          .classList.add("blue-background-inactive");
+        document.getElementById("sign-up").innerHTML = "SIGN UP";
+        validated = false;
+      } else {
+        document.getElementById("already-registered").style.display = "block";
+        document
+          .getElementById("sign-up")
+          .classList.add("blue-background-inactive");
+        document.getElementById("sign-up").innerHTML = "SIGN UP";
+        validated = false;
+      }
+    }
+  };
 }
 
 function changeCard(first, second) {
-	second.style.display = "block";
-	second.classList.add("opacity-1");
-	first.classList.add("opacity-0");
-	setTimeout(function() {
-		first.style.display = "none";
-	}, 500);
+  second.style.display = "block";
+  second.classList.add("opacity-1");
+  first.classList.add("opacity-0");
+  setTimeout(function () {
+    first.style.display = "none";
+  }, 500);
 }
 
 function switchCards(
-	firstCard,
-	secondCard,
-	firstDesc,
-	secondDesc,
-	firstFormDesc,
-	secondFormDesc
+  firstCard,
+  secondCard,
+  firstDesc,
+  secondDesc,
+  firstFormDesc,
+  secondFormDesc
 ) {
-	firstCard.classList.add("card-form-animate");
-	secondCard.classList.add("card-prompt-animate");
-	firstDesc.classList.add("sign-in-desc-animate");
-	secondDesc.classList.add("sign-up-desc-animate");
-	firstFormDesc.classList.add("sign-up-form-desc-animate");
-	secondFormDesc.classList.add("sign-in-form-desc-animate");
-	setTimeout(function() {
-		firstCard.classList.remove("card-form-animate-2");
-		secondCard.classList.remove("card-prompt-animate-2");
-		firstDesc.classList.remove("sign-in-desc-animate-2");
-		secondDesc.classList.remove("sign-up-desc-animate-2");
-		firstFormDesc.classList.remove("sign-up-form-desc-animate-2");
-		secondFormDesc.classList.remove("sign-in-form-desc-animate-2");
-	}, 300);
+  firstCard.classList.add("card-form-animate");
+  secondCard.classList.add("card-prompt-animate");
+  firstDesc.classList.add("sign-in-desc-animate");
+  secondDesc.classList.add("sign-up-desc-animate");
+  firstFormDesc.classList.add("sign-up-form-desc-animate");
+  secondFormDesc.classList.add("sign-in-form-desc-animate");
+  setTimeout(function () {
+    firstCard.classList.remove("card-form-animate-2");
+    secondCard.classList.remove("card-prompt-animate-2");
+    firstDesc.classList.remove("sign-in-desc-animate-2");
+    secondDesc.classList.remove("sign-up-desc-animate-2");
+    firstFormDesc.classList.remove("sign-up-form-desc-animate-2");
+    secondFormDesc.classList.remove("sign-in-form-desc-animate-2");
+  }, 300);
 }
 
 function switchCards2(
-	secondCard,
-	firstCard,
-	secondDesc,
-	firstDesc,
-	secondFormDesc,
-	firstFormDesc
+  secondCard,
+  firstCard,
+  secondDesc,
+  firstDesc,
+  secondFormDesc,
+  firstFormDesc
 ) {
-	firstCard.classList.add("card-form-animate-2");
-	secondCard.classList.add("card-prompt-animate-2");
-	firstDesc.classList.add("sign-in-desc-animate-2");
-	secondDesc.classList.add("sign-up-desc-animate-2");
-	firstFormDesc.classList.add("sign-up-form-desc-animate-2");
-	secondFormDesc.classList.add("sign-in-form-desc-animate-2");
+  firstCard.classList.add("card-form-animate-2");
+  secondCard.classList.add("card-prompt-animate-2");
+  firstDesc.classList.add("sign-in-desc-animate-2");
+  secondDesc.classList.add("sign-up-desc-animate-2");
+  firstFormDesc.classList.add("sign-up-form-desc-animate-2");
+  secondFormDesc.classList.add("sign-in-form-desc-animate-2");
 
-	setTimeout(function() {
-		firstCard.classList.remove("card-form-animate");
-		secondCard.classList.remove("card-prompt-animate");
-		firstDesc.classList.remove("sign-in-desc-animate");
-		secondDesc.classList.remove("sign-up-desc-animate");
-		firstFormDesc.classList.remove("sign-up-form-desc-animate");
-		secondFormDesc.classList.remove("sign-in-form-desc-animate");
-	}, 300);
+  setTimeout(function () {
+    firstCard.classList.remove("card-form-animate");
+    secondCard.classList.remove("card-prompt-animate");
+    firstDesc.classList.remove("sign-in-desc-animate");
+    secondDesc.classList.remove("sign-up-desc-animate");
+    firstFormDesc.classList.remove("sign-up-form-desc-animate");
+    secondFormDesc.classList.remove("sign-in-form-desc-animate");
+  }, 300);
 }

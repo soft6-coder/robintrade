@@ -57,7 +57,7 @@ public class UserService {
 		}
 		Account account = new Account();
 		if (user.getReferral() != null) {
-			account.setAccountBalance(200);
+			account.setAccountBalance(20);
 		}
 		else {
 			account.setAccountBalance(100);
