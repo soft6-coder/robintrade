@@ -1,5 +1,6 @@
 package com.soft6creators.futurespace.app.user;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -11,6 +12,7 @@ import com.soft6creators.futurespace.app.account.Account;
 public class User {
 	private String fullName;
 	@Id
+	@Column(length = 128)
 	private String email;
 	private String password;
 	@ManyToOne

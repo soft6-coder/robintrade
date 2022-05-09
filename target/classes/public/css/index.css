@@ -1,6 +1,9 @@
 .padding-form {
   padding: 12% 8%;
 }
+html.sr .load-hidden {
+  visibility: hidden;
+}
 .no-margin {
   margin: 0;
 }
