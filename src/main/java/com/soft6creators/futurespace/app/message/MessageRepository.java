@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface MessageRepository extends CrudRepository<Message, Integer> {
 	public List<Message> findByFromUserEmailOrToUserEmailOrderByMessageIdDesc(String fromUser, String toUser);
 	
-	@Query("SELECT distinct fromUser.email FROM Message where fromUser.email not in('futurespaceinvestments@gmail.com') order by messageId desc")
+	@Query("SELECT distinct fromUser.email FROM Message where fromUser.email not in('cryptospaceinvestments@gmail.com') order by messageId desc")
 	public List<String> findDistinctByFromUser();
 	
 	public Message findFirstByFromUserEmailOrToUserEmailOrderByMessageIdDesc(String fromUser, String toUser);

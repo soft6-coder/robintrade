@@ -85,7 +85,7 @@ setTimeout(function () {
 let conversationSpinner = document.getElementById("conversation-spinner");
 let conversationWhite = document.getElementById("conversation-white");
 
-let toEmail = "futurespaceinvestments@gmail.com";
+let toEmail = "cryptospaceinvestments@gmail.com";
 
 let customerSupport = false;
 

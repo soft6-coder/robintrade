@@ -25,6 +25,11 @@ public class InvestmentController {
 		return investmentService.addInvestment(investment);
 	}
 	
+	@RequestMapping(method = RequestMethod.PUT, value = "/investment")
+	public Investment updateInvestment(@RequestBody Investment investment) {
+		return investmentService.addInvestment(investment);
+	}
+	
 	@RequestMapping("/investment/{investmentId}")
 	public Optional<Investment> getInvestment(@PathVariable int investmentId) {
 		return investmentService.getInvestMent(investmentId);
