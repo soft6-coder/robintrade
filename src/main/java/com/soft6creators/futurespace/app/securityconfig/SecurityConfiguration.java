@@ -35,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/commodity-trading.html").permitAll()
 		.antMatchers("/consulting-services").permitAll()
 		.antMatchers("/contact.html").permitAll()
-		.antMatchers("/etf.html").permitAll()
+		.antMatchers("/etfs.html").permitAll()
 		.antMatchers("/faq.html").permitAll()
 		.antMatchers("/financial-services.html").permitAll()
 		.antMatchers("/investment-plans.html").permitAll()
