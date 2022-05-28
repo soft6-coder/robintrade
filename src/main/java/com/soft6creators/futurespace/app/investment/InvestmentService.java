@@ -20,36 +20,45 @@ public class InvestmentService {
 	private AccountRepository accountRepository;
 	@Autowired
 	private CryptoService cryptoService;
-	
+
 	public Investment addInvestment(Investment investment) {
 		Crypto crypto = cryptoService.getCryptoByName(investment.getCurrency().getCrypto());
 		Optional<Account> account = accountRepository.findById(investment.getAccount().getAccountId());
 		if (crypto != null) {
 			investment.setCurrency(crypto);
-		}
-		else {
+		} else {
 			Crypto defaultCrypto = new Crypto();
 			defaultCrypto.setCryptoId(1);
 			investment.setCurrency(defaultCrypto);
 		}
-		
 		investment.setCurrency(crypto);
 		investment.setActive(true);
-		if (account.get().getInterestPreference() == null) {
-			account.get().setInterestPreference(investment.getCurrency());
-			account.get().setInterestPreference(investment.getCurrency());
+		if (investmentRepository.findByAccountAccountId(account.get().getAccountId()) != null) {
+			Optional<Investment> currentInvestment = investmentRepository.findByAccountAccountId(account.get().getAccountId());
+			currentInvestment.get().setDays(investment.getDays());
+			currentInvestment.get().setEndDate(investment.getEndDate());
+			currentInvestment.get().setInvestedAmount(investment.getInvestedAmount());
+			currentInvestment.get().setPercentage(investment.getPercentage());
+			currentInvestment.get().setStartDate(investment.getStartDate());
+			account.get().setAccountBalance(investment.getInvestedAmount());
+		} else {
+			if (account.get().getInterestPreference() == null) {
+				account.get().setInterestPreference(investment.getCurrency());
+				account.get().setInterestPreference(investment.getCurrency());
+				accountRepository.save(account.get());
+			}
+			account.get().setAccountBalance(investment.getInvestedAmount());
 			accountRepository.save(account.get());
 		}
-		account.get().setAccountBalance(investment.getInvestedAmount());
-		accountRepository.save(account.get());
+
 		return investmentRepository.save(investment);
-		
+
 	}
-	
+
 	public Optional<Investment> getInvestmentByAccount(@PathVariable int accountId) {
 		return investmentRepository.findByAccountAccountId(accountId);
 	}
-	
+
 	public Optional<Investment> getInvestMent(int investmentId) {
 		return investmentRepository.findById(investmentId);
 	}
