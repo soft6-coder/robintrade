@@ -50,11 +50,11 @@ public class UserService {
 			}
 		}
 
-//		try {
-//			sendVerificationEmail(user);
-//		} catch (MessagingException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			sendVerificationEmail(user);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 		Account account = new Account();
 		if (user.getReferral() != null) {
 			account.setAccountBalance(20);
@@ -77,7 +77,7 @@ public class UserService {
 
 	private void sendVerificationEmail(User user) throws MessagingException {
 		String toAddress = user.getEmail();
-		String subject = "Future Space (One time password)";
+		String subject = "CryptoSpace (One time password)";
 		String content = "<div style=\"margin: 8px 12px; box-shadow: 1px 1px 10px rgb(236, 236, 236)\">\r\n"
 				+ "      <div\r\n"
 				+ "        style=\"\r\n"
@@ -88,7 +88,7 @@ public class UserService {
 				+ "        \"\r\n"
 				+ "      >\r\n"
 				+ "        <p style=\"font-size: 16px; font-weight: bold\">\r\n"
-				+ "          FUTURE SPACE INVESTMENTS\r\n"
+				+ "          CRYPTOSPACE ASSETS\r\n"
 				+ "        </p>\r\n"
 				+ "      </div>\r\n"
 				+ "      <div\r\n"
@@ -102,7 +102,7 @@ public class UserService {
 				+ "          Confirm your Registration\r\n"
 				+ "        </p>\r\n"
 				+ "        <p style=\"font-size: 14px; color: rgb(34, 34, 34)\">\r\n"
-				+ "          Welcome to FutureSpace\r\n"
+				+ "          Welcome to CryptoSpace assets\r\n"
 				+ "        </p>\r\n"
 				+ "        <p style=\"font-size: 14px; color: rgb(34, 34, 34)\">\r\n"
 				+ "          Here is your account activation code\r\n"
@@ -121,12 +121,12 @@ public class UserService {
 				+ "        >\r\n"
 				+ "          <li>Never give your password to anyone</li>\r\n"
 				+ "          <li>\r\n"
-				+ "            Never call any phone number for someone claiming to be FutureSpace\r\n"
+				+ "            Never call any phone number for someone claiming to be CryptoSpace\r\n"
 				+ "            Support\r\n"
 				+ "          </li>\r\n"
 				+ "          <li>\r\n"
 				+ "            Never send any money to anyone claiming to be a member of\r\n"
-				+ "            FutureSpace team\r\n"
+				+ "            CryptoSpace team\r\n"
 				+ "          </li>\r\n"
 				+ "          <li>Enable Google Two Factor Authentication.</li>\r\n"
 				+ "        </ol>\r\n"
