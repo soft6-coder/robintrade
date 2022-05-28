@@ -54,30 +54,7 @@ document.body.addEventListener("click", function (e) {
 });
 
 function startInvestment() {
-  if (investmentValue != undefined && investmentValue.active == true) {
-    let investment = {
-      investmentId: investmentValue.investmentId,
-      account: { accountId: account.accountId },
-      investedAmount: investedAmountEtx.value,
-      days: daysEtx.value,
-      isActive: true,
-      currency: { crypto: "Bitcoin" },
-      percentage: percentEtx.value,
-      startDate: moment(),
-      endDate: moment(moment()).add(daysEtx.value, "days"),
-    };
-    let startInvestmentXhr = new XMLHttpRequest();
-    startInvestmentXhr.open("PUT", "/investment", true);
-    startInvestmentXhr.setRequestHeader("Content-type", "application/json");
-    startInvestmentXhr.send(JSON.stringify(investment));
-
-    startInvestmentXhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        location.reload();
-      }
-    };
-  } else {
-    let investment = {
+ let investment = {
       account: { accountId: account.accountId },
       investedAmount: investedAmountEtx.value,
       days: daysEtx.value,
@@ -97,7 +74,6 @@ function startInvestment() {
         location.reload();
       }
     };
-  }
 }
 
 function getUserDetails() {
@@ -219,119 +195,75 @@ function bindUserInfo(info, investment) {
 	   <div class="w3-row">
               <div class="w3-col s6 w3-border-right">
                 <div class="w3-padding-large">
-                  <p class="x-large blue-text-dash">Info</p>
+                  <p class="large blue-text-dash w3-center">Info</p>
                   <div class="w3-row-padding">
-                    <div class="w3-col s6">
-                      <p class="no-margin-2 big" style="font-weight: 500">
-                        Name:
-                      </p>
-                    </div>
-                    <div class="w3-col s6">
+                   
+                    <div class="w3-col s12">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.user.fullName}
                       </p>
                     </div>
-                    <div class="w3-col s6">
-                      <p class="no-margin-2 big" style="font-weight: 500">
-                        Password:
-                      </p>
-                    </div>
-                    <div class="w3-col s6">
+                    
+                    <div class="w3-col s12">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.user.password}
                       </p>
                     </div>
-                    <div class="w3-col s6">
-                      <p class="no-margin-2 big" style="font-weight: 500">
-                        Email:
-                      </p>
-                    </div>
-                    <div class="w3-col s6">
+                    
+                    <div class="w3-col s12">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.user.email}
                       </p>
                     </div>
-                    <div class="w3-col s6">
-                      <p class="no-margin-2 big" style="font-weight: 500">
-                        Mobile number:
-                      </p>
-                    </div>
-                    <div class="w3-col s6">
+                   
+                    <div class="w3-col s12">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.mobileNumber}
                       </p>
                     </div>
-                    <div class="w3-col s6">
-                      <p class="no-margin-2 big" style="font-weight: 500">
-                        SSN:
-                      </p>
-                    </div>
-                    <div class="w3-col s6">
+                   
+                    <div class="w3-col s12">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.user.ssn}
                       </p>
                     </div>
-                    <div class="w3-col s6">
-                      <p class="no-margin-2 big" style="font-weight: 500">
-                        Referral ID:
-                      </p>
-                    </div>
-                    <div class="w3-col s6">
+                   
+                    <div class="w3-col s12">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.user.referralId}
                       </p>
                     </div>
-                    <div class="w3-col s6">
-                      <p class="no-margin-2 big" style="font-weight: 500">
-                        Referred by:
-                      </p>
-                    </div>
-                    <div class="w3-col s6">
+                    
+                    <div class="w3-col s12">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.user.referralEmail}
                       </p>
                     </div>
-                    <div class="w3-col s6">
-                      <p class="no-margin-2 big" style="font-weight: 500">
-                        Country:
-                      </p>
-                    </div>
-                    <div class="w3-col s6">
+                    
+                    <div class="w3-col s12">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.country.countryName}
                       </p>
                     </div>
-                    <div class="w3-col s6">
-                      <p class="no-margin-2 big" style="font-weight: 500">
-                        State:
-                      </p>
-                    </div>
-                    <div class="w3-col s6">
+                    
+                    <div class="w3-col s12">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.state.stateName}
                       </p>
                     </div>
-                    <div class="w3-col s6">
-                      <p class="no-margin-2 big" style="font-weight: 500">
-                        City:
-                      </p>
-                    </div>
-                    <div class="w3-col s6">
+                    
+                    <div class="w3-col s12">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.city}
                       </p>
                     </div>
                   </div>
-                  <div>
-                    <p class="big blue-text-dash w3-margin-top">
-                      Date Registered: <span class="w3-text-black">${info.user.date}</span>
-                    </p>
-                  </div>
+                  
                 </div>
               </div>
               <div class="w3-col s6">
                 <div class="w3-padding-large">
-                  <p class="x-large blue-text-dash">Account</p>
+                  <p class="large blue-text-dash w3-center">Account</p>
                   <p
                     class="w3-center large blue-text-dash"
                     style="font-weight: 500"
@@ -342,7 +274,7 @@ function bindUserInfo(info, investment) {
                     $<span>${info.user.account.accountBalance}</span>
                   </p>
                   <div class="w3-row-padding w3-center">
-                    <div class="w3-col s6">
+                    <div class="w3-col s12">
                       <p
                         class="no-margin-2 big blue-text-dash"
                         style="font-weight: 500"
@@ -353,7 +285,7 @@ function bindUserInfo(info, investment) {
                         $<span>${info.user.account.accountBalance}</span>
                       </p>
                     </div>
-                    <div class="w3-col s6">
+                    <div class="w3-col s12">
                       <p
                         class="no-margin-2 big blue-text-dash"
                         style="font-weight: 500"
@@ -364,7 +296,7 @@ function bindUserInfo(info, investment) {
                         $<span>${investment.interestPaid}</span>
                       </p>
                     </div>
-                    <div class="w3-col s6">
+                    <div class="w3-col s12">
                       <p
                         class="no-margin-2 big blue-text-dash"
                         style="font-weight: 500"
@@ -375,7 +307,7 @@ function bindUserInfo(info, investment) {
                         $<span>${investment.interestAccrued}</span>
                       </p>
                     </div>
-                    <div class="w3-col s6">
+                    <div class="w3-col s12">
                       <p
                         class="no-margin-2 big blue-text-dash"
                         style="font-weight: 500"
