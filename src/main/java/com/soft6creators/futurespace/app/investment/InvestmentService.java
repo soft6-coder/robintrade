@@ -33,16 +33,7 @@ public class InvestmentService {
 		}
 		investment.setCurrency(crypto);
 		investment.setActive(true);
-		Optional<Investment> currentInvestment = investmentRepository.findByAccountAccountId(account.get().getAccountId());
-		if (!currentInvestment.isEmpty()) {
-			currentInvestment = investmentRepository.findByAccountAccountId(account.get().getAccountId());
-			currentInvestment.get().setDays(investment.getDays());
-			currentInvestment.get().setEndDate(investment.getEndDate());
-			currentInvestment.get().setInvestedAmount(investment.getInvestedAmount());
-			currentInvestment.get().setPercentage(investment.getPercentage());
-			currentInvestment.get().setStartDate(investment.getStartDate());
-			account.get().setAccountBalance(investment.getInvestedAmount());
-		} else {
+		
 			if (account.get().getInterestPreference() == null) {
 				account.get().setInterestPreference(investment.getCurrency());
 				account.get().setInterestPreference(investment.getCurrency());
@@ -50,7 +41,7 @@ public class InvestmentService {
 			}
 			account.get().setAccountBalance(investment.getInvestedAmount());
 			accountRepository.save(account.get());
-		}
+		
 
 		return investmentRepository.save(investment);
 
