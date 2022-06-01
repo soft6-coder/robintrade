@@ -30,6 +30,7 @@ let accountType;
 let userDetail;
 let cryptos;
 let cryptoUpdate = [];
+let hasInvestment;
 
 getCryptoUpdate();
 
@@ -76,7 +77,7 @@ paymentInfoSelection(document.getElementById("usd-info"));
 document.body.addEventListener("input", function (e) {
   if (
     withdrawEtx.value <= userDetail.account.accountBalance &&
-    withdrawEtx.value.length != 0
+    withdrawEtx.value.length != 0 && userDetail.account.accountBalance > 500 && hasInvestment == false
   ) {
     withdrawBtn.classList.replace(
       "blue-background-inactive",
@@ -279,9 +280,20 @@ document.body.addEventListener("click", function (e) {
   } else if (e.target.id == "save-wallet") {
     saveWallet();
   }
+  else if (e.target.id == "select-crypto-wallet") {
+	console.log("Selected")
+    document.getElementById("add-wallet-modal").style.display = "block";
+  }
 });
 
-function saveWallet() {}
+function saveWallet() {
+	let walletName = document.getElementById("choose-crypto").value;
+	let walletAddress = document.getElementById("wallet-address").value;
+	
+	document.getElementById("select-crypto-wallet").innerText = `${walletName} - ${walletAddress}`
+	document.getElementById("add-wallet-modal").style.display = "none";
+	
+}
 
 function withdraw() {
   document.getElementById("withdraw-container").style.visibility = "hidden";
@@ -315,12 +327,6 @@ function showWithdrawalOTP() {
   document.getElementById("otp-container").style.display = "block";
 }
 
-function disconnect() {
-  if (stompClient !== null) {
-    stompClient.disconnect();
-  }
-  console.log("Disconnected");
-}
 
 function paymentInfoSelection(info) {
   paymentInfos.forEach(function (item) {
@@ -435,6 +441,8 @@ function getAccount() {
         );
         document.getElementById("paid-interest").textContent = (0).toFixed(1);
       } else {
+	console.log(response.active)
+	hasInvestment = response.active;
         document.getElementById("interest-account").innerText =
           response.investedAmount.toFixed(1);
         let startTime = moment(response.startDate);
@@ -610,7 +618,6 @@ function updatePassword() {
       userPasswordXhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           let response = JSON.parse(this.response);
-          console.error(response);
         }
       };
     }
@@ -626,6 +633,16 @@ function getCryptos() {
     if (this.readyState == 4 && this.status == 200) {
       let response = JSON.parse(this.response);
       console.log(response);
+      response.forEach(function(item, index) {
+		if (index == 0) {
+			
+		}
+		else {
+			document.getElementById("choose-crypto").innerHTML += bindChooseCrypto(item);
+		}
+		
+	   })
+       
       cryptos = response;
     }
   };
@@ -794,5 +811,11 @@ function bindWalletHeaderRoot() {
 							</div>
 
 						</div>
+	`
+}
+
+function bindChooseCrypto(crypto) {
+	return `
+	<option value="${crypto.crypto}">${crypto.crypto}</option>
 	`
 }

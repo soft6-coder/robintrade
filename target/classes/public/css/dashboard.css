@@ -308,7 +308,7 @@ input:focus {
     padding: 32px 0px 32px 128px;
   }
   .main-height {
-    height: 900px;
+    height: 1500px;
     position: relative;
   }
   .card-spc {
@@ -343,7 +343,7 @@ input:focus {
     right: 40px;
   }
   .height {
-    height: 450px;
+    height: 1000px;
   }
   .chat-box-height {
     height: 560px;
