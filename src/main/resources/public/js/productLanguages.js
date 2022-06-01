@@ -2,11 +2,11 @@
 let content = [
   [
     { contentName: "headerTitle" },
-    { en: "CRYPTO SPACE INVESTMENTS" },
+    { en: "Robin Trade INVESTMENTS" },
     { spn: "" },
     { fre: "" },
   ],
-  [{ contentName: "title" }, { en: "CRYPTO SPACE" }, { spn: "" }, { fre: "" }],
+  [{ contentName: "title" }, { en: "Robin Trade" }, { spn: "" }, { fre: "" }],
   [{ contentName: "products" }, { en: "Products" }, { spn: "" }, { fre: "" }],
   [
     { contentName: "institutions" },
@@ -39,7 +39,7 @@ let content = [
   ],
   [
     { contentName: "content2" },
-    { en: "With a Crypto Space Interest Account (FIA), your cryptocurrency can earn up to 100% APY and more. Interest accrues daily and is paid weekly. There are no hidden, and no reason to wait. " },
+    { en: "With a Robin Trade Interest Account (FIA), your cryptocurrency can earn up to 100% APY and more. Interest accrues daily and is paid weekly. There are no hidden, and no reason to wait. " },
     { spn: "" },
     { fre: "" },
   ],
@@ -105,7 +105,7 @@ let content = [
   ],
   [
     { contentName: "content12" },
-    { en: "Why go with Crypto Space?" },
+    { en: "Why go with Robin Trade?" },
     { spn: "" },
     { fre: "" },
   ],
@@ -129,7 +129,7 @@ let content = [
   ],
   [
     { contentName: "content16" },
-    { en: "Our platform gives you full transparency and control over your account and assets. And with the Crypto Space app, you can manage your account from any smart device" },
+    { en: "Our platform gives you full transparency and control over your account and assets. And with the Robin Trade app, you can manage your account from any smart device" },
     { spn: "" },
     { fre: "" },
   ],
@@ -153,7 +153,7 @@ let content = [
   ],
   [
     { contentName: "content20" },
-    { en: "Our platform gives you full transparency and control over your account and assets. And with the Crypto Space app, you can manage your account from any smart device. " },
+    { en: "Our platform gives you full transparency and control over your account and assets. And with the Robin Trade app, you can manage your account from any smart device. " },
     { spn: "" },
     { fre: "" },
   ],
@@ -177,7 +177,7 @@ let content = [
   ],
   [
     { contentName: "content24" },
-    { en: "Our platform gives you full transparency and control over your account and assets. And with the Crypto Space app, you can manage your account from any smart device " },
+    { en: "Our platform gives you full transparency and control over your account and assets. And with the Robin Trade app, you can manage your account from any smart device " },
     { spn: "" },
     { fre: "" },
   ],
@@ -189,13 +189,13 @@ let content = [
   ],
   [
     { contentName: "content26" },
-    { en: "Learn more about Crypto Space interest accounts " },
+    { en: "Learn more about Robin Trade interest accounts " },
     { spn: "" },
     { fre: "" },
   ],
   [
     { contentName: "content27" },
-    { en: "When will the Crypto Space Bitcoin Rewards Credit Card be available?" },
+    { en: "When will the Robin Trade Bitcoin Rewards Credit Card be available?" },
     { spn: "" },
     { fre: "" },
   ],
@@ -225,13 +225,13 @@ let content = [
   ],
   [
     { contentName: "content32" },
-    { en: "Crypto Space Lending LLC NMLS ID#1737520 | NMLS Consumer Access " },
+    { en: "Robin Trade Lending LLC NMLS ID#1737520 | NMLS Consumer Access " },
     { spn: "" },
     { fre: "" },
   ],
   [
     { contentName: "content33" },
-    { en: "Crypto Space Trading LLC NMLS ID#1873137 | NMLS Consumer Access " },
+    { en: "Robin Trade Trading LLC NMLS ID#1873137 | NMLS Consumer Access " },
     { spn: "" },
     { fre: "" },
   ],
@@ -243,7 +243,7 @@ let content = [
   ],
   [
     { contentName: "content35" },
-    { en: "Disclaimer: Rates for Crypto Space products are subject to change. Digital currency is not legal tender, is not backed by the government, and FIA accounts are not subject to FDIC or SIPC protections. Security is our top priority. Please see our Vulnerability Disclosure Form and Bug Bounty Program. " },
+    { en: "Disclaimer: Rates for Robin Trade products are subject to change. Digital currency is not legal tender, is not backed by the government, and FIA accounts are not subject to FDIC or SIPC protections. Security is our top priority. Please see our Vulnerability Disclosure Form and Bug Bounty Program. " },
     { spn: "" },
     { fre: "" },
   ],

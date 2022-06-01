@@ -2,13 +2,13 @@
 let contents = [
   (headerTitle = [
     { contentName: "headerTitle" },
-    { en: "CRYPTO SPACE INVESTMENTS" },
+    { en: "Robin Trade INVESTMENTS" },
     { spn: "" },
     { fre: "" },
   ]),
   (title = [
     { contentName: "title" },
-    { en: "CRYPTO SPACE" },
+    { en: "Robin Trade" },
     { spn: "" },
     { fre: "" },
   ]),
@@ -95,7 +95,7 @@ let contents = [
   ]),
   (content46 = [
     { contentName: "content46" },
-    { en: "CRYPTO SPACE INTEREST ACCOUNT" },
+    { en: "Robin Trade INTEREST ACCOUNT" },
     { spn: "" },
     { fre: "" },
   ]),
@@ -108,7 +108,7 @@ let contents = [
   (content4 = [
     { contentName: "content4" },
     {
-      en: "With a CRYPTO SPACE Interest Account (FSI), your cryptocurrency can earn up to 1000% APY and more. Interest accrues hourly and its paid daily. There are no hidden fees, and no reason to wait.",
+      en: "With a Robin Trade Interest Account (FSI), your cryptocurrency can earn up to 1000% APY and more. Interest accrues hourly and its paid daily. There are no hidden fees, and no reason to wait.",
     },
     { spn: "" },
     { fre: "" },
@@ -189,7 +189,7 @@ let contents = [
   ]),
   (content47 = [
     { contentName: "content47" },
-    { en: "CRYPTO SPACE TRADING ACCOUNT" },
+    { en: "Robin Trade TRADING ACCOUNT" },
     { spn: "" },
     { fre: "" },
   ]),
@@ -202,7 +202,7 @@ let contents = [
   (content18 = [
     { contentName: "content18" },
     {
-      en: "With CRYPTO SPACE Trading you can buy, sell, or exchange a variety of cryptocurrencies at competitive prices and start earning interest the moment your trade is placed.",
+      en: "With Robin Trade Trading you can buy, sell, or exchange a variety of cryptocurrencies at competitive prices and start earning interest the moment your trade is placed.",
     },
     { spn: "" },
     { fre: "" },
@@ -215,7 +215,7 @@ let contents = [
   ]),
   (content20 = [
     { contentName: "content20" },
-    { en: "CRYPTO SPACE LOAN ACCOUNT" },
+    { en: "Robin Trade LOAN ACCOUNT" },
     { spn: "" },
     { fre: "" },
   ]),
@@ -228,7 +228,7 @@ let contents = [
   (content22 = [
     { contentName: "content22" },
     {
-      en: " You don’t have to sell your crypto to get cash. At CRYPTO SPACE, we let you borrow funds against your crypto assets so you can get a loan while continuing to hold.",
+      en: " You don’t have to sell your crypto to get cash. At Robin Trade, we let you borrow funds against your crypto assets so you can get a loan while continuing to hold.",
     },
     { spn: "" },
     { fre: "" },
@@ -268,14 +268,14 @@ let contents = [
   (content26 = [
     { contentName: "content26" },
     {
-      en: "Joining the waitlist to apply for the CRYPTO SPACE Bitcoin Rewards Credit Card (“Card”) does not guarantee that you will be eligible to receive the card. Geographic, regulatory, and underwriting restrictions will apply. Fees and terms are subject to change, and additional terms of service will apply to the Card. Trading qualifications are dependent upon regulatory and geographical restrictions. Rates for CRYPTO SPACE products are subject to change. Digital currency is not legal tender, is not backed by the government, and crypto interest accounts are not subject to FDIC or SIPC protections. By joining the waitlist to apply for the Card, you agree to receive marketing communications pursuant to CRYPTO SPACE",
+      en: "Joining the waitlist to apply for the Robin Trade Bitcoin Rewards Credit Card (“Card”) does not guarantee that you will be eligible to receive the card. Geographic, regulatory, and underwriting restrictions will apply. Fees and terms are subject to change, and additional terms of service will apply to the Card. Trading qualifications are dependent upon regulatory and geographical restrictions. Rates for Robin Trade products are subject to change. Digital currency is not legal tender, is not backed by the government, and crypto interest accounts are not subject to FDIC or SIPC protections. By joining the waitlist to apply for the Card, you agree to receive marketing communications pursuant to Robin Trade",
     },
     { spn: "" },
     { fre: "" },
   ]),
   (content27 = [
     { contentName: "content27" },
-    { en: "Why Choose CRYPTO SPACE" },
+    { en: "Why Choose Robin Trade" },
     { spn: "" },
     { fre: "" },
   ]),
@@ -289,7 +289,7 @@ let contents = [
   ]),
   (content29 = [
     { contentName: "content29" },
-    { en: "Why CRYPTO SPACE" },
+    { en: "Why Robin Trade" },
     { spn: "" },
     { fre: "" },
   ]),
@@ -328,7 +328,7 @@ let contents = [
   (content35 = [
     { contentName: "content35" },
     {
-      en: "We’re committed to trust and transparency. CRYPTO SPACE has built a best-in-class compliance program to protect your assets.",
+      en: "We’re committed to trust and transparency. Robin Trade has built a best-in-class compliance program to protect your assets.",
     },
     { spn: "" },
     { fre: "" },
@@ -354,7 +354,7 @@ let contents = [
   (content39 = [
     { contentName: "content39" },
     {
-      en: "We’ve got a rock-solid foundation. CRYPTO SPACE is backed by industry-leading investors, including Valar Ventures, Morgan Creek Capital Management, Coinbase Ventures, Galaxy Digital, Susquehanna Government Products, Winklevoss Capital, and more.",
+      en: "We’ve got a rock-solid foundation. Robin Trade is backed by industry-leading investors, including Valar Ventures, Morgan Creek Capital Management, Coinbase Ventures, Galaxy Digital, Susquehanna Government Products, Winklevoss Capital, and more.",
     },
     { spn: "" },
     { fre: "" },
@@ -367,19 +367,19 @@ let contents = [
   ]),
   (content41 = [
     { contentName: "content41" },
-    { en: "CRYPTO SPACE" },
+    { en: "Robin Trade" },
     { spn: "" },
     { fre: "" },
   ]),
   (content42 = [
     { contentName: "content42" },
-    { en: "CRYPTO SPACE Lending LLC NMLS ID#1737520 | NMLS Consumer Access" },
+    { en: "Robin Trade Lending LLC NMLS ID#1737520 | NMLS Consumer Access" },
     { spn: "" },
     { fre: "" },
   ]),
   (content43 = [
     { contentName: "content43" },
-    { en: "CRYPTO SPACE Trading LLC NMLS ID#1873137 | NMLS Consumer Access" },
+    { en: "Robin Trade Trading LLC NMLS ID#1873137 | NMLS Consumer Access" },
     { spn: "" },
     { fre: "" },
   ]),
@@ -394,7 +394,7 @@ let contents = [
   (content45 = [
     { contentName: "content45" },
     {
-      en: "Disclaimer: Rates for CRYPTO SPACE products are subject to change. Digital currency is not legal tender, is not backed by the government, and FSI accounts are not subject to FDIC or SIPC protections. Security is our top priority. Please see our Vulnerability Disclosure Form and Bug Bounty Program.",
+      en: "Disclaimer: Rates for Robin Trade products are subject to change. Digital currency is not legal tender, is not backed by the government, and FSI accounts are not subject to FDIC or SIPC protections. Security is our top priority. Please see our Vulnerability Disclosure Form and Bug Bounty Program.",
     },
     { spn: "" },
     { fre: "" },
