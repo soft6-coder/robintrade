@@ -259,10 +259,11 @@ document.body.addEventListener("click", function (e) {
     e.target.id == "open-trade-room-modal-2" ||
     e.target.id == "open-trade-room-modal-3"
   ) {
-    document.getElementById("trade-room-modal").style.display = "block";
+//    document.getElementById("trade-room-modal").style.display = "block";
+	location.href = "./trading-room.html"
   } else if (e.target.id == "close-trade-room-modal") {
     document.getElementById("trade-room-modal").style.display = "none";
-  } else if (e.target.id == "open-trade-history-modal") {
+  } else if (e.target.id == "open-trade-history-modal" || e.target.id == "open-trade-history-modal-2") {
     document.getElementById("trade-history-room-modal").style.display = "block";
   } else if (e.target.id == "close-trade-history-modal") {
     document.getElementById("trade-history-room-modal").style.display = "none";
@@ -747,4 +748,51 @@ function bindWallet(wallet, index) {
                   </div>
                 </div>
     `
+}
+
+function bindWithdrawalHeaderRoot() {
+	return `
+	<div class="w3-row w3-padding-large"
+								style="margin-top: 24px;">
+								<div class="w3-col s1">
+									<p class="x-big no-margin blue-text-dash">No</p>
+
+								</div>
+								<div class="w3-col s2">
+									<p class="no-margin blue-text-dash x-big" style="font-weight: 500;">Wallet Name</p>
+								</div>
+								<div class="w3-col s6">
+									<p class="no-margin blue-text-dash x-big" style="font-weight: 500;">Wallet Address</p>
+
+								</div>
+								<div class="w3-col s1">
+									<p class="no-margin blue-text-dash x-big" style="font-weight: 500;">USD</p>
+
+								</div>
+								<div class="w3-col s2">
+									<p class="no-margin blue-text-dash x-big" style="font-weight: 500;">Date</p>
+
+								</div>
+							</div>
+	`
+}
+
+function bindWalletHeaderRoot() {
+	return `
+		<div class="w3-row w3-padding-large"
+							style="margin-top: 24px;">
+							<div class="w3-col s1">
+								<p class="x-big no-margin blue-text-dash" style="font-weight: 500;">No</p>
+
+							</div>
+							<div class="w3-col s2">
+								<p class="no-margin blue-text-dash x-big" style="font-weight: 500;">Wallet Name</p>
+							</div>
+							<div class="w3-col s9">
+								<p class="no-margin blue-text-dash x-big" style="font-weight: 500;">Wallet Address</p>
+
+							</div>
+
+						</div>
+	`
 }
