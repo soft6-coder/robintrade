@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.soft6creators.futurespace.app.account.Account;
@@ -25,8 +24,7 @@ public class UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private JavaMailSender mailSender;
-	@Autowired
-	PasswordEncoder passwordEncoder;
+	
 	@Autowired
 	AccountService accountService;
 	@Autowired
@@ -50,11 +48,11 @@ public class UserService {
 			}
 		}
 
-		try {
-			sendVerificationEmail(user);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			sendVerificationEmail(user);
+//		} catch (MessagingException e) {
+//			e.printStackTrace();
+//		}
 		Account account = new Account();
 		if (user.getReferral() != null) {
 			account.setAccountBalance(20);
@@ -154,6 +152,16 @@ public class UserService {
 			user.setActive(true);
 			userRepository.save(user);
 			return true;
+		}
+	}
+	
+	public User signIn(String email, String password) {
+		Optional<User> user = userRepository.findByEmailAndPassword(email, password);
+		if (!user.isEmpty()) {
+			return user.get();
+		}
+		else {
+			return new User();
 		}
 	}
 

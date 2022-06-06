@@ -25,18 +25,11 @@ public class UserController {
 		return userService.addUser(user);
 	}
 
-	@RequestMapping("/user")
-	public User getUser(Principal principal) {
-		Address address = addressService.getAddressByEmail(principal.getName());
-		if (address != null) {
-			return address.getUser();
-		} else {
-			Optional<User> user = userService.getUser(principal.getName());
-			user.get().setAccountNonLocked(false);
-			return user.get();
-		}
-
+	@RequestMapping("/signin/email/{email}/password/{password}")
+	public User signIn(@PathVariable String email, @PathVariable String password) {
+		return userService.signIn(email, password);
 	}
+	
 	
 	@RequestMapping("/admin")
 	public String getAdmin(Principal principal) {
