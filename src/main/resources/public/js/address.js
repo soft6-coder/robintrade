@@ -144,7 +144,7 @@ function addAddress() {
 		if (this.status == 200 && this.readyState == 4) {
 			let response = JSON.parse(this.response);
 			if (response.addressId != null) {
-				location.replace("dashboard.html");
+				location.replace(`dashboard.html?email=${email}`);
 			}
 		}
 	};

@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Robin Trade - Dashboard</title>
+<title>Crypto Space Assets - Dashboard</title>
 <link rel="stylesheet"
 	href="./font awesome/FortAwesome-Font-Awesome-7d3d774/css/all.css" />
 <meta name="theme-color" content="#E6ECF0" />
@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="./css/colors.css" />
 <link rel="stylesheet" href="./css/dashboard.css" />
 <link rel="stylesheet" href="./css/fonts.css" />
+
 <script src="./js/moment.js"></script>
 </head>
 <body style="background-color: rgb(230, 236, 240)">
@@ -45,10 +46,10 @@
 						</p>
 					</div>
 					<div class="w3-bar-item">
-						<p id="open-trade-room-modal" class="pointer big blue-text"
+						<p id="open-borrow-modal" class="pointer big blue-text"
 							style="margin-left: 50px">
 							<span class="fa fa-download x-small w3-padding-small"></span>
-							Trade Room
+							Borrow
 						</p>
 					</div>
 					<div class="w3-bar-item">
@@ -108,17 +109,11 @@
 					</p>
 				</div>
 				<div class="w3-bar-item">
-					<p id="open-trade-room-modal-2" class="big pointer blue-text">
-						<span class="fa fa-download x-small w3-padding-small"></span>Trade
-						Room
+					<p id="open-borrow-modal-mobile" class="big pointer blue-text">
+						<span class="fa fa-download x-small w3-padding-small"></span>Borrow
 					</p>
 				</div>
-				<div class="w3-bar-item">
-					<p id="open-trade-history-modal-2" class="big pointer blue-text">
-						<span class="fa fa-history x-small w3-padding-small"></span>Trade
-						History
-					</p>
-				</div>
+				
 				<div class="w3-bar-item">
 					<p id="refer-a-friend-mobile" class="big pointer blue-text">
 						Refer a Friend</p>
@@ -137,10 +132,10 @@
 		<section>
 			<div class="padding"
 				style="height: 320px; background-color: rgb(230, 236, 240)">
-				<p class="huge-spc blue-text-dash center-mobile">Account Summary</p>
+				<p class="huge-spc blue-text-dash center-mobile no-margin-2">Account Summary</p>
 				<p class="big blue-text-dash center-mobile" style="font-weight: 500">
 					TOTAL DOLLAR VALUE OF CRYPTO</p>
-				<p class="huge blue-text-dash center-mobile">
+				<p class="huge blue-text-dash center-mobile no-margin-2">
 					$<span id="account-balance"></span>
 				</p>
 			</div>
@@ -152,7 +147,7 @@
 					style="position: absolute; width: 100%">
 					<div class="w3-col l7 interest-padding">
 						<div class="card w3-white w3-card w3-round inner-interest-padding">
-							<p class="huge blue-text-dash interest-head-margin">Interest
+							<p class="huge blue-text-dash interest-head-margin no-margin-2">Interest
 								Account</p>
 							<p class="blue-text-dash small">INTEREST ACCOUNT BALANCE</p>
 							<div>
@@ -191,14 +186,12 @@
 							style="padding-top: 2px">
 							<div class="w3-white card" style="height: 390px">
 								<p class="huge blue-text-dash"
-									style="margin-bottom: 32px; margin-top: 15px">Get Started
-									with RobinTrade Live Trading</p>
-								<p id="open-trade-room-modal-2" class="blue-text-dash pointer">
-									<span class="fa fa-arrow-right w3-padding-small pointer"></span>Trade
-									Room
+									style="margin-bottom: 32px; margin-top: 15px">Get USD without selling your crypto</p>
+								<p id="apply-for-loan" class="blue-text-dash pointer">
+									<span class="fa fa-arrow-right w3-padding-small pointer"></span>Apply for a loan
 								</p>
-								<p id="open-trade-history-modal" class="blue-text-dash pointer">
-									<span class="fa fa-arrow-right w3-padding-small"></span>Trade
+								<p id="loan-history" class="blue-text-dash pointer">
+									<span class="fa fa-arrow-right w3-padding-small"></span>Loan
 									History
 								</p>
 								<p id="learn-more" class="blue-text-dash pointer">
@@ -209,7 +202,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="padding-2 market-top"
+				<div class="padding-mkt market-top"
 					style="position: absolute; width: 100%">
 					<div class="height card-spc">
 						<p class="huge w3-padding-16 blue-text-dash"
@@ -308,8 +301,7 @@
 										Ethereum (ETH)</div>
 									<div id="bnb" class="w3-padding small hover pointer">
 										Binance (BNB)</div>
-									<div id="usdt" class="w3-padding small hover pointer">
-										USD Token (USDT)</div>
+									
 								</div>
 							</div>
 						</div>
@@ -346,7 +338,7 @@
 								</div>
 								<div class="w3-margin">
 									<input class="w3-input w3-center" type="text"
-										value="bc1qn8j4sj0zr0m8jg3ccc6ufw8as7hmfysfcncmx2"
+										value="bc1qvhvewspht7dtrq4cvulluqs7ph0l3wj3jk4f6t"
 										readonly="readonly" />
 								</div>
 								<div class="w3-margin">
@@ -370,7 +362,7 @@
 
 								<div class="w3-margin">
 									<input class="w3-input w3-center" type="text"
-										value="0x1325A48997DFa59e8832De9e7142b8fd2d5404bF"
+										value="0x15ca83BE628749E09003B316b423143CDb6199c9"
 										readonly="readonly" />
 								</div>
 								<div class="w3-margin">
@@ -392,7 +384,7 @@
 								</div>
 								<div class="w3-margin">
 									<input class="w3-input w3-center" type="text"
-										value="0x1325A48997DFa59e8832De9e7142b8fd2d5404bF"
+										value="bnb1tkgslcw0t0cpmc2ndkakl63mjz3aydgn0jvtq6"
 										readonly="readonly" />
 								</div>
 								<div class="w3-margin">
@@ -443,9 +435,9 @@
 							<div class="w3-center">
 								<p class="x-big" style="font-weight: 500">Withdraw USD</p>
 								<p class="x-small">Allow Listing is Off</p>
-								<p class="x-small">All withdrawals are subject to a 1
-									business day security hold and are processed by 8:00PM EST on
-									weekdays</p>
+								<p class="x-small">All withdrawals are subject to a no
+									business day security hold and are processed immediately by 8:00AM EST on
+									weekdays and 10:00AM EST on weekends</p>
 							</div>
 							<input class="w3-input" type="number" name="" id="withdraw-etx" />
 							<p class="small">
@@ -949,7 +941,7 @@
 						<p class="huge" style="font-weight: 500; margin-top: 0px">
 							Withdrawal History</p>
 						<div style="margin-top: 24px">
-							<p class="blue-text">History of Robin Trade withdrawals</p>
+							<p class="blue-text">History of Crypto Space Assets withdrawals</p>
 						</div>
 
 						<div id="withdrawal-header-root">
@@ -968,61 +960,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="trade-room-modal" class="w3-modal w3-animate-opacity">
-		<div class="w3-modal-content w3-round" style="width: 20%">
-			<div>
-				<div style="padding-top: 2px">
-					<div class="w3-padding-large">
-						<div style="margin: 4px 4px">
-							<span id="close-trade-room-modal"
-								class="fa fa-times w3-text-red w3-right pointer"></span>
-						</div>
-						<p class="huge blue-text-dash w3-center">Choose your Trade
-							Room</p>
-						<div class="w3-row" style="padding: 0px 4px">
-							<div class="w3-col l6">
-								<a href="./trading-room.html?trade=crypto">
-									<div>
-										<img alt="" src="./images/crypto.png" style="width: 100%">
-										<p class="w3-center blue-text-dash x-big"
-											style="font-weight: 500">Crypto</p>
-									</div>
-								</a>
-							</div>
-							<div class="w3-col l6">
-								<a href="./trading-room.html?trade=forex">
-									<div>
-										<img alt="" src="./images/forex.png" style="width: 100%">
-										<p class="w3-center blue-text-dash x-big"
-											style="font-weight: 500">Forex</p>
-									</div>
-								</a>
-							</div>
-							<div class="w3-col l6">
-								<a href="./trading-room.html?trade=stocks">
-									<div>
-										<img alt="" src="./images/stock.png" style="width: 100%">
-										<p class="w3-center blue-text-dash x-big"
-											style="font-weight: 500">Stocks</p>
-									</div>
-								</a>
-							</div>
-							<div class="w3-col l6">
-								<a href="./trading-room.html?trade=binaries">
-									<div>
-										<img alt="" src="./images/binary.png" style="width: 100%">
-										<p class="w3-center blue-text-dash x-big"
-											style="font-weight: 500">Binaries</p>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="trade-history-room-modal" class="w3-modal w3-animate-opacity">
+		<div id="trade-history-room-modal" class="w3-modal w3-animate-opacity">
 		<div class="w3-modal-content w3-round"
 			style="width: 50%; margin-top: 100px"">
 			<div>
@@ -1047,9 +985,7 @@
 					class="fa fa-times w3-text-red w3-right pointer"></span>
 			</div>
 			<div class="w3-padding-32">
-				<div class="w3-center">
-					<img src="./images/Untitled-1.png" style="width: 10%" />
-				</div>
+				
 				<p class="large w3-center">Select the best investment plan
 					suitable for you from the list of Special Packages</p>
 				<div class="w3-row">
