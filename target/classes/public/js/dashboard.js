@@ -1,5 +1,4 @@
 let userEmail = new URLSearchParams(window.location.search).get("email");
-let hasStatus = new URLSearchParams(window.location.search).has("status");
 let interestAccountCard = document.getElementById("card-1");
 let loanCard = document.getElementById("card-2");
 
@@ -105,7 +104,7 @@ document.body.addEventListener("click", function (e) {
     targetId == "open-fund-modal" ||
     targetId == "open-fund-modal-mobile"
   ) {
-    document.getElementById("fund-modal").style.display = "block";
+    document.getElementById("investment-plan-modal").style.display = "block";
   } else if (targetId == "close-fund-modal") {
     document.getElementById("fund-modal").style.display = "none";
   } else if (
@@ -286,10 +285,6 @@ document.body.addEventListener("click", function (e) {
     document.getElementById("add-wallet-modal").style.display = "block";
   }
 });
-
-if (hasStatus) {
-  document.getElementById("fund-modal").style.display = "block";
-}
 
 function saveWallet() {
 	let walletName = document.getElementById("choose-crypto").value;
