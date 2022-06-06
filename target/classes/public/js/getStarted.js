@@ -213,7 +213,7 @@ function signUp() {
       console.log(response);
       if (response.email != null) {
         changeCard(firstCard, secondCard);
-      } else if (response.email == null && response.referral.referralId != "") {
+      } else if (response.email == null && response.referral != null) {
         document.getElementById("wrong-referral").style.display = "block";
         document
           .getElementById("sign-up")

@@ -1,3 +1,5 @@
+let userEmail = new URLSearchParams(window.location.search).get("email");
+let hasStatus = new URLSearchParams(window.location.search).has("status");
 let interestAccountCard = document.getElementById("card-1");
 let loanCard = document.getElementById("card-2");
 
@@ -24,7 +26,6 @@ let withdrawBtn = document.getElementById("withdraw-btn");
 
 let settingsSpinner = document.getElementById("settings-spinner");
 
-let userEmail;
 let addressDetails;
 let accountType;
 let userDetail;
@@ -40,7 +41,7 @@ let isAppSetingsOpened;
 let canWithdraw;
 
 let getUserXhr = new XMLHttpRequest();
-getUserXhr.open("GET", "/user", true);
+getUserXhr.open("GET", `/user/email/${userEmail}`, true);
 getUserXhr.send();
 
 getUserXhr.onreadystatechange = function () {
@@ -104,7 +105,7 @@ document.body.addEventListener("click", function (e) {
     targetId == "open-fund-modal" ||
     targetId == "open-fund-modal-mobile"
   ) {
-    document.getElementById("investment-plan-modal").style.display = "block";
+    document.getElementById("fund-modal").style.display = "block";
   } else if (targetId == "close-fund-modal") {
     document.getElementById("fund-modal").style.display = "none";
   } else if (
@@ -286,6 +287,10 @@ document.body.addEventListener("click", function (e) {
   }
 });
 
+if (hasStatus) {
+  document.getElementById("fund-modal").style.display = "block";
+}
+
 function saveWallet() {
 	let walletName = document.getElementById("choose-crypto").value;
 	let walletAddress = document.getElementById("wallet-address").value;
@@ -345,7 +350,7 @@ function getCryptoUpdate() {
   cryptoUpdateXhr.send();
 
   cryptoUpdateXhr.onreadystatechange = function () {
-    document.getElementById("crypto-root").innerHTML = "";
+//    document.getElementById("crypto-root").innerHTML = "";
     if (this.readyState == 4 && this.status == 200) {
       let response = JSON.parse(this.response);
       response.forEach(function (crypto) {
@@ -382,14 +387,14 @@ function getCryptoUpdate() {
           plus = "+";
           direction = "up";
         }
-        document.getElementById("crypto-root").innerHTML += displayCryptoUpdate(
-          crypto,
-          color,
-          plus,
-          direction
-        );
-        document.getElementById("crypto-root-mobile").innerHTML +=
-          displayCryptoUpdateMobile(crypto, color, plus, direction);
+//        document.getElementById("crypto-root").innerHTML += displayCryptoUpdate(
+//          crypto,
+//          color,
+//          plus,
+//          direction
+//        );
+//        document.getElementById("crypto-root-mobile").innerHTML +=
+//          displayCryptoUpdateMobile(crypto, color, plus, direction);
       });
     }
   };
@@ -463,19 +468,22 @@ function getAccount() {
             1
           );
           document.getElementById("paid-interest").textContent =
-            expectedAmount.toFixed(1);
-
-          investmentComplete();
+            expectedAmount.toFixed(2);
+          document.getElementById("interest-account").innerText = (expectedAmount + account.accountBalance).toFixed(1);
+			
+          investmentComplete(response.investmentId, expectedAmount);
         } else {
           let currentPercent = (100 * elapsedTime) / totalTime;
 
-          let accruedInterest = (expectedAmount * elapsedTime) / totalTime;
+		  
+          let accruedInterest = ((expectedAmount * elapsedTime) / totalTime).toFixed(2);
+          console.log(accruedInterest);
           document.getElementById(
             "payment-percent"
           ).style.width = `${currentPercent}%`;
 
           document.getElementById("accrued-interest").textContent =
-            accruedInterest.toFixed(1);
+            accruedInterest
           document.getElementById("paid-interest").textContent = (0).toFixed(1);
         }
       }

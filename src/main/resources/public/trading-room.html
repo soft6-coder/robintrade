@@ -20,16 +20,12 @@
     <link rel="stylesheet" href="./css/colors.css" />
     <link rel="stylesheet" href="./css/dashboard.css" />
     <link rel="stylesheet" href="./css/fonts.css" />
-    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/main.css" rel="stylesheet" />
-    <script src="/webjars/jquery/jquery.min.js"></script>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
     <script src="./js/moment.js"></script>
   </head>
-  <body style="background-color: rgb(230, 236, 240);">
+  <body style="background-color: rgb(23, 27, 38)">
     <section>
-      <div class="w3-row" style="padding: 10px 64px; color: rgb(140, 143, 150)">
+      <div class="w3-row w3-hide-small w3-hide-medium" style="padding: 10px 64px; color: rgb(140, 143, 150)">
         <div class="w3-col s10 pointer" style="margin-top: 8px">
           <img
             src="./images/Untitled-1.png"
@@ -38,13 +34,11 @@
         </div>
 
         <div class="w3-col s1" style="margin-top: 8px">
-          <p class="large no-margin" style="color: rgb(241, 114, 3)">
-            $0.00
-          </p>
+          <p class="large no-margin" style="color: rgb(241, 114, 3)">$0.00</p>
         </div>
         <div class="w3-col s1">
-        <a href="./dashboard.html">
-        	<div
+          <div
+		  id="deposit"
             class="x-big pointer w3-center"
             style="
               border: 1px solid rgb(0, 50, 235);
@@ -54,51 +48,268 @@
               border-radius: 4px;
             "
           >
-            <span class="fa fa-dollar-sign"></span>
-            <span style="font-weight: 500">Deposit</span>
+            <span id="deposit-2" class="fa fa-dollar-sign"></span>
+            <span id="deposit-3" style="font-weight: 500">Deposit</span>
           </div>
-        </a>
-          
         </div>
       </div>
+	  <div class="w3-row w3-hide-large w3-padding-large">
+		  <div class="w3-col s9">
+			<img src="./images/Untitled-1.png" alt="" style="width: 40%; margin-top: 2px;">
+		  </div>
+		  <div class="w3-col s3">
+			  <div id="deposit-4" class="w3-padding-small w3-round w3-center" style="border: 1px solid rgb(0, 50, 235); color: rgb(0, 50, 235);">
+				  Deposit
+			  </div>
+		  </div>
+	  </div>
     </section>
-    <div class="w3-row" style="border-top: 0.3px solid rgb(193, 211, 221)">
+    <div class="w3-row" style="border-top: 0.3px solid rgb(23, 27, 38)">
       <div
-        class="w3-col w3-padding-small w3-center"
+        class="w3-col l2 w3-center"
         style="
-          border-right: 0.3px solid rgb(193, 211, 221);
+          border-right: 0.3px solid rgb(23, 27, 38);
           height: 92vh;
           color: rgb(50, 50, 50);
-          width: 3%;
         "
       >
-        <div class="pointer" style="margin-top: 26px">
-          <div>
-            <span class="fa fa-award x-big"></span>
+        <div style="padding: 16px 0px">
+          <div class="w3-row">
+            <div class="w3-col s4">
+              <div class="w3-padding-small">
+                <p
+                  class="no-margin"
+                  style="color: rgb(241, 114, 3); font-weight: 600"
+                >
+                  Deposit
+                </p>
+                <p class="no-margin-2" style="color: white; font-weight: 600">
+                  $0
+                </p>
+              </div>
+            </div>
+            <div class="w3-col s4">
+              <div
+                class="w3-padding-small w3-round"
+                style="background-color: rgb(241, 114, 3)"
+              >
+                <p class="no-margin" style="font-weight: 600">Package</p>
+                <p class="no-margin x-small" style="font-weight: 600">
+                  Starter Plan
+                </p>
+              </div>
+            </div>
+            <div class="w3-col s4">
+              <div class="w3-padding-small">
+                <p
+                  class="no-margin"
+                  style="color: rgb(241, 114, 3); font-weight: 600"
+                >
+                  Balance
+                </p>
+                <p class="no-margin" style="color: white; font-weight: 600">
+                  0$
+                </p>
+              </div>
+            </div>
           </div>
-          <p class="no-margin-2 x-small" style="line-height: 16px">
-            Leader Board
-          </p>
+          <div class="w3-row">
+            <div class="w3-col s4">
+              <div class="w3-padding-small">
+                <p
+                  class="no-margin"
+                  style="color: rgb(241, 114, 3); font-weight: 600"
+                >
+                  Profits
+                </p>
+                <p class="no-margin" style="color: white; font-weight: 600">
+                  $0
+                </p>
+              </div>
+            </div>
+            <div class="w3-col s4">
+              <div
+                class="w3-padding-small w3-round"
+                style="background-color: rgb(241, 114, 3)"
+              >
+                <p class="no-margin" style="font-weight: 600">Watchlist</p>
+                <p class="no-margin x-small" style="font-weight: 600">
+                  Trading Room
+                </p>
+              </div>
+            </div>
+            <div class="w3-col s4">
+              <div class="w3-padding-small">
+                <p
+                  class="no-margin"
+                  style="color: rgb(241, 114, 3); font-weight: 600"
+                >
+                  BTC
+                </p>
+                <p class="no-margin" style="color: white; font-weight: 600">
+                  0.00000 BTC
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="pointer" style="margin-top: 26px">
-          <div>
-            <span class="fa fa-newspaper x-big"></span>
-          </div>
-          <p class="no-margin-2 x-small" style="line-height: 16px">
-            Market Analysis
-          </p>
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script
+            type="text/javascript"
+            src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js"
+            async
+          >
+            {
+            "colorTheme": "dark",
+            "dateRange": "12M",
+            "showChart": true,
+            "locale": "en",
+            "largeChartUrl": "",
+            "isTransparent": false,
+            "showSymbolLogo": true,
+            "showFloatingTooltip": false,
+            "width": "100%",
+            "height": "710",
+            "plotLineColorGrowing": "rgba(41, 98, 255, 1)",
+            "plotLineColorFalling": "rgba(41, 98, 255, 1)",
+            "gridLineColor": "rgba(240, 243, 250, 0)",
+            "scaleFontColor": "rgba(120, 123, 134, 1)",
+            "belowLineFillColorGrowing": "rgba(41, 98, 255, 0.12)",
+            "belowLineFillColorFalling": "rgba(41, 98, 255, 0.12)",
+            "belowLineFillColorGrowingBottom": "rgba(41, 98, 255, 0)",
+            "belowLineFillColorFallingBottom": "rgba(41, 98, 255, 0)",
+            "symbolActiveColor": "rgba(41, 98, 255, 0.12)",
+            "tabs": [
+              {
+            	"title": "Indices",
+            	"symbols": [
+            	  {
+            		"s": "FOREXCOM:SPXUSD",
+            		"d": "S&P 500"
+            	  },
+            	  {
+            		"s": "FOREXCOM:NSXUSD",
+            		"d": "US 100"
+            	  },
+            	  {
+            		"s": "FOREXCOM:DJI",
+            		"d": "Dow 30"
+            	  },
+            	  {
+            		"s": "INDEX:NKY",
+            		"d": "Nikkei 225"
+            	  },
+            	  {
+            		"s": "INDEX:DEU40",
+            		"d": "DAX Index"
+            	  },
+            	  {
+            		"s": "FOREXCOM:UKXGBP",
+            		"d": "UK 100"
+            	  }
+            	],
+            	"originalTitle": "Indices"
+              },
+              {
+            	"title": "Futures",
+            	"symbols": [
+            	  {
+            		"s": "CME_MINI:ES1!",
+            		"d": "S&P 500"
+            	  },
+            	  {
+            		"s": "CME:6E1!",
+            		"d": "Euro"
+            	  },
+            	  {
+            		"s": "COMEX:GC1!",
+            		"d": "Gold"
+            	  },
+            	  {
+            		"s": "NYMEX:CL1!",
+            		"d": "Crude Oil"
+            	  },
+            	  {
+            		"s": "NYMEX:NG1!",
+            		"d": "Natural Gas"
+            	  },
+            	  {
+            		"s": "CBOT:ZC1!",
+            		"d": "Corn"
+            	  }
+            	],
+            	"originalTitle": "Futures"
+              },
+              {
+            	"title": "Bonds",
+            	"symbols": [
+            	  {
+            		"s": "CME:GE1!",
+            		"d": "Eurodollar"
+            	  },
+            	  {
+            		"s": "CBOT:ZB1!",
+            		"d": "T-Bond"
+            	  },
+            	  {
+            		"s": "CBOT:UB1!",
+            		"d": "Ultra T-Bond"
+            	  },
+            	  {
+            		"s": "EUREX:FGBL1!",
+            		"d": "Euro Bund"
+            	  },
+            	  {
+            		"s": "EUREX:FBTP1!",
+            		"d": "Euro BTP"
+            	  },
+            	  {
+            		"s": "EUREX:FGBM1!",
+            		"d": "Euro BOBL"
+            	  }
+            	],
+            	"originalTitle": "Bonds"
+              },
+              {
+            	"title": "Forex",
+            	"symbols": [
+            	  {
+            		"s": "FX:EURUSD",
+            		"d": "EUR/USD"
+            	  },
+            	  {
+            		"s": "FX:GBPUSD",
+            		"d": "GBP/USD"
+            	  },
+            	  {
+            		"s": "FX:USDJPY",
+            		"d": "USD/JPY"
+            	  },
+            	  {
+            		"s": "FX:USDCHF",
+            		"d": "USD/CHF"
+            	  },
+            	  {
+            		"s": "FX:AUDUSD",
+            		"d": "AUD/USD"
+            	  },
+            	  {
+            		"s": "FX:USDCAD",
+            		"d": "USD/CAD"
+            	  }
+            	],
+            	"originalTitle": "Forex"
+              }
+            ]
+             }
+          </script>
         </div>
-        <div class="pointer" style="margin-top: 26px">
-          <div>
-            <span class="fa fa-play-circle x-big"></span>
-          </div>
-          <p class="no-margin-2 x-small" style="line-height: 16px">
-            Video Tutorials
-          </p>
-        </div>
+        <!-- TradingView Widget END -->
       </div>
-      <div class="w3-col" style="width: 89%">
+      <div class="w3-col l10">
         <div class="tradingview-widget-container">
           <div id="tradingview_f1fd7"></div>
           <script
@@ -112,7 +323,7 @@
               symbol: "FX:EURUSD",
               interval: "1",
               timezone: "Etc/UTC",
-              theme: "light",
+              theme: "dark",
               hide_side_toolbar: false,
               style: "3",
               hide_top_toolbar: false,
@@ -122,6 +333,7 @@
               enable_publishing: false,
               withdateranges: true,
               save_image: false,
+              isTransparent: false,
               allow_symbol_change: true,
               details: true,
               hotlist: true,
@@ -130,151 +342,144 @@
           </script>
         </div>
       </div>
-      <div
-        class="w3-col w3-padding-small"
-        style="
-          width: 7%;
-          height: 92vh;
-          border-left: 0.3px solid rgb(193, 211, 221);
-          color: rgb(50, 50, 50);
-        "
-      >
-        <div class="w3-row dark-grey w3-round-small" style="margin-top: 8px">
-          <div
-            class="w3-col s9 w3-padding-small pointer"
-            style="border-right: 1px solid rgb(193, 211, 221)"
-          >
-            <p class="no-margin small">
-              Quantity <span class="fa fa-question-circle x-small"></span>
-            </p>
-            <p
-              class="no-margin small"
-              style="font-weight: 600; margin-top: 4px"
-            >
-              0.002
-              <span class="w3-padding-small x-small" style="font-weight: 500"
-                >lot</span
-              >
-            </p>
-          </div>
-          <div class="w3-col s3">
-            <div class="w3-center">
-              <span class="fa fa-plus pointer x-small w3-center"></span>
-            </div>
-            <div class="w3-center" style="margin-top: 2px">
-              <span class="fa fa-minus pointer x-small w3-center"></span>
-            </div>
-          </div>
-        </div>
-        <div class="w3-margin-top">
-          <p class="no-margin small">
-            Pip Value <span class="fa fa-question-circle x-small"></span>
-          </p>
-          <p class="no-margin" style="font-weight: 600">$0.02</p>
-        </div>
-        <div class="w3-margin-top">
-          <p class="no-margin">
-            Margin <span class="fa fa-question-circle x-small"></span>
-          </p>
-          <p class="no-margin" style="font-weight: 600">$0.43</p>
-        </div>
-        <div class="w3-row" style="width: 90%; margin-top: 8px">
-          <div class="w3-col s6">
-            <p class="small no-margin-2">Leverage</p>
-          </div>
-          <div class="w3-col s6">
-            <p class="w3-right small no-margin-2">1:500</p>
-          </div>
-        </div>
-        <div class="dark-grey w3-round-small pointer" style="margin-top: 12px">
-          <div class="w3-padding-small">
-            <p class="no-margin small">
-              TP <span class="fa fa-question-circle x-small"></span>
-            </p>
-            <p class="no-margin small" style="font-weight: 600">
-              ---
-            </p>
-          </div>
-        </div>
-        <div class="dark-grey w3-round-small pointer" style="margin-top: 1px">
-          <div class="w3-padding-small">
-            <p class="no-margin small">
-              SL <span class="fa fa-question-circle x-small"></span>
-            </p>
-            <p class="no-margin small" style="font-weight: 600">
-              ---
-            </p>
-          </div>
-        </div>
-        <div
-          class="w3-row dark-grey w3-round-small pointer"
-          style="margin-top: 12px"
-        >
-          <div
-            class="w3-col s9 w3-padding-small"
-            style="border-right: 1px solid rgb(193, 211, 221)"
-          >
-            <p class="no-margin small">
-              Price <span class="fa fa-question-circle x-small"></span>
-            </p>
-            <p
-              class="no-margin small"
-              style="font-weight: 600; margin-top: 4px"
-            >
-              Market
-            </p>
-          </div>
-          <div class="w3-col s3">
-            <div class="w3-center">
-              <span class="fa fa-plus pointer x-small w3-center"></span>
-            </div>
-            <div class="w3-center" style="margin-top: 2px">
-              <span class="fa fa-minus pointer x-small w3-center"></span>
-            </div>
-          </div>
-        </div>
-        <div
-          class="w3-round pointer"
-          style="
-            height: 120px;
-            margin-top: 64px;
-            background-color: green;
-            padding-top: 36px;
-          "
-        >
-          <div class="w3-center">
-            <p class="no-margin w3-text-white x-big">Buy</p>
-            <p class="no-margin w3-text-white x-big" style="font-weight: 500">
-              1.07578
-            </p>
-          </div>
-        </div>
-        <div class="w3-row" style="width: 90%">
-          <div class="w3-col s6">
-            <p class="small no-margin-2">Spread</p>
-          </div>
-          <div class="w3-col s6">
-            <p class="w3-right small w3-text-dark no-margin-2">0.3</p>
-          </div>
-        </div>
-        <div
-          class="w3-round pointer w3-red"
-          style="
-            height: 120px;
-            margin-top: 2px;
-            
-            padding-top: 36px;
-          "
-        >
-          <div class="w3-center">
-            <p class="no-margin w3-text-dark x-big">Sell</p>
-            <p class="no-margin w3-text-dark x-big" style="font-weight: 500">
-              1.07578
-            </p>
-          </div>
-        </div>
-      </div>
+      <!--       <div -->
+      <!--         class="w3-col w3-padding-small" -->
+      <!--         style=" -->
+      <!-- /* width: 7%; */ /* height: 92vh; */ /* border-left: 0.3px solid
+		rgb(193, 211, 221); */ /* color: rgb(50, 50, 50); */ /* " */ -->
+      <!--       > -->
+      <!--         <div class="w3-row dark-grey w3-round-small" style="margin-top: 8px"> -->
+      <!--           <div -->
+      <!--             class="w3-col s9 w3-padding-small pointer" -->
+      <!--             style="border-right: 1px solid rgb(193, 211, 221)" -->
+      <!--           > -->
+      <!--             <p class="no-margin small"> -->
+      <!--               Quantity <span class="fa fa-question-circle x-small"></span> -->
+      <!--             </p> -->
+      <!--             <p -->
+      <!--               class="no-margin small" -->
+      <!--               style="font-weight: 600; margin-top: 4px" -->
+      <!--             > -->
+      <!--               0.002 -->
+      <!--               <span class="w3-padding-small x-small" style="font-weight: 500" -->
+      <!--                 >lot</span -->
+      <!--               > -->
+      <!--             </p> -->
+      <!--           </div> -->
+      <!--           <div class="w3-col s3"> -->
+      <!--             <div class="w3-center"> -->
+      <!--               <span class="fa fa-plus pointer x-small w3-center"></span> -->
+      <!--             </div> -->
+      <!--             <div class="w3-center" style="margin-top: 2px"> -->
+      <!--               <span class="fa fa-minus pointer x-small w3-center"></span> -->
+      <!--             </div> -->
+      <!--           </div> -->
+      <!--         </div> -->
+      <!--         <div class="w3-margin-top"> -->
+      <!--           <p class="no-margin small"> -->
+      <!--             Pip Value <span class="fa fa-question-circle x-small"></span> -->
+      <!--           </p> -->
+      <!--           <p class="no-margin" style="font-weight: 600">$0.02</p> -->
+      <!--         </div> -->
+      <!--         <div class="w3-margin-top"> -->
+      <!--           <p class="no-margin"> -->
+      <!--             Margin <span class="fa fa-question-circle x-small"></span> -->
+      <!--           </p> -->
+      <!--           <p class="no-margin" style="font-weight: 600">$0.43</p> -->
+      <!--         </div> -->
+      <!--         <div class="w3-row" style="width: 90%; margin-top: 8px"> -->
+      <!--           <div class="w3-col s6"> -->
+      <!--             <p class="small no-margin-2">Leverage</p> -->
+      <!--           </div> -->
+      <!--           <div class="w3-col s6"> -->
+      <!--             <p class="w3-right small no-margin-2">1:500</p> -->
+      <!--           </div> -->
+      <!--         </div> -->
+      <!--         <div class="dark-grey w3-round-small pointer" style="margin-top: 12px"> -->
+      <!--           <div class="w3-padding-small"> -->
+      <!--             <p class="no-margin small"> -->
+      <!--               TP <span class="fa fa-question-circle x-small"></span> -->
+      <!--             </p> -->
+      <!--             <p class="no-margin small" style="font-weight: 600"> -->
+      <!--               --- -->
+      <!--             </p> -->
+      <!--           </div> -->
+      <!--         </div> -->
+      <!--         <div class="dark-grey w3-round-small pointer" style="margin-top: 1px"> -->
+      <!--           <div class="w3-padding-small"> -->
+      <!--             <p class="no-margin small"> -->
+      <!--               SL <span class="fa fa-question-circle x-small"></span> -->
+      <!--             </p> -->
+      <!--             <p class="no-margin small" style="font-weight: 600"> -->
+      <!--               --- -->
+      <!--             </p> -->
+      <!--           </div> -->
+      <!--         </div> -->
+      <!--         <div -->
+      <!--           class="w3-row dark-grey w3-round-small pointer" -->
+      <!--           style="margin-top: 12px" -->
+      <!--         > -->
+      <!--           <div -->
+      <!--             class="w3-col s9 w3-padding-small" -->
+      <!--             style="border-right: 1px solid rgb(193, 211, 221)" -->
+      <!--           > -->
+      <!--             <p class="no-margin small"> -->
+      <!--               Price <span class="fa fa-question-circle x-small"></span> -->
+      <!--             </p> -->
+      <!--             <p -->
+      <!--               class="no-margin small" -->
+      <!--               style="font-weight: 600; margin-top: 4px" -->
+      <!--             > -->
+      <!--               Market -->
+      <!--             </p> -->
+      <!--           </div> -->
+      <!--           <div class="w3-col s3"> -->
+      <!--             <div class="w3-center"> -->
+      <!--               <span class="fa fa-plus pointer x-small w3-center"></span> -->
+      <!--             </div> -->
+      <!--             <div class="w3-center" style="margin-top: 2px"> -->
+      <!--               <span class="fa fa-minus pointer x-small w3-center"></span> -->
+      <!--             </div> -->
+      <!--           </div> -->
+      <!--         </div> -->
+      <!--         <div -->
+      <!--           class="w3-round pointer" -->
+      <!--           style=" -->
+      <!-- /* height: 120px; */ /* margin-top: 64px; */ /* background-color:
+		green; */ /* padding-top: 36px; */ /* " */ -->
+      <!--         > -->
+      <!--           <div class="w3-center"> -->
+      <!--             <p class="no-margin w3-text-white x-big">Buy</p> -->
+      <!--             <p class="no-margin w3-text-white x-big" style="font-weight: 500"> -->
+      <!--               1.07578 -->
+      <!--             </p> -->
+      <!--           </div> -->
+      <!--         </div> -->
+      <!--         <div class="w3-row" style="width: 90%"> -->
+      <!--           <div class="w3-col s6"> -->
+      <!--             <p class="small no-margin-2">Spread</p> -->
+      <!--           </div> -->
+      <!--           <div class="w3-col s6"> -->
+      <!--             <p class="w3-right small w3-text-dark no-margin-2">0.3</p> -->
+      <!--           </div> -->
+      <!--         </div> -->
+      <!--         <div -->
+      <!--           class="w3-round pointer w3-red" -->
+      <!--           style=" -->
+      <!-- /* height: 120px; */ /* margin-top: 2px; */ /* padding-top: 36px; */
+		/* " */ -->
+      <!--         > -->
+      <!--           <div class="w3-center"> -->
+      <!--             <p class="no-margin w3-text-dark x-big">Sell</p> -->
+      <!--             <p class="no-margin w3-text-dark x-big" style="font-weight: 500"> -->
+      <!--               1.07578 -->
+      <!--             </p> -->
+      <!--           </div> -->
+      <!--         </div> -->
+      <!--       </div> -->
     </div>
+
+	<script src="./js/tradeRoom.js"></script>
 
     <script
       src="//code.tidio.co/4669eiu00je5djxlzhpqn5vdtlikpj9s.js"
