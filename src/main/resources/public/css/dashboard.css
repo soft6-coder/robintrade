@@ -6,6 +6,15 @@
   cursor: pointer;
 }
 
+.fade-out {
+	opacity: 0;
+	transition: 0.5s;
+}
+.fade-in {
+	opacity: 1;
+	transition: 0.5s;
+}
+
 .no-margin {
   margin: 0px;
 }
@@ -23,6 +32,9 @@ a {
 
 .padding-2 {
   padding: 2%;
+}
+.padding-mkt {
+  padding: 6% 1% 0%;
 }
 
 .padding-3 {
@@ -204,7 +216,7 @@ input:focus {
 }
 
 .height {
-  height: 450px;
+  height: 950px;
 }
 .animate {
   transition: 2s;
@@ -250,7 +262,7 @@ input:focus {
 }
 
 .main-height {
-  height: 600px;
+  height: 2000px;
   position: relative;
 }
 
@@ -368,6 +380,9 @@ input:focus {
   .padding-2 {
     padding: 2% 6%;
   }
+  .padding-mkt {
+  padding: 2% 4%;
+}
   .inner-interest-padding {
     padding: 70px 0px 50px 120px;
   }

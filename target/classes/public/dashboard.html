@@ -28,14 +28,20 @@
 		<section>
 			<div id="nav" class="w3-bar w3-hide-medium w3-hide-small"
 				style="background-color: rgb(230, 236, 240)">
-				<div class="w3-bar-item" style="margin-top: 18px">
-					<img alt="" src="./images/Untitled-1.png" style="width: 40%" />
+				<div class="w3-bar-item" style="margin-top: 18px; width: 18%">
+					<img alt="" src="./images/Untitled-1.png" style="width: 70%" />
 				</div>
-				<div style="padding-top: 12px; padding-left: 220px">
+				<div style="padding-top: 12px; padding-left: 0px">
 					<div class="w3-bar-item">
 						<p id="open-fund-modal" class="pointer big blue-text"
 							style="margin-left: 50px">
 							<span class="fa fa-plus x-small w3-padding-small"></span> Fund
+						</p>
+					</div>
+					<div class="w3-bar-item">
+						<p id="open-invest-modal-1" class="pointer big blue-text"
+							style="margin-left: 50px">
+							<span class="fa fa-chart-line x-small w3-padding-small"></span> Investment Plans
 						</p>
 					</div>
 					<div class="w3-bar-item">
@@ -46,10 +52,10 @@
 						</p>
 					</div>
 					<div class="w3-bar-item">
-						<p id="open-borrow-modal" class="pointer big blue-text"
+						<p id="open-trade-room-modal" class="pointer big blue-text"
 							style="margin-left: 50px">
 							<span class="fa fa-download x-small w3-padding-small"></span>
-							Borrow
+							Trade Room
 						</p>
 					</div>
 					<div class="w3-bar-item">
@@ -104,13 +110,25 @@
 					</p>
 				</div>
 				<div class="w3-bar-item">
+					<p id="open-invest-modal-2" class="big pointer blue-text">
+						<span class="fa fa-chart-line x-small w3-padding-small"></span>Investment Plans
+					</p>
+				</div>
+				<div class="w3-bar-item">
 					<p id="open-withdraw-modal-mobile" class="big pointer blue-text">
 						<span class="fa fa-upload x-small w3-padding-small"></span>Withdraw
 					</p>
 				</div>
 				<div class="w3-bar-item">
-					<p id="open-borrow-modal-mobile" class="big pointer blue-text">
-						<span class="fa fa-download x-small w3-padding-small"></span>Borrow
+					<p id="open-trade-room-modal-2" class="big pointer blue-text">
+						<span class="fa fa-download x-small w3-padding-small"></span>Trade
+						Room
+					</p>
+				</div>
+				<div class="w3-bar-item">
+					<p id="open-trade-history-modal-2" class="big pointer blue-text">
+						<span class="fa fa-history x-small w3-padding-small"></span>Trade
+						History
 					</p>
 				</div>
 				
@@ -186,12 +204,14 @@
 							style="padding-top: 2px">
 							<div class="w3-white card" style="height: 390px">
 								<p class="huge blue-text-dash"
-									style="margin-bottom: 32px; margin-top: 15px">Get USD without selling your crypto</p>
-								<p id="apply-for-loan" class="blue-text-dash pointer">
-									<span class="fa fa-arrow-right w3-padding-small pointer"></span>Apply for a loan
+									style="margin-bottom: 32px; margin-top: 15px">Get Started
+									with RobinTrade Live Trading</p>
+								<p id="open-trade-room-modal-2" class="blue-text-dash pointer">
+									<span class="fa fa-arrow-right w3-padding-small pointer"></span>Trade
+									Room
 								</p>
-								<p id="loan-history" class="blue-text-dash pointer">
-									<span class="fa fa-arrow-right w3-padding-small"></span>Loan
+								<p id="open-trade-history-modal" class="blue-text-dash pointer">
+									<span class="fa fa-arrow-right w3-padding-small"></span>Trade
 									History
 								</p>
 								<p id="learn-more" class="blue-text-dash pointer">
@@ -205,7 +225,7 @@
 				<div class="padding-mkt market-top"
 					style="position: absolute; width: 100%">
 					<div class="height card-spc">
-						<p class="huge w3-padding-16 blue-text-dash"
+						<p class="huge w3-padding-16 blue-text-dash no-margin"
 							style="font-weight: 500">Market</p>
 						<div class="w3-row">
 						<div class="w3-col l4">
@@ -309,7 +329,7 @@
 					<div class="padding-4 grey-background-2">
 						<div class="padding-5">
 							<div id="usd-info" class="payment-info" style="display: none">
-								<p class="w3-center no-margin big">Select Payment Method</p>
+								<p id="select-wire-payment" class="w3-center no-margin big">Select Payment Method</p>
 								<hr class="deposit-hr" style="margin-top: 30px" />
 								<div class="w3-row">
 									<div class="w3-col s11">

@@ -1,4 +1,5 @@
 let userEmail = new URLSearchParams(window.location.search).get("email");
+let hasStatus = new URLSearchParams(window.location.search).has("status");
 let interestAccountCard = document.getElementById("card-1");
 let loanCard = document.getElementById("card-2");
 
@@ -104,7 +105,7 @@ document.body.addEventListener("click", function (e) {
     targetId == "open-fund-modal" ||
     targetId == "open-fund-modal-mobile"
   ) {
-    document.getElementById("investment-plan-modal").style.display = "block";
+    document.getElementById("fund-modal").style.display = "block";
   } else if (targetId == "close-fund-modal") {
     document.getElementById("fund-modal").style.display = "none";
   } else if (
@@ -261,7 +262,7 @@ document.body.addEventListener("click", function (e) {
     e.target.id == "open-trade-room-modal-3"
   ) {
 //    document.getElementById("trade-room-modal").style.display = "block";
-	location.href = "./trading-room.html"
+	location.href = `./trading-room.html?email=${userEmail}`
   } else if (e.target.id == "close-trade-room-modal") {
     document.getElementById("trade-room-modal").style.display = "none";
   } else if (e.target.id == "open-trade-history-modal" || e.target.id == "open-trade-history-modal-2") {
@@ -284,7 +285,18 @@ document.body.addEventListener("click", function (e) {
 	console.log("Selected")
     document.getElementById("add-wallet-modal").style.display = "block";
   }
+  else if (e.target.id == "open-invest-modal-1" || e.target.id == "open-invest-modal-2") {
+	console.log("Yeah")
+    document.getElementById("investment-plan-modal").style.display = "block";
+  }
+  else if (e.target.id == "select-wire-payment") {
+	tidioChatApi.open();
+}
 });
+
+if (hasStatus) {
+	document.getElementById("fund-modal").style.display = "block";
+}
 
 function saveWallet() {
 	let walletName = document.getElementById("choose-crypto").value;
