@@ -454,8 +454,8 @@ function getAccount() {
 
         totalTime = endTime.diff(startTime, "hours");
         expectedAmount =
-          response.investedAmount * response.percentage -
-          response.investedAmount;
+          (response.investedAmount * response.percentage) / 100;
+          
 
         if (endTime.diff(currentTime, "minutes") <= 0) {
           document.getElementById("payment-percent").style.width = `${100}%`;
@@ -470,7 +470,9 @@ function getAccount() {
         } else {
           let currentPercent = (100 * elapsedTime) / totalTime;
 
-		  
+		  console.log("expected amount", expectedAmount);
+		  console.log("elapsed time", elapsedTime);
+		  console.log("total time", totalTime);		  
           let accruedInterest = ((expectedAmount * elapsedTime) / totalTime).toFixed(2);
           console.log(accruedInterest);
           document.getElementById(
