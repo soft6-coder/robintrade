@@ -20,6 +20,7 @@ document.body.addEventListener("click", function (e) {
     toUser = fromUser;
     getUserDetails();
   } else if (target.id == "traders") {
+	getAllTraders();
     changeOption(target);
   } else if (target.id == "fund-account") {
     getAllUsers();
@@ -181,7 +182,7 @@ function getAllTraders() {
       document.getElementById("distinct-message-root").innerHTML = "";
       response.forEach(function (item) {
         document.getElementById("distinct-message-root").innerHTML +=
-          bindUserStatus(
+          bindUserTrader(
             item.traderId,
             item.traderName,
             item.winRate,
@@ -371,6 +372,38 @@ function bindUserStatus(email, fullName, message, date) {
     <div class="w3-col s4">
       <p class="no-margin small w3-right">
         Fund
+      </p>
+    </div>
+  </div>
+<hr style="margin: 0px 0px 0px 100px">
+	</div>`;
+}
+function bindUserTrader(email, fullName, message, date) {
+  return `
+	<div class="w3-white w3-animate-opacity">
+		<div
+    class="w3-row w3-padding-large pointer"
+    
+  >
+	<input type="hidden" value=${email} />
+    <div class="w3-col s2" style="position: relative">
+      <img
+        src="./copytraders/${email}.jpeg"
+        alt=""
+        style="width: 50%; border-radius: 50%; margin-top: 2px"
+      />
+	<div id="status-indicator" class="w3-white" style="position: absolute; left: 32px; bottom: 2px; border-radius: 50%; height: 6px; width: 6px; outline: 2px solid white;"></div>
+    </div>
+    <div class="w3-col s6">
+		<div class="w3-left">
+			<p class="no-margin user">${fullName}</p>
+      		<p class="no-margin small">Win Rate: ${message}%
+      		</p>
+		</div>
+    </div>
+    <div class="w3-col s4">
+      <p class="no-margin small w3-right">
+        Profit Share: ${date}%
       </p>
     </div>
   </div>
