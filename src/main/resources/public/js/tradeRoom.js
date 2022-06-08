@@ -1,16 +1,5 @@
 let userEmail = new URLSearchParams(window.location.search).get("email");
 
-let expertTraders = [];
-for (i = 0; i < 8; i++) {
-	let expertTrader = {
-		name: "Robin Trader",
-		type: "Human",
-		winRates: "95",
-		profitShares: "20"
-	}
-	expertTraders.push(expertTrader)
-
-}
 document.body.addEventListener("click", function(e) {
 	let targetId = e.target.id;
 	if (targetId == "deposit" || targetId == "deposit-2" || targetId == "deposit-3" || targetId == "deposit-4") {
@@ -23,12 +12,14 @@ document.body.addEventListener("click", function(e) {
 			document.getElementById("copy-traders-container").style.display = "block";
 			document.getElementById("dashboard").style.display = "none"
 		}, 500)
+		getAllTraders();
 	}
 	else if (e.target.classList.contains("copy")) {
 		console.log("Copy");
 	}
 	else if (e.target.classList.contains("open-info")) {
-		document.getElementById("trader-info").style.display = "block";
+//		document.getElementById("trader-info").style.display = "block";
+		getTrader(e.target.parentElement.previousElementSibling.children[0].value)
 	}
 	else if (targetId == "close-trader-modal") {
 		document.getElementById("trader-info").style.display = "none";
@@ -44,10 +35,38 @@ document.body.addEventListener("click", function(e) {
 	}
 })
 
+function getAllTraders() {
+  let tradersXhr = new XMLHttpRequest();
+  tradersXhr.open("GET", "/traders", true);
+  tradersXhr.send();
 
-expertTraders.forEach(function(trader) {
-	document.getElementById('copy-traders-root').innerHTML += bindCopyTrader(trader)
-}) 
+  tradersXhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let response = JSON.parse(this.response);
+      document.getElementById('copy-traders-root').innerHTML = "";
+      response.forEach(function (item) {
+        document.getElementById('copy-traders-root').innerHTML += bindCopyTraders(item)
+      });
+    }
+  };
+}
+
+function getTrader(traderId) {
+  let traderXhr = new XMLHttpRequest();
+  traderXhr.open("GET", `/trader/${traderId}`, true);
+  traderXhr.send();
+
+  traderXhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let response = JSON.parse(this.response);
+      document.getElementById('trader-info').style.display = "block";
+      document.getElementById("image").src = `${response.traderId}.jpeg`;
+      document.getElementById("name").textContent = `${response.traderName}`;
+      document.getElementById("win-rate").textContent = `${response.winRate}`;
+      document.getElementById("profit-share").textContent = `${response.profitShare}`;
+    }
+  };
+}
 
 
 blink();
@@ -64,15 +83,16 @@ function blink() {
 	}, 500)
 }
 
-function bindCopyTrader(trader) {
+function bindCopyTraders(trader) {
 	return `<div class="w3-row" style="color: white; border-bottom: 0.2px solid rgb(0, 50, 235, 0.2); padding: 12px">
-					<div class="w3-col s2">
-						<img alt="" src="./images/paulius.png" style="height: 40px; width: 40px; border-radius: 40px; margin-top: 12px">
+					<div class="w3-col s3">
+					<input type="hidden" value="${trader.traderId}" />
+						<img alt="" src="./images/${trader.traderId}.jpeg" style="height: 60px; width: 60px; border-radius: 60px; margin-top: 0px">
 					</div>
-					<div class="w3-col s7" style="padding-left: 4px">
-						<p class="no-margin small open-info pointer" style="color: rgb(0, 50, 235); font-weight: 600">${trader.name}</p>
-						<p class="no-margin small" style="font-weight: 600">${trader.winRates}% Win Rate</p>
-						<p class="no-margin small" style="font-weight: 600">${trader.profitShares}% Profit Share</p>
+					<div class="w3-col s6" style="padding-left: 4px">
+						<p class="no-margin small open-info pointer" style="color: rgb(0, 50, 235); font-weight: 600">${trader.traderName}</p>
+						<p class="no-margin small" style="font-weight: 600">${trader.winRate}% Win Rate</p>
+						<p class="no-margin small" style="font-weight: 600">${trader.profitShare}% Profit Share</p>
 					</div>
 					<div class="w3-col s3 w3-center">
 						<div class="w3-padding-small w3-round w3-center small pointer copy" style="border: 0.3px solid rgb(0, 50, 235); color:  rgb(0, 50, 235); margin-top: 16px">Copy</div>
