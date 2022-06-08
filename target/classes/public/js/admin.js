@@ -1,7 +1,6 @@
-let user;
+let user = new URLSearchParams(window.location.search).get("email");
+
 let toUser;
-let isOnline = true;
-let isLiveChat = true;
 let account;
 let investmentValue;
 
@@ -9,7 +8,6 @@ let distinctMessageRoot = document.getElementById("distinct-message-root");
 let chatBox = document.getElementById("chat-box");
 let adminStatus = document.getElementById("status");
 let lastSeen = document.getElementById("last-seen");
-getUser();
 
 let days;
 
@@ -21,24 +19,16 @@ document.body.addEventListener("click", function (e) {
         .previousElementSibling.value;
     toUser = fromUser;
     getUserDetails();
-  } else if (target.id == "send-message") {
-    prepareForSending(toUser);
-  } else if (target.id == "status") {
-    console.log(isOnline);
-    if (isOnline) {
-      setAdminStatus(false);
-    } else {
-      setAdminStatus(true);
-    }
-  } else if (target.id == "view-user") {
+  } else if (target.id == "traders") {
+    changeOption(target);
+  } else if (target.id == "fund-account") {
     getAllUsers();
     changeOption(target);
-    isLiveChat = false;
-  } else if (target.id == "view-chat") {
+  } else if (target.id == "fund-trades") {
     changeOption(target);
-    isLiveChat = true;
+  }else if (target.id == "add-trader") {
+    changeOption(target);
   } else if (target.id == "info") {
-    
   } else if (target.id == "close-modal") {
     document.getElementById("info-modal").style.display = "none";
   } else if (target.id == "close-fund-modal") {
@@ -53,27 +43,29 @@ document.body.addEventListener("click", function (e) {
   }
 });
 
-function startInvestment() {
- let investment = {
-      account: { accountId: account.accountId },
-      investedAmount: investedAmountEtx.value,
-      days: daysEtx.value,
-      isActive: true,
-      currency: { crypto: "Bitcoin" },
-      percentage: percentEtx.value,
-      startDate: moment(),
-      endDate: moment(moment()).add(daysEtx.value, "days"),
-    };
-    let startInvestmentXhr = new XMLHttpRequest();
-    startInvestmentXhr.open("POST", "/investment", true);
-    startInvestmentXhr.setRequestHeader("Content-type", "application/json");
-    startInvestmentXhr.send(JSON.stringify(investment));
+getAllUsers();
 
-    startInvestmentXhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        location.reload();
-      }
-    };
+function startInvestment() {
+  let investment = {
+    account: { accountId: account.accountId },
+    investedAmount: investedAmountEtx.value,
+    days: daysEtx.value,
+    isActive: true,
+    currency: { crypto: "Bitcoin" },
+    percentage: percentEtx.value,
+    startDate: moment(),
+    endDate: moment(moment()).add(daysEtx.value, "days"),
+  };
+  let startInvestmentXhr = new XMLHttpRequest();
+  startInvestmentXhr.open("POST", "/investment", true);
+  startInvestmentXhr.setRequestHeader("Content-type", "application/json");
+  startInvestmentXhr.send(JSON.stringify(investment));
+
+  startInvestmentXhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      location.reload();
+    }
+  };
 }
 
 function getUserDetails() {
@@ -95,7 +87,7 @@ function getUserDetails() {
       investmentXhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           let investmentResponse = JSON.parse(this.response);
-		  console.log(investmentResponse)
+          console.log(investmentResponse);
           if (investmentResponse != null) {
             investmentValue = investmentResponse.investment;
           }
@@ -140,16 +132,6 @@ function updateAccount(balance) {
   };
 }
 
-function getUser() {
-  let adminXhr = new XMLHttpRequest();
-  adminXhr.open("GET", "/admin", true);
-  adminXhr.send();
-  adminXhr.onreadystatechange = function () {
-    if (this.status == 200 && this.readyState == 4) {
-      user = this.response;
-    }
-  };
-}
 
 
 function getAllUsers() {
@@ -159,12 +141,11 @@ function getAllUsers() {
   document.getElementById(
     "distinct-message-root"
   ).innerHTML = `<div id="distinct-message-spinner" class="fa fa-spinner fa-spin xx-large green-text opacity-1"
-							style="position: absolute; left: 220px; top: 200px"></div>`;
+							style="position: absolute; left: 170px; top: 200px"></div>`;
 
   allUsersXhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("distinct-message-root").innerHTML = "";
-      document.getElementById("message-root").innerHTML = "";
       let response = JSON.parse(this.response);
       console.log(response);
       response.forEach(function (address) {
@@ -185,6 +166,27 @@ function getAllUsers() {
               `Referred by nobody`
             );
         }
+      });
+    }
+  };
+}
+function getAllTraders() {
+  let tradersXhr = new XMLHttpRequest();
+  tradersXhr.open("GET", "/traders", true);
+  tradersXhr.send();
+
+  tradersXhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let response = JSON.parse(this.response);
+      document.getElementById("distinct-message-root").innerHTML = "";
+      response.forEach(function (item) {
+        document.getElementById("distinct-message-root").innerHTML +=
+          bindUserStatus(
+            item.traderId,
+            item.traderName,
+            item.winRate,
+            item.profitShare
+          );
       });
     }
   };
@@ -333,9 +335,6 @@ function bindUserInfo(info, investment) {
 }
 
 function changeOption(currentOption) {
-  document.getElementById("user-profile").style.visibility = "hidden";
-  document.getElementById("chat-box-container").style.visibility = "hidden";
-  document.getElementById("message-root").innerHTML = "";
   let allOptions = document.querySelectorAll(".option");
   allOptions.forEach(function (option) {
     option.classList.replace("blue-text", "grey-text-2");
@@ -371,11 +370,10 @@ function bindUserStatus(email, fullName, message, date) {
     </div>
     <div class="w3-col s4">
       <p class="no-margin small w3-right">
-        ${date}
+        Fund
       </p>
     </div>
   </div>
 <hr style="margin: 0px 0px 0px 100px">
 	</div>`;
 }
-

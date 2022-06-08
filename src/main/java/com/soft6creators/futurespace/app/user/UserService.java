@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import com.soft6creators.futurespace.app.account.Account;
 import com.soft6creators.futurespace.app.account.AccountService;
 import com.soft6creators.futurespace.app.mailsender.MailSenderService;
+import com.soft6creators.futurespace.app.tradingaccount.TradingAccount;
+import com.soft6creators.futurespace.app.tradingaccount.TradingAccountService;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -29,6 +31,8 @@ public class UserService {
 	AccountService accountService;
 	@Autowired
 	MailSenderService mailSenderService;
+	@Autowired
+	TradingAccountService tradingAccountService;
 
 	public User addUser(User user) {
 		if (checkUser(user.getEmail())) {
@@ -48,11 +52,11 @@ public class UserService {
 			}
 		}
 
-		try {
-			sendVerificationEmail(user);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			sendVerificationEmail(user);
+//		} catch (MessagingException e) {
+//			e.printStackTrace();
+//		}
 		Account account = new Account();
 		if (user.getReferral() != null) {
 			account.setAccountBalance(20);
@@ -62,6 +66,9 @@ public class UserService {
 		}
 		accountService.addAccount(account);
 		user.setAccount(account);
+		TradingAccount tradingAccount = new TradingAccount();
+		tradingAccountService.addTradingAccount(tradingAccount);
+		user.setTradingAccount(tradingAccount);
 		return userRepository.save(user);
 	}
 

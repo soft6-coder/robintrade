@@ -25,8 +25,4 @@ public class TradingAccountController {
 		return tradingAccountService.getTradingAccount(tradingAccountId);
 	}
 	
-	@RequestMapping("/user/{email}/trading")
-	public Optional<TradingAccount> getTradingAccountByUser(@PathVariable String email) {
-		return tradingAccountService.getTradingAccountByUser(email);
-	}
 }

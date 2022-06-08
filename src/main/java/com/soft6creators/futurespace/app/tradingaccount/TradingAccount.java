@@ -18,8 +18,6 @@ public class TradingAccount {
 	private int deposit;
 	private int balance;
 	private int profit;
-	@OneToOne
-	private User user;
 	@ManyToOne
 	private Trader trader;
 	public int getTradingAccountId() {
@@ -45,12 +43,6 @@ public class TradingAccount {
 	}
 	public void setProfit(int profit) {
 		this.profit = profit;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
 	}
 	public Trader getTrader() {
 		return trader;

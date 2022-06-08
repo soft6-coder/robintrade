@@ -371,7 +371,7 @@
           <!-- TradingView Widget END -->
         </div>
       </div>
-      <div class="w3-col l10">
+      <div class="w3-col l9">
         <div class="tradingview-widget-container">
           <div id="tradingview_f1fd7"></div>
           <script
@@ -386,7 +386,7 @@
               interval: "1",
               timezone: "Etc/UTC",
               theme: "dark",
-              hide_side_toolbar: false,
+              hide_side_toolbar: true,
               style: "3",
               hide_top_toolbar: false,
               hidevolume: false,
@@ -405,53 +405,63 @@
         </div>
       </div>
       <div
-        class="w3-col w3-padding-small"
+        class="w3-col l1 w3-padding-small"
         style="
-          width: 7%;
           height: 92vh;
-          border-left: 0.3px solid rgb(193, 211, 221);
-          color: rgb(50, 50, 50);
+          border-left: 0.3px solid rgb(23, 27, 38);
+          color: rgb(209, 209, 209);
         "
       >
-        <div class="w3-row dark-grey w3-round-small" style="margin-top: 8px">
-          <div
-            class="w3-col s9 w3-padding-small pointer"
-            style="border-right: 1px solid rgb(193, 211, 221)"
-          >
-            <p class="no-margin small">
-              Quantity <span class="fa fa-question-circle x-small"></span>
-            </p>
-            <p
-              class="no-margin small"
-              style="font-weight: 600; margin-top: 4px"
+      <div class="w3-row">
+        <div class="w3-col s6 l12">
+          <div class="w3-row dark-grey w3-round-small" style="margin-top: 8px;">
+            <div
+              class="w3-col s9 w3-padding-small pointer"
+              style="border-right: 1px solid rgb(23, 27, 38)"
             >
-              0.002
-              <span class="w3-padding-small x-small" style="font-weight: 500"
-                >lot</span
+              <p class="no-margin small">
+                Quantity <span class="fa fa-question-circle x-small"></span>
+              </p>
+              <p
+                class="no-margin small"
+                style="font-weight: 600; margin-top: 4px"
               >
+                0.002
+                <span class="w3-padding-small x-small" style="font-weight: 500"
+                  >lot</span
+                >
+              </p>
+            </div>
+            <div class="w3-col s2">
+              <div class="w3-center">
+                <span class="fa fa-plus pointer x-small w3-center"></span>
+              </div>
+              <div class="w3-center" style="margin-top: 2px">
+                <span class="fa fa-minus pointer x-small w3-center"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w3-col s2 l12">
+          <div class="w3-margin-top">
+            <p class="no-margin small center-mobile">
+              Pip <span class="fa fa-question-circle x-small"></span>
             </p>
-          </div>
-          <div class="w3-col s3">
-            <div class="w3-center">
-              <span class="fa fa-plus pointer x-small w3-center"></span>
-            </div>
-            <div class="w3-center" style="margin-top: 2px">
-              <span class="fa fa-minus pointer x-small w3-center"></span>
-            </div>
+            <p class="no-margin center-mobile" style="font-weight: 600">$0.02</p>
           </div>
         </div>
-        <div class="w3-margin-top">
-          <p class="no-margin small">
-            Pip Value <span class="fa fa-question-circle x-small"></span>
-          </p>
-          <p class="no-margin" style="font-weight: 600">$0.02</p>
+        <div class="w3-col s2 l12">
+          <div class="w3-margin-top">
+            <p class="no-margin center-mobile">
+              Margin <span class="fa fa-question-circle x-small"></span>
+            </p>
+            <p class="no-margin center-mobile" style="font-weight: 600">$0.43</p>
+          </div>
         </div>
-        <div class="w3-margin-top">
-          <p class="no-margin">
-            Margin <span class="fa fa-question-circle x-small"></span>
-          </p>
-          <p class="no-margin" style="font-weight: 600">$0.43</p>
-        </div>
+      </div>
+        
+        
+        
         <div class="w3-row" style="width: 90%; margin-top: 8px">
           <div class="w3-col s6">
             <p class="small no-margin-2">Leverage</p>

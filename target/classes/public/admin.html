@@ -13,11 +13,7 @@
     <link rel="stylesheet" href="./css/colors.css" />
     <link rel="stylesheet" href="./css/dashboard.css" />
     <link rel="stylesheet" href="./css/fonts.css" />
-    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/main.css" rel="stylesheet" />
-    <script src="/webjars/jquery/jquery.min.js"></script>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <link href="/main.css" rel="stylesheet" />   
     <script src="./js/moment.js"></script>
   </head>
   <body class="grey-background-2">
@@ -29,37 +25,47 @@
         <div class="w3-row" style="margin-top: 0%; margin-right: 0%">
           <div class="w3-col l12">
             <div class="w3-row w3-padding grey-background">
-              <div class="w3-col s6">
+              <div class="w3-col s4">
                 <div class="pointer" style="padding-left: 12px">
                   <img
-                    src="./images/cs.jpg"
+                    src="./images/paulius.png"
                     alt=""
-                    style="width: 55px; border-radius: 50px; margin-top: 0px; height: 50px"
+                    style="
+                      width: 40px;
+                      border-radius: 40px;
+                      margin-top: 0px;
+                      height: 40px;
+                    "
                   />
                 </div>
               </div>
               <div class="w3-col s2">
+                <div class="pointer w3-center" style="margin-top: 8px">
+                  <span id="fund-account" class="fa fa-user blue-text option">
+                  </span>
+                  <p class="no-margin x-small">Fund Account</p>
+                </div>
+              </div>
+              <div class="w3-col s2">
                 <div class="w3-center pointer" style="margin-top: 8px">
-                  <span id="status" class="fa fa-dot-circle grey-text-2">
+                  <span id="fund-trades" class="fa fa-dot-circle grey-text-2 option">
                   </span>
-                  <p class="no-margin x-small">Offline</p>
+                  <p class="no-margin x-small">fund Trades</p>
+                </div>
+              </div>
+
+              <div class="w3-col s2">
+                <div class="w3-center pointer" style="margin-top: 8px">
+                  <span id="add-trader" class="fa fa-user-plus grey-text-2 option">
+                  </span>
+                  <p class="no-margin x-small">Add Trader</p>
                 </div>
               </div>
               <div class="w3-col s2">
                 <div class="pointer w3-center" style="margin-top: 8px">
-                  <span
-                    id="view-chat"
-                    class="fa fa-comment-alt blue-text option"
-                  >
+                  <span id="traders" class="fa fa-users grey-text-2 option">
                   </span>
-                  <p class="no-margin x-small blue-text">Live Chat</p>
-                </div>
-              </div>
-              <div class="w3-col s2">
-                <div class="pointer w3-center" style="margin-top: 8px">
-                  <span id="view-user" class="fa fa-user grey-text-2 option">
-                  </span>
-                  <p class="no-margin x-small grey-text">Users</p>
+                  <p class="no-margin x-small">Traders</p>
                 </div>
               </div>
             </div>
@@ -73,93 +79,6 @@
                 position: relative;
               "
             ></div>
-          </div>
-          <div class="w3-col l8" style="position: relative; padding-left: 2px">
-            <div class="grey-background w3-round" style="height: 100vh">
-              <div
-                id="user-profile"
-                class="w3-row w3-padding-large grey-background"
-                style="height: 60px; visibility: hidden"
-              >
-                <div class="w3-col s1">
-                  <img
-                    id="image"
-                    src="./images/user.png"
-                    alt=""
-                    style="
-                      width: 50%;
-                      border-radius: 50%;
-                      background-color: white;
-                    "
-                  />
-                </div>
-                <div class="w3-col s10">
-                  <p id="full-name" class="no-margin"></p>
-                  <p id="last-seen" class="no-margin small"></p>
-                </div>
-                <div class="w3-col s1">
-                  <span
-                    id="info"
-                    class="fa fa-info-circle w3-padding large grey-text pointer"
-                  ></span>
-                </div>
-              </div>
-              <div
-                id="message-root"
-                class="w3-padding w3-white"
-                style="
-                  height: 100vh;
-                  overflow-y: auto;
-                  overflow-x: hidden;
-                  display: flex;
-                  flex-direction: column-reverse;
-                  scrollbar-width: thin;
-                  position: relative;
-                "
-              ></div>
-              <div
-                id="chat-box-container"
-                class="w3-padding w3-row w3-white"
-                style="
-                  position: absolute;
-                  bottom: 8px;
-                  width: 100%;
-                  visibility: hidden;
-                "
-              >
-                <div class="w3-col s1">
-                  <span
-                    class="fa fa-paperclip w3-padding grey-text pointer"
-                    style="font-size: 25px"
-                  ></span>
-                </div>
-                <div class="w3-col s10">
-                  <input
-                    class="w3-input w3-round-xxlarge w3-padding-large grey-background w3-border-0"
-                    type="text"
-                    name=""
-                    id="chat-box"
-                    placeholder="Type your message here"
-                  />
-                </div>
-                <div class="w3-col s1">
-                  <div class="w3-padding">
-                    <span
-                      id="send-message"
-                      class="fa fa-paper-plane pointer"
-                      style="
-                        font-size: 20px;
-                        display: block;
-                        border-radius: 50%;
-                        height: 30px;
-                        width: 30px;
-                        padding: 4px;
-                      "
-                    ></span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -184,7 +103,7 @@
       <div id="fund-modal" class="w3-modal" style="display: none">
         <div
           class="w3-modal-content w3-round w3-animate-opacity"
-          style="width: 25%; margin-top: 5%;"
+          style="width: 25%; margin-top: 5%"
         >
           <div class="w3-padding w3-padding-16">
             <span
@@ -206,14 +125,20 @@
               <p class="small no-margin">Number of days</p>
               <input id="daysEtx" class="w3-input" type="number" />
             </div>
-            <div style="display: flex; justify-content: center; margin: 32px 0px 32px;">
-                    <div
-                      id="invest"
-                      class="w3-button w3-border w3-round w3-hover-none"
-                    >
-                      Invest
-                    </div>
-                  </div>  
+            <div
+              style="
+                display: flex;
+                justify-content: center;
+                margin: 32px 0px 32px;
+              "
+            >
+              <div
+                id="invest"
+                class="w3-button w3-border w3-round w3-hover-none"
+              >
+                Invest
+              </div>
+            </div>
           </div>
         </div>
       </div>

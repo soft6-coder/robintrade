@@ -18,8 +18,4 @@ public class TradingAccountService {
 	public Optional<TradingAccount> getTradingAccount(int tradingAccountId) {
 		return tradingAccountRepository.findById(null);
 	}
-	
-	public Optional<TradingAccount> getTradingAccountByUser(String email) {
-		return tradingAccountRepository.findByUserEmail(email);
-	}
 }

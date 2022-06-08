@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.soft6creators.futurespace.app.account.Account;
+import com.soft6creators.futurespace.app.tradingaccount.TradingAccount;
 
 @Entity
 public class User {
@@ -23,6 +24,8 @@ public class User {
 	private String date;
 	@OneToOne
 	private Account account;
+	@OneToOne
+	private TradingAccount tradingAccount;
 	
 	private String role;
 	private boolean isAccountNonLocked;
@@ -84,6 +87,8 @@ public class User {
 
 
 
+	
+	
 
 	public boolean isAccountNonLocked() {
 		return isAccountNonLocked;
@@ -172,6 +177,23 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+	public TradingAccount getTradingAccount() {
+		return tradingAccount;
+	}
+
+
+
+
+
+
+
+
+	public void setTradingAccount(TradingAccount tradingAccount) {
+		this.tradingAccount = tradingAccount;
+	}
+	
+	
 	
 	
 	
