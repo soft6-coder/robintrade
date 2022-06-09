@@ -1,4 +1,5 @@
 let userEmail = new URLSearchParams(window.location.search).get("email");
+let tradingAccount;
 
 document.body.addEventListener("click", function(e) {
 	let targetId = e.target.id;
@@ -8,17 +9,17 @@ document.body.addEventListener("click", function(e) {
 	else if (targetId == "copy-experts-2") {
 		document.getElementById("dashboard").classList.add("fade-out");
 		setTimeout(function() {
-			document.getElementById("copy-traders-container").classList.remove("fade-out");	
+			document.getElementById("copy-traders-container").classList.remove("fade-out");
 			document.getElementById("copy-traders-container").style.display = "block";
 			document.getElementById("dashboard").style.display = "none"
 		}, 500)
 		getAllTraders();
 	}
 	else if (e.target.classList.contains("copy")) {
-		console.log("Copy");
+		e.target.innerHTML = "Copied";
+		copy(tradingAccount.tradingAccountId, e.target.parentElement.previousElementSibling.previousElementSibling.children[0].value)
 	}
 	else if (e.target.classList.contains("open-info")) {
-//		document.getElementById("trader-info").style.display = "block";
 		getTrader(e.target.parentElement.previousElementSibling.children[0].value)
 	}
 	else if (targetId == "close-trader-modal") {
@@ -27,48 +28,100 @@ document.body.addEventListener("click", function(e) {
 	else if (targetId == "back-to-dashboard") {
 		document.getElementById("copy-traders-container").classList.add("fade-out");
 		setTimeout(function() {
-			document.getElementById("dashboard").classList.remove("fade-out");	
+			document.getElementById("dashboard").classList.remove("fade-out");
 			document.getElementById("dashboard").style.display = "block";
 		}, 500)
-	
-		
+
+
 	}
 })
 
-function getAllTraders() {
-  let tradersXhr = new XMLHttpRequest();
-  tradersXhr.open("GET", "/traders", true);
-  tradersXhr.send();
+function getUser() {
+	let userXhr = new XMLHttpRequest();
+	userXhr.open("GET", `/user/email/${userEmail}`, true);
+	userXhr.send();
 
-  tradersXhr.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      let response = JSON.parse(this.response);
-      document.getElementById('copy-traders-root').innerHTML = "";
-      response.forEach(function (item) {
-        document.getElementById('copy-traders-root').innerHTML += bindCopyTraders(item)
-      });
-    }
-  };
+	userXhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			let response = JSON.parse(this.response);
+			console.log(response)
+			tradingAccount = response.tradingAccount;
+			getAccountTrader(userEmail)
+		}
+	}
+}
+
+function getAllTraders() {
+	let tradersXhr = new XMLHttpRequest();
+	tradersXhr.open("GET", "/traders", true);
+	tradersXhr.send();
+
+	tradersXhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			let response = JSON.parse(this.response);
+			document.getElementById('copy-traders-root').innerHTML = "";
+			response.forEach(function(item) {
+				document.getElementById('copy-traders-root').innerHTML += bindCopyTraders(item)
+			});
+		}
+	};
 }
 
 function getTrader(traderId) {
-  let traderXhr = new XMLHttpRequest();
-  traderXhr.open("GET", `/trader/${traderId}`, true);
-  traderXhr.send();
+	let traderXhr = new XMLHttpRequest();
+	traderXhr.open("GET", `/trader/${traderId}`, true);
+	traderXhr.send();
 
-  traderXhr.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      let response = JSON.parse(this.response);
-      document.getElementById('trader-info').style.display = "block";
-      document.getElementById("image").src = `${response.traderId}.jpeg`;
-      document.getElementById("name").textContent = `${response.traderName}`;
-      document.getElementById("win-rate").textContent = `${response.winRate}`;
-      document.getElementById("profit-share").textContent = `${response.profitShare}`;
-    }
-  };
+	traderXhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			let response = JSON.parse(this.response);
+			document.getElementById('trader-info').style.display = "block";
+			document.getElementById("image-1").src = `${response.traderId}.jpeg`;
+			document.getElementById("name").textContent = `${response.traderName}`;
+			document.getElementById("win-rate").textContent = `${response.winRate}`;
+			document.getElementById("profit-share").textContent = `${response.profitShare}`;
+		}
+	};
 }
 
+function getAccountTrader() {
+	let userXhr = new XMLHttpRequest();
+	userXhr.open("GET", `/user/email/${userEmail}`, true);
+	userXhr.send();
 
+	userXhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			let response = JSON.parse(this.response);
+			if (response.tradingAccount.trader == null) {
+				document.getElementById("my-trader-root").innerHTML = `<p class="w3-center no-margin">You currently have no active
+						Traders</p>`
+			}
+			else {
+				document.getElementById("my-trader-root").innerHTML =
+					`<div class="w3-center">
+						<img src="./images/${response.tradingAccount.trader.traderId}.jpeg" style="height: 40px; width: 40px; border-radius: 40px" />
+						<span class="w3-round" style="background-color: rgb(0, 50, 235); color: white; padding: 0px 8px; margin-left: 4px">${response.tradingAccount.trader.traderName}</span>
+					</div>`
+			}
+		}
+	}
+}
+
+function copy(tradeAccountId, traderId) {
+	console.log(tradeAccountId, traderId)
+	let copyTraderXhr = new XMLHttpRequest();
+	copyTraderXhr.open("GET", `/tradeaccount/${tradeAccountId}/trader/${traderId}`, true);
+	copyTraderXhr.send();
+
+	copyTraderXhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			let response = JSON.parse(this.response);
+			getAccountTrader();
+		}
+	}
+}
+
+getUser();
 blink();
 
 

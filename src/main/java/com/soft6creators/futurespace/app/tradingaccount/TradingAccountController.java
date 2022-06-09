@@ -25,4 +25,9 @@ public class TradingAccountController {
 		return tradingAccountService.getTradingAccount(tradingAccountId);
 	}
 	
+	@RequestMapping("/tradeaccount/{tradeAccountId}/trader/{traderId}")
+	public TradingAccount addTraderToAccount(@PathVariable int tradeAccountId, @PathVariable int traderId) {
+		return tradingAccountService.addTraderToAccount(tradeAccountId, traderId);
+	}
+	
 }
