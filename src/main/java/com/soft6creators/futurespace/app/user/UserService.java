@@ -1,5 +1,6 @@
 package com.soft6creators.futurespace.app.user;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
 import javax.mail.MessagingException;
@@ -56,6 +57,9 @@ public class UserService {
 			sendVerificationEmail(user);
 		} catch (MessagingException e) {
 			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		Account account = new Account();
 		if (user.getReferral() != null) {
@@ -72,6 +76,20 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
+	public boolean resend(String email) {
+		Optional<User> user = userRepository.findById(email);
+		try {
+			sendVerificationEmail(user.get());
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
 	public Optional<User> getUser(String email) {
 		return userRepository.findById(email);
 	}
@@ -80,7 +98,7 @@ public class UserService {
 		return userRepository.existsById(email);
 	}
 
-	private void sendVerificationEmail(User user) throws MessagingException {
+	private void sendVerificationEmail(User user) throws MessagingException, UnsupportedEncodingException {
 		String toAddress = user.getEmail();
 		String subject = "ROBINTRADE (One time password)";
 		String content = "<div style=\"margin: 8px 12px; box-shadow: 1px 1px 10px rgb(236, 236, 236)\">\r\n"
@@ -93,7 +111,7 @@ public class UserService {
 				+ "        \"\r\n"
 				+ "      >\r\n"
 				+ "        <p style=\"font-size: 16px; font-weight: bold\">\r\n"
-				+ "          ROBINTRADE ASSETS\r\n"
+				+ "          ROBINTRADE\r\n"
 				+ "        </p>\r\n"
 				+ "      </div>\r\n"
 				+ "      <div\r\n"
@@ -107,7 +125,7 @@ public class UserService {
 				+ "          Confirm your Registration\r\n"
 				+ "        </p>\r\n"
 				+ "        <p style=\"font-size: 14px; color: rgb(34, 34, 34)\">\r\n"
-				+ "          Welcome to RobinTrade assets\r\n"
+				+ "          Welcome to RobinTrade\r\n"
 				+ "        </p>\r\n"
 				+ "        <p style=\"font-size: 14px; color: rgb(34, 34, 34)\">\r\n"
 				+ "          Here is your account activation code\r\n"

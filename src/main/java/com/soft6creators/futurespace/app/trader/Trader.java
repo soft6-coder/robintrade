@@ -13,6 +13,7 @@ public class Trader {
 	private String traderName;
 	private int winRate;
 	private int profitShare;
+	private byte[] image;
 	public int getTraderId() {
 		return traderId;
 	}
@@ -37,6 +38,14 @@ public class Trader {
 	public void setProfitShare(int profitShare) {
 		this.profitShare = profitShare;
 	}
+	public byte[] getImage() {
+		return image;
+	}
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+	
+	
 	
 	
 }

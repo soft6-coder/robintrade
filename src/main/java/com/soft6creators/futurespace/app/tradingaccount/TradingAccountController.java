@@ -30,4 +30,9 @@ public class TradingAccountController {
 		return tradingAccountService.addTraderToAccount(tradeAccountId, traderId);
 	}
 	
+	@RequestMapping(method = RequestMethod.PUT, value =  "/tradingaccount")
+	public void updateTradingAccount(@RequestBody TradingAccount tradingAccount) {
+		tradingAccountService.addTradingAccount(tradingAccount);
+	}
+	
 }

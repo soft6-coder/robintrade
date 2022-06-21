@@ -16,7 +16,6 @@ document.body.addEventListener("click", function(e) {
 		getAllTraders();
 	}
 	else if (e.target.classList.contains("copy")) {
-		e.target.innerHTML = "Copied";
 		copy(tradingAccount.tradingAccountId, e.target.parentElement.previousElementSibling.previousElementSibling.children[0].value)
 	}
 	else if (e.target.classList.contains("open-info")) {
@@ -31,10 +30,24 @@ document.body.addEventListener("click", function(e) {
 			document.getElementById("dashboard").classList.remove("fade-out");
 			document.getElementById("dashboard").style.display = "block";
 		}, 500)
-
-
+	}
+	else if (targetId == "buy") {
+		buy();
+	}
+	else if (targetId == "sell") {
+		sell();
+	}
+	else if (targetId == "close-trade-modal") {
+		document.getElementById("trade-modal").style.display = "none";
 	}
 })
+
+function buy() {
+	document.getElementById("trade-modal").style.display = "block";
+}
+function sell() {
+	document.getElementById("trade-modal").style.display = "block";
+}
 
 function getUser() {
 	let userXhr = new XMLHttpRequest();
@@ -44,14 +57,16 @@ function getUser() {
 	userXhr.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			let response = JSON.parse(this.response);
-			console.log(response)
 			tradingAccount = response.tradingAccount;
+			document.getElementById("deposit-5").textContent = `$${tradingAccount.deposit}`;
+			document.getElementById("balance").textContent = `$${tradingAccount.balance}`;
+			document.getElementById("profit").textContent = `$${tradingAccount.profit}`;
 			getAccountTrader(userEmail)
 		}
 	}
 }
 
-function getAllTraders() {
+function getAllTraders(selectedTraderId) {
 	let tradersXhr = new XMLHttpRequest();
 	tradersXhr.open("GET", "/traders", true);
 	tradersXhr.send();
@@ -60,9 +75,18 @@ function getAllTraders() {
 		if (this.readyState == 4 && this.status == 200) {
 			let response = JSON.parse(this.response);
 			document.getElementById('copy-traders-root').innerHTML = "";
+			let copy = "Copy";
 			response.forEach(function(item) {
-				document.getElementById('copy-traders-root').innerHTML += bindCopyTraders(item)
+				if (selectedTraderId == item.traderId) {
+					copy = "Copied"
+				}
+				else {
+					copy = "Copy"
+				}
+				document.getElementById('copy-traders-root').innerHTML += bindCopyTraders(item, copy)
 			});
+
+
 		}
 	};
 }
@@ -76,7 +100,7 @@ function getTrader(traderId) {
 		if (this.readyState == 4 && this.status == 200) {
 			let response = JSON.parse(this.response);
 			document.getElementById('trader-info').style.display = "block";
-			document.getElementById("image-1").src = `${response.traderId}.jpeg`;
+			document.getElementById("image-1").src = `/images/${response.traderId}.jpeg`;
 			document.getElementById("name").textContent = `${response.traderName}`;
 			document.getElementById("win-rate").textContent = `${response.winRate}`;
 			document.getElementById("profit-share").textContent = `${response.profitShare}`;
@@ -98,9 +122,12 @@ function getAccountTrader() {
 			}
 			else {
 				document.getElementById("my-trader-root").innerHTML =
-					`<div class="w3-center">
-						<img src="./images/${response.tradingAccount.trader.traderId}.jpeg" style="height: 40px; width: 40px; border-radius: 40px" />
-						<span class="w3-round" style="background-color: rgb(0, 50, 235); color: white; padding: 0px 8px; margin-left: 4px">${response.tradingAccount.trader.traderName}</span>
+					`<div class="w3-row">
+					<div class="w3-col s3">
+						<img src="./images/${response.tradingAccount.trader.traderId}.jpeg" style="height: 50px; width: 50px; border-radius: 50px" />
+					</div>
+					<div class="w3-col s9" style="margin-top: 8px"><p class="w3-round-small small no-margin" style="background-color: rgb(0, 50, 235); color: white; padding: 0px 4px; margin-left: 4px; font-weight:600">${response.tradingAccount.trader.traderName}</p>
+					<p class="small no-margin" style="color: white; margin-left: 4px; padding: 0px 4px;">Win Rate: ${response.tradingAccount.trader.winRate}%</p></div>	
 					</div>`
 			}
 		}
@@ -108,7 +135,6 @@ function getAccountTrader() {
 }
 
 function copy(tradeAccountId, traderId) {
-	console.log(tradeAccountId, traderId)
 	let copyTraderXhr = new XMLHttpRequest();
 	copyTraderXhr.open("GET", `/tradeaccount/${tradeAccountId}/trader/${traderId}`, true);
 	copyTraderXhr.send();
@@ -117,6 +143,7 @@ function copy(tradeAccountId, traderId) {
 		if (this.readyState == 4 && this.status == 200) {
 			let response = JSON.parse(this.response);
 			getAccountTrader();
+			getAllTraders(response.trader.traderId);
 		}
 	}
 }
@@ -136,7 +163,7 @@ function blink() {
 	}, 500)
 }
 
-function bindCopyTraders(trader) {
+function bindCopyTraders(trader, copy) {
 	return `<div class="w3-row" style="color: white; border-bottom: 0.2px solid rgb(0, 50, 235, 0.2); padding: 12px">
 					<div class="w3-col s3">
 					<input type="hidden" value="${trader.traderId}" />
@@ -147,8 +174,8 @@ function bindCopyTraders(trader) {
 						<p class="no-margin small" style="font-weight: 600">${trader.winRate}% Win Rate</p>
 						<p class="no-margin small" style="font-weight: 600">${trader.profitShare}% Profit Share</p>
 					</div>
-					<div class="w3-col s3 w3-center">
-						<div class="w3-padding-small w3-round w3-center small pointer copy" style="border: 0.3px solid rgb(0, 50, 235); color:  rgb(0, 50, 235); margin-top: 16px">Copy</div>
+					<div class="w3-col s3 w3-center pointer">
+						<div class="w3-padding-small w3-round w3-center small pointer copy" style="border: 0.3px solid rgb(0, 50, 235); color:  rgb(0, 50, 235); margin-top: 16px">${copy}</div>
 					</div>
 				</div>`
 }

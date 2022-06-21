@@ -1,5 +1,6 @@
 let emailParam = new URLSearchParams(window.location.search).get("email");
 let statusParam = new URLSearchParams(window.location.search).get("status");
+let userEmail = new URLSearchParams(window.location.search).get("useremail");
 
 let signUpCard = document.getElementById("sign-up-card");
 let signInPromptCard = document.getElementById("sign-in-prompt-card");
@@ -26,6 +27,9 @@ let thirdCard = document.getElementById("third");
 let validated;
 let verified;
 let signedIn;
+let resend;
+
+let countdown = 60;
 
 if (emailParam != null) {
 	email2.value = emailParam;
@@ -49,6 +53,7 @@ if (statusParam == "signin") {
 	);
 } else if (statusParam == "verify") {
 	changeCard(firstCard, secondCard);
+	startTimer();
 } else if (statusParam == "failure") {
 	switchCards(
 		signUpCard,
@@ -143,6 +148,7 @@ document.body.addEventListener("click", function(e) {
 			e.target.innerHTML =
 				"<span class='fa fa-spinner fa-spin w3-large'></span>";
 			signUp();
+			startTimer();
 		}
 	} else if (targetId == "verify") {
 		if (verified) {
@@ -160,6 +166,11 @@ document.body.addEventListener("click", function(e) {
 		}
 	} else if (targetId == "back-to-sign-in") {
 		document.location.replace(`get-started.html?email=${email.value}`);
+	}
+	else if (targetId == "resend") {
+		if (resend) {
+			resendVerificationCode();
+		}
 	}
 });
 
@@ -184,6 +195,38 @@ function verify() {
 			}
 		}
 	};
+}
+
+function resendVerificationCode() {
+	let resendXhr = new XMLHttpRequest();
+	resendXhr.open("GET", `/user/${userEmail}/resend`, true);
+	resendXhr.send();
+	
+	resendXhr.onreadystatechange = function() {
+		if (this.status == 200 && this.readyState == 4) {
+			let response = JSON.parse(this.response);
+			document.getElementById("resend-container").classList.replace("green-background", "grey-background");
+			countdown = 60;
+			startTimer();
+		}
+	}
+}
+
+function startTimer() {
+	resend = false;
+	let timer = document.getElementById("timer");
+	console.log("Start Timer");
+		let interval = setInterval(function() {
+			if (countdown > 0) {
+				countdown--;
+			}
+			else {
+				document.getElementById("resend-container").classList.replace("grey-background", "green-background");
+				resend = true;
+				clearInterval(interval);
+			}
+			timer.textContent = countdown;
+		}, 1000)
 }
 
 function signUp() {
@@ -214,6 +257,7 @@ function signUp() {
 			console.log(response);
 			if (response.email != null) {
 				changeCard(firstCard, secondCard);
+				userEmail = response.email;
 			} else if (response.email == null && response.referral != null) {
 				document.getElementById("wrong-referral").style.display = "block";
 				document

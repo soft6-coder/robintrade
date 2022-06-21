@@ -1,5 +1,7 @@
 package com.soft6creators.futurespace.app.mailsender;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -14,10 +16,10 @@ public class MailSenderService {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	public void sendEmail(String toEmail, String subject, String body) throws MessagingException {
+	public void sendEmail(String toEmail, String subject, String body) throws MessagingException, UnsupportedEncodingException {
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
-		helper.setFrom("futurespaceinvestments@gmail.com");
+		helper.setFrom("futurespaceinvestments@gmail.com", "RobinTrade");
 		helper.setTo(toEmail);
 		helper.setSubject(subject);
 		helper.setText(body, true);

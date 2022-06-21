@@ -54,6 +54,11 @@ public class UserController {
 		return userService.verify(verificationCode);
 	}
 	
+	@RequestMapping("/user/{email}/resend")
+	public boolean resend(@PathVariable String email) {
+		return userService.resend(email);
+	}
+	
 	@RequestMapping(method = RequestMethod.PUT, value = "/user")
 	private User updateUser(@RequestBody User user) {
 		return userService.addUser(user);

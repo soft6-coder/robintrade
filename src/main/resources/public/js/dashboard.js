@@ -51,7 +51,7 @@ getUserXhr.onreadystatechange = function () {
     userDetail = response;
     if (response.accountNonLocked == false) {
       if (response.active == false) {
-        location.replace("/get-started.html?status=verify");
+        location.replace(`/get-started.html?status=verify&useremail=${response.email}`);
       } else {
         location.replace(`/address.html?email=${response.email}`);
       }

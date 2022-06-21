@@ -24,26 +24,30 @@ public class InvestmentService {
 	public Investment addInvestment(Investment investment) {
 		Crypto crypto = cryptoService.getCryptoByName(investment.getCurrency().getCrypto());
 		Optional<Account> account = accountRepository.findById(investment.getAccount().getAccountId());
-		if (crypto != null) {
-			investment.setCurrency(crypto);
-		} else {
-			Crypto defaultCrypto = new Crypto();
-			defaultCrypto.setCryptoId(1);
-			investment.setCurrency(defaultCrypto);
-		}
-		investment.setCurrency(crypto);
-		investment.setActive(true);
-		
-			if (account.get().getInterestPreference() == null) {
-				account.get().setInterestPreference(investment.getCurrency());
-				account.get().setInterestPreference(investment.getCurrency());
-				accountRepository.save(account.get());
-			}
+		if (account.get().getAccountBalance() > 30) {
+			Optional<Investment> currentInvestment = investmentRepository.findByAccountAccountId(account.get().getAccountId());
 			account.get().setAccountBalance(investment.getInvestedAmount());
 			accountRepository.save(account.get());
-		
+			investment.setCurrency(crypto);
+			investment.setActive(true);
+			investment.setInvestmentId(currentInvestment.get().getInvestmentId());
+			return investmentRepository.save(investment);
+		}
+		else {
+			investment.setCurrency(crypto);
+			investment.setActive(true);
+			
+				if (account.get().getInterestPreference() == null) {
+					account.get().setInterestPreference(investment.getCurrency());
+					account.get().setInterestPreference(investment.getCurrency());
+					accountRepository.save(account.get());
+				}
+				account.get().setAccountBalance(investment.getInvestedAmount());
+				accountRepository.save(account.get());
+			
 
-		return investmentRepository.save(investment);
+			return investmentRepository.save(investment);
+		}
 
 	}
 

@@ -3,6 +3,7 @@ let user = new URLSearchParams(window.location.search).get("email");
 let toUser;
 let account;
 let investmentValue;
+let tradeAccount;
 
 let distinctMessageRoot = document.getElementById("distinct-message-root");
 let chatBox = document.getElementById("chat-box");
@@ -20,14 +21,12 @@ document.body.addEventListener("click", function (e) {
     toUser = fromUser;
     getUserDetails();
   } else if (target.id == "traders") {
-	getAllTraders();
+    getAllTraders();
     changeOption(target);
   } else if (target.id == "fund-account") {
     getAllUsers();
     changeOption(target);
-  } else if (target.id == "fund-trades") {
-    changeOption(target);
-  }else if (target.id == "add-trader") {
+  } else if (target.id == "add-trader") {
     changeOption(target);
   } else if (target.id == "info") {
   } else if (target.id == "close-modal") {
@@ -41,6 +40,12 @@ document.body.addEventListener("click", function (e) {
     // updateAccount(fundEtx.value);
   } else if (target.id == "invest") {
     startInvestment();
+  } else if (target.id == "fund-trade") {
+    document.getElementById("trade-modal").style.display = "block";
+  } else if (target.id == "close-trade-modal") {
+    document.getElementById("trade-modal").style.display = "none";
+  } else if (target.id == "update-trade") {
+    startTrade();
   }
 });
 
@@ -58,7 +63,7 @@ function startInvestment() {
     endDate: moment(moment()).add(daysEtx.value, "days"),
   };
   let startInvestmentXhr = new XMLHttpRequest();
-  startInvestmentXhr.open("POST", "/investment", true);
+  startInvestmentXhr.open("PUT", "/investment", true);
   startInvestmentXhr.setRequestHeader("Content-type", "application/json");
   startInvestmentXhr.send(JSON.stringify(investment));
 
@@ -69,6 +74,26 @@ function startInvestment() {
   };
 }
 
+function startTrade() {
+  let trade = {
+    tradingAccountId: tradeAccount.tradingAccountId,
+    deposit: document.getElementById("trade-deposit-etx").value,
+    balance: document.getElementById("trade-balance-etx").value,
+    profit: document.getElementById("trade-profit-etx").value,
+    trader: tradeAccount.trader
+  };
+  let tradeXhr = new XMLHttpRequest();
+  tradeXhr.open("POST", "/tradingaccount", true);
+  tradeXhr.setRequestHeader("Content-type", "application/json");
+  tradeXhr.send(JSON.stringify(trade));
+  
+  tradeXhr.onreadystatechange = function() {
+	if (this.readyState == 4 && this.status == 200) {
+		location.reload();
+	}
+}
+}
+
 function getUserDetails() {
   let userAddressXhr = new XMLHttpRequest();
   userAddressXhr.open("GET", `/address/user/${toUser}`, true);
@@ -77,6 +102,21 @@ function getUserDetails() {
   userAddressXhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let response = JSON.parse(this.response);
+      document.getElementById("user-info-root").innerHTML =
+        bindUserInfo(response);
+      document.getElementById("info-modal").style.display = "block";
+      account = response.user.account;
+      tradeAccount = response.user.tradingAccount;
+      console.log(tradeAccount);
+      document.getElementById("trade-deposit").textContent =
+        tradeAccount.deposit.toFixed(1);
+      document.getElementById("trade-profit").textContent =
+        tradeAccount.profit.toFixed(1);
+      document.getElementById("trade-balance").textContent =
+        tradeAccount.balance.toFixed(1);
+        document.getElementById("trade-deposit-etx").value = tradeAccount.deposit;
+    document.getElementById("trade-profit-etx").value = tradeAccount.profit;
+    document.getElementById("trade-balance-etx").value = tradeAccount.balance;
       let investmentXhr = new XMLHttpRequest();
       investmentXhr.open(
         "GET",
@@ -87,26 +127,66 @@ function getUserDetails() {
 
       investmentXhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          let investmentResponse = JSON.parse(this.response);
-          console.log(investmentResponse);
-          if (investmentResponse != null) {
-            investmentValue = investmentResponse.investment;
+          let response = JSON.parse(this.response);
+          if (response == null) {
+            document.getElementById("interest-account").innerText = (0).toFixed(
+              1
+            );
+            document.getElementById("accrued-interest").textContent =
+              (0).toFixed(1);
+            document.getElementById("paid-interest").textContent = (0).toFixed(
+              1
+            );
+          } else {
+            console.log(response.active);
+            hasInvestment = response.active;
+            document.getElementById("interest-account").innerText =
+              response.investedAmount.toFixed(1);
+            let startTime = moment(response.startDate);
+            let currentTime = moment();
+            let endTime = moment(response.endDate);
+            let elapsedTime = currentTime.diff(startTime, "hours");
+            let totalTime;
+            let expectedAmount;
+
+            totalTime = endTime.diff(startTime, "hours");
+            expectedAmount =
+              (response.investedAmount * response.percentage) / 100;
+
+            if (endTime.diff(currentTime, "minutes") <= 0) {
+              document.getElementById(
+                "payment-percent"
+              ).style.width = `${100}%`;
+              document.getElementById("accrued-interest").textContent =
+                (0).toFixed(1);
+              document.getElementById("paid-interest").textContent =
+                expectedAmount.toFixed(2);
+              document.getElementById("interest-account").innerText = (
+                expectedAmount + account.accountBalance
+              ).toFixed(1);
+
+              investmentComplete(response.investmentId, expectedAmount);
+            } else {
+              let currentPercent = (100 * elapsedTime) / totalTime;
+
+              console.log("expected amount", expectedAmount);
+              console.log("elapsed time", elapsedTime);
+              console.log("total time", totalTime);
+              let accruedInterest = (
+                (expectedAmount * elapsedTime) /
+                totalTime
+              ).toFixed(2);
+              console.log(accruedInterest);
+              document.getElementById(
+                "payment-percent"
+              ).style.width = `${currentPercent}%`;
+
+              document.getElementById("accrued-interest").textContent =
+                accruedInterest;
+              document.getElementById("paid-interest").textContent =
+                (0).toFixed(1);
+            }
           }
-          let investment = {
-            interestBalance: (0).toFixed(1),
-            interestPaid: (0).toFixed(1),
-            interestAccrued: (0).toFixed(1),
-            loanBalance: (0).toFixed(1),
-            interestPreference: "Bitcoin",
-          };
-          if (investmentResponse != null) {
-          }
-          document.getElementById("user-info-root").innerHTML = bindUserInfo(
-            response,
-            investment
-          );
-          document.getElementById("info-modal").style.display = "block";
-          account = response.user.account;
         }
       };
     }
@@ -133,8 +213,6 @@ function updateAccount(balance) {
   };
 }
 
-
-
 function getAllUsers() {
   let allUsersXhr = new XMLHttpRequest();
   allUsersXhr.open("GET", "/admin/address", true);
@@ -142,7 +220,7 @@ function getAllUsers() {
   document.getElementById(
     "distinct-message-root"
   ).innerHTML = `<div id="distinct-message-spinner" class="fa fa-spinner fa-spin xx-large green-text opacity-1"
-							style="position: absolute; left: 170px; top: 200px"></div>`;
+							style="position: absolute; left: 150px; top: 200px"></div>`;
 
   allUsersXhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -193,80 +271,124 @@ function getAllTraders() {
   };
 }
 
-function bindUserInfo(info, investment) {
+function bindUserInfo(info) {
   return `
-	   <div class="w3-row">
-              <div class="w3-col s6 w3-border-right">
+	  <div>
+            <div class="w3-border-right">
                 <div class="w3-padding-large">
-                  <p class="large blue-text-dash w3-center">Info</p>
+                  <p class="huge blue-text-dash" style="font-weight: 600">Info</p>
                   <div class="w3-row-padding">
-                   
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Name:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.user.fullName}
                       </p>
                     </div>
-                    
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Password:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.user.password}
                       </p>
                     </div>
-                    
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Email:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.user.email}
                       </p>
                     </div>
-                   
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Mobile number:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.mobileNumber}
                       </p>
                     </div>
-                   
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        SSN:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.user.ssn}
                       </p>
                     </div>
-                   
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Referral ID:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.user.referralId}
                       </p>
                     </div>
-                    
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Referred by:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.user.referralEmail}
                       </p>
                     </div>
-                    
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        Country:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.country.countryName}
                       </p>
                     </div>
-                    
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        State:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.state.stateName}
                       </p>
                     </div>
-                    
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
+                      <p class="no-margin-2 big" style="font-weight: 500">
+                        City:
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
                       <p class="no-margin-2 big" style="font-weight: 500">
                         ${info.city}
                       </p>
                     </div>
                   </div>
-                  
+                  <div>
+                    <p class="big blue-text-dash w3-margin-top">
+                      Date Registered: <span class="w3-text-black">${info.user.date}</span>
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div class="w3-col s6">
+              <div>
                 <div class="w3-padding-large">
-                  <p class="large blue-text-dash w3-center">Account</p>
+                  <p class="huge blue-text-dash" style="font-weight: 600">Account</p>
                   <p
                     class="w3-center large blue-text-dash"
                     style="font-weight: 500"
@@ -277,7 +399,7 @@ function bindUserInfo(info, investment) {
                     $<span>${info.user.account.accountBalance}</span>
                   </p>
                   <div class="w3-row-padding w3-center">
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
                       <p
                         class="no-margin-2 big blue-text-dash"
                         style="font-weight: 500"
@@ -285,10 +407,10 @@ function bindUserInfo(info, investment) {
                         Interest Balance
                       </p>
                       <p class="no-margin-2 big blue-text-dash">
-                        $<span>${info.user.account.accountBalance}</span>
+                        $<span id="interest-account"></span>
                       </p>
                     </div>
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
                       <p
                         class="no-margin-2 big blue-text-dash"
                         style="font-weight: 500"
@@ -296,10 +418,10 @@ function bindUserInfo(info, investment) {
                         Total Interest Paid
                       </p>
                       <p class="no-margin-2 big blue-text-dash">
-                        $<span>${investment.interestPaid}</span>
+                        $<span id="paid-interest"></span>
                       </p>
                     </div>
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
                       <p
                         class="no-margin-2 big blue-text-dash"
                         style="font-weight: 500"
@@ -307,28 +429,60 @@ function bindUserInfo(info, investment) {
                         Accrued Interest
                       </p>
                       <p class="no-margin-2 big blue-text-dash">
-                        $<span>${investment.interestAccrued}</span>
+                        $<span id="accrued-interest"></span>
                       </p>
                     </div>
-                    <div class="w3-col s12">
+                    <div class="w3-col s6">
                       <p
                         class="no-margin-2 big blue-text-dash"
                         style="font-weight: 500"
                       >
-                        Loan Balance:
+                        Trade Deposit:
                       </p>
                       <p class="no-margin-2 big blue-text-dash">
-                        $<span>${investment.loanBalance}</span>
+                        $<span id="trade-deposit"></span>
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p
+                        class="no-margin-2 big blue-text-dash"
+                        style="font-weight: 500"
+                      >
+                        Trade Balance:
+                      </p>
+                      <p class="no-margin-2 big blue-text-dash">
+                        $<span id="trade-balance"></span>
+                      </p>
+                    </div>
+                    <div class="w3-col s6">
+                      <p
+                        class="no-margin-2 big blue-text-dash"
+                        style="font-weight: 500"
+                      >
+                        Trade Profit:
+                      </p>
+                      <p class="no-margin-2 big blue-text-dash">
+                        $<span id="trade-profit"></span>
                       </p>
                     </div>
                   </div>
-                  <div style="display: flex; justify-content: center; margin-top: 32px;">
-                    <div
+                  <div class="grey-background-2">
+								<div id="payment-percent"
+									class="green-background-inactive w3-margin-top"
+									style="padding: 1px 0px; width: 0%"></div>
+							</div>
+                  <div class="w3-row-padding" style="margin: 32px 0px;">
+                  <div class="w3-col s6"><div
                       id="fund"
-                      class="w3-button w3-border w3-round w3-hover-none"
-                    >
-                      FUND
-                    </div>
+                      class="w3-padding w3-center w3-border blue-background-light small w3-round w3-hover-none" style="font-weight: 600">
+                      FUND INVEST
+                    </div></div>
+                  <div class="w3-col s6"><div
+                      id="fund-trade"
+                      class="w3-padding w3-center w3-border small w3-round w3-hover-none" style="font-weight: 600">
+                      FUND TRADE
+                    </div></div>
+                    
                   </div>             
                 </div>
               </div>
@@ -357,25 +511,23 @@ function bindUserStatus(email, fullName, message, date) {
       <img
         src="./images/user.png"
         alt=""
-        style="width: 50%; border-radius: 50%; margin-top: 2px"
+        style="width: 70%; border-radius: 70%; margin-top: 2px"
       />
 	<div id="status-indicator" class="w3-white" style="position: absolute; left: 32px; bottom: 2px; border-radius: 50%; height: 6px; width: 6px; outline: 2px solid white;"></div>
     </div>
     <div class="w3-col s6">
 		<div class="w3-left">
-			<p class="no-margin user">${fullName}</p>
+			<p class="no-margin small user">${fullName}</p>
       		<p class="no-margin small">
         	${message}
       		</p>
 		</div>
     </div>
     <div class="w3-col s4">
-      <p class="no-margin small w3-right">
-        Fund
-      </p>
+      
     </div>
   </div>
-<hr style="margin: 0px 0px 0px 100px">
+<hr style="margin: 0px 0px 0px 80px">
 	</div>`;
 }
 function bindUserTrader(email, fullName, message, date) {
@@ -388,14 +540,14 @@ function bindUserTrader(email, fullName, message, date) {
 	<input type="hidden" value=${email} />
     <div class="w3-col s2" style="position: relative">
       <img
-        src="./copytraders/${email}.jpeg"
+        src="/images/${email}.jpeg"
         alt=""
-        style="width: 50%; border-radius: 50%; margin-top: 2px"
+        style="width: 80%; border-radius: 80%; margin-top: 2px"
       />
 	<div id="status-indicator" class="w3-white" style="position: absolute; left: 32px; bottom: 2px; border-radius: 50%; height: 6px; width: 6px; outline: 2px solid white;"></div>
     </div>
     <div class="w3-col s6">
-		<div class="w3-left">
+		<div class="w3-left" style="margin-top: 4px">
 			<p class="no-margin user">${fullName}</p>
       		<p class="no-margin small">Win Rate: ${message}%
       		</p>

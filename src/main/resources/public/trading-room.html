@@ -5,8 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Robin Trade - Trading Room</title>
-<link rel="stylesheet"
-	href="./font awesome/FortAwesome-Font-Awesome-7d3d774/css/all.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta name="theme-color" content="#E6ECF0" />
 <meta name="msapplication-navbutton-color" content="#E6ECF0" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,17 +57,17 @@
 				style="position: absolute; width: 100%; display: none">
 				<p class="x-big w3-text-white no-margin">
 					<span id="back-to-dashboard"
-						class="fa fa-angle-left w3-padding-small pointer"></span>
-					<span class="w3-center">COPY EXPERT TRADERS</span>
+						class="fa fa-angle-left w3-padding-small pointer"></span> <span
+						class="w3-center">COPY EXPERT TRADERS</span>
 				</p>
-				<div  class="w3-padding w3-round w3-text-white w3-margin"
+				<div class="w3-padding w3-round w3-text-white w3-margin"
 					style="background-color: rgb(19, 23, 34)">
 					<p class="w3-center no-margin-2" style="font-weight: 600">My
 						Traders</p>
-						<div id="my-trader-root"></div>
-					
+					<div id="my-trader-root"></div>
+
 				</div>
-				<div id="copy-traders-root"></div>
+				<div id="copy-traders-root" style="overflow-y: scroll; height: 78vh; width: 100%"></div>
 			</div>
 			<div id="dashboard" class="w3-center"
 				style="display: block; position: absolute; width: 100%">
@@ -77,10 +76,9 @@
 						<div class="w3-col s4">
 							<div class="w3-padding-small">
 								<p class="no-margin"
-									style="color: rgb(241, 114, 3); font-weight: 600">
-									Deposit</p>
-								<p class="no-margin-2" style="color: white; font-weight: 600">
-									$0</p>
+									style="color: rgb(241, 114, 3); font-weight: 600">Deposit</p>
+								<p id="deposit-5" class="no-margin-2"
+									style="color: white; font-weight: 600">$0</p>
 							</div>
 						</div>
 						<div class="w3-col s4">
@@ -89,17 +87,15 @@
 								<p class="no-margin" style="font-weight: 600; color: white">
 									Package</p>
 								<p class="no-margin x-small"
-									style="font-weight: 600; color: white">
-									Starter Plan</p>
+									style="font-weight: 600; color: white">Starter Plan</p>
 							</div>
 						</div>
 						<div class="w3-col s4">
 							<div class="w3-padding-small">
 								<p class="no-margin"
-									style="color: rgb(241, 114, 3); font-weight: 600">
-									Balance</p>
-								<p class="no-margin" style="color: white; font-weight: 600">
-									$0</p>
+									style="color: rgb(241, 114, 3); font-weight: 600">Balance</p>
+								<p id="balance" class="no-margin"
+									style="color: white; font-weight: 600">$0</p>
 							</div>
 						</div>
 					</div>
@@ -107,10 +103,9 @@
 						<div class="w3-col s4">
 							<div class="w3-padding-small">
 								<p class="no-margin"
-									style="color: rgb(241, 114, 3); font-weight: 600">
-									Profits</p>
-								<p class="no-margin" style="color: white; font-weight: 600">
-									$0</p>
+									style="color: rgb(241, 114, 3); font-weight: 600">Profits</p>
+								<p id="profit" class="no-margin"
+									style="color: white; font-weight: 600">$0</p>
 							</div>
 						</div>
 						<div class="w3-col s4">
@@ -119,15 +114,13 @@
 								<p class="no-margin" style="font-weight: 600; color: white">
 									Watchlist</p>
 								<p class="no-margin x-small"
-									style="font-weight: 600; color: white">
-									Trading Room</p>
+									style="font-weight: 600; color: white">Trading Room</p>
 							</div>
 						</div>
 						<div class="w3-col s4">
 							<div class="w3-padding-small">
 								<p class="no-margin"
-									style="color: rgb(241, 114, 3); font-weight: 600">
-									BTC</p>
+									style="color: rgb(241, 114, 3); font-weight: 600">BTC</p>
 								<p class="no-margin" style="color: white; font-weight: 600">
 									0.00000 BTC</p>
 							</div>
@@ -295,7 +288,7 @@
 			</div>
 		</div>
 		<div class="w3-col l10">
-			<div class="w3-row">
+			<div class="w3-row trading-view-margin">
 				<div class="w3-col l11">
 					<div class="tradingview-widget-container">
 						<div id="tradingview_f1fd7"></div>
@@ -327,126 +320,124 @@
           </script>
 					</div>
 				</div>
-					<div class="w3-col l1 w3-padding-small"
-						style="height: 92vh; border-left: 0.3px solid rgb(23, 27, 38); color: rgb(209, 209, 209);">
-						<div class="w3-row">
-							<div class="w3-col s6 l12">
-								<div class="w3-row dark-grey w3-round-small"
-									style="margin-top: 8px;">
-									<div class="w3-col s9 w3-padding-small pointer"
-										style="border-right: 1px solid rgb(23, 27, 38)">
-										<p class="no-margin small">
-											Quantity <span class="fa fa-question-circle x-small"></span>
-										</p>
-										<p class="no-margin small"
-											style="font-weight: 600; margin-top: 4px">
-											0.002 <span class="w3-padding-small x-small"
-												style="font-weight: 500">lot</span>
-										</p>
-									</div>
-									<div class="w3-col s2">
-										<div class="w3-center">
-											<span class="fa fa-plus pointer x-small w3-center"></span>
-										</div>
-										<div class="w3-center" style="margin-top: 2px">
-											<span class="fa fa-minus pointer x-small w3-center"></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="w3-col s2 l12">
-								<div class="w3-margin-top">
-									<p class="no-margin small center-mobile">
-										Pip <span class="fa fa-question-circle x-small"></span>
+				<div class="w3-col l1 w3-padding-small"
+					style="height: 92vh; border-left: 0.3px solid rgb(23, 27, 38); color: rgb(209, 209, 209);">
+					<div class="w3-row">
+						<div class="w3-col s6 l12">
+							<div class="w3-row dark-grey w3-round-small"
+								style="margin-top: 8px;">
+								<div class="w3-col s9 w3-padding-small pointer"
+									style="border-right: 1px solid rgb(23, 27, 38)">
+									<p class="no-margin small">
+										Quantity <span class="fa fa-question-circle x-small"></span>
 									</p>
-									<p class="no-margin center-mobile" style="font-weight: 600">$0.02</p>
-								</div>
-							</div>
-							<div class="w3-col s2 l12">
-								<div class="w3-margin-top">
-									<p class="no-margin center-mobile">
-										Margin <span class="fa fa-question-circle x-small"></span>
+									<p class="no-margin small"
+										style="font-weight: 600; margin-top: 4px">
+										0.002 <span class="w3-padding-small x-small"
+											style="font-weight: 500">lot</span>
 									</p>
-									<p class="no-margin center-mobile" style="font-weight: 600">$0.43</p>
+								</div>
+								<div class="w3-col s2">
+									<div class="w3-center">
+										<span class="fa fa-plus pointer x-small w3-center"></span>
+									</div>
+									<div class="w3-center" style="margin-top: 2px">
+										<span class="fa fa-minus pointer x-small w3-center"></span>
+									</div>
 								</div>
 							</div>
 						</div>
-
-
-
-						<div class="w3-row" style="width: 90%; margin-top: 8px">
-							<div class="w3-col s6">
-								<p class="small no-margin-2">Leverage</p>
-							</div>
-							<div class="w3-col s6">
-								<p class="w3-right small no-margin-2">1:500</p>
-							</div>
-						</div>
-						<div class="dark-grey w3-round-small pointer"
-							style="margin-top: 12px">
-							<div class="w3-padding-small">
-								<p class="no-margin small">
-									TP <span class="fa fa-question-circle x-small"></span>
+						<div class="w3-col s2 l12">
+							<div class="w3-margin-top">
+								<p class="no-margin small center-mobile">
+									Pip <span class="fa fa-question-circle x-small"></span>
 								</p>
-								<p class="no-margin small" style="font-weight: 600">---</p>
+								<p class="no-margin center-mobile" style="font-weight: 600">$0.02</p>
 							</div>
 						</div>
-						<div class="dark-grey w3-round-small pointer"
-							style="margin-top: 1px">
-							<div class="w3-padding-small">
-								<p class="no-margin small">
-									SL <span class="fa fa-question-circle x-small"></span>
+						<div class="w3-col s2 l12">
+							<div class="w3-margin-top">
+								<p class="no-margin center-mobile">
+									Margin <span class="fa fa-question-circle x-small"></span>
 								</p>
-								<p class="no-margin small" style="font-weight: 600">---</p>
-							</div>
-						</div>
-						<div class="w3-row dark-grey w3-round-small pointer"
-							style="margin-top: 12px">
-							<div class="w3-col s9 w3-padding-small"
-								style="border-right: 1px solid rgb(193, 211, 221)">
-								<p class="no-margin small">
-									Price <span class="fa fa-question-circle x-small"></span>
-								</p>
-								<p class="no-margin small"
-									style="font-weight: 600; margin-top: 4px">
-									Market</p>
-							</div>
-							<div class="w3-col s3">
-								<div class="w3-center">
-									<span class="fa fa-plus pointer x-small w3-center"></span>
-								</div>
-								<div class="w3-center" style="margin-top: 2px">
-									<span class="fa fa-minus pointer x-small w3-center"></span>
-								</div>
-							</div>
-						</div>
-						<div class="w3-round pointer"
-							style="height: 120px; margin-top: 64px; background-color: green; padding-top: 36px;">
-							<div class="w3-center">
-								<p class="no-margin w3-text-white x-big">Buy</p>
-								<p class="no-margin w3-text-white x-big"
-									style="font-weight: 500">1.07578</p>
-							</div>
-						</div>
-						<div class="w3-row" style="width: 90%">
-							<div class="w3-col s6">
-								<p class="small no-margin-2">Spread</p>
-							</div>
-							<div class="w3-col s6">
-								<p class="w3-right small w3-text-dark no-margin-2">0.3</p>
-							</div>
-						</div>
-						<div class="w3-round pointer w3-red"
-							style="height: 120px; margin-top: 2px; padding-top: 36px";
-        >
-							<div class="w3-center">
-								<p class="no-margin w3-text-dark x-big">Sell</p>
-								<p class="no-margin w3-text-dark x-big" style="font-weight: 500">
-									1.07578</p>
+								<p class="no-margin center-mobile" style="font-weight: 600">$0.43</p>
 							</div>
 						</div>
 					</div>
-								</div>
+
+
+
+					<div class="w3-row" style="width: 90%; margin-top: 8px">
+						<div class="w3-col s6">
+							<p class="small no-margin-2">Leverage</p>
+						</div>
+						<div class="w3-col s6">
+							<p class="w3-right small no-margin-2">1:500</p>
+						</div>
+					</div>
+					<div class="dark-grey w3-round-small pointer"
+						style="margin-top: 12px">
+						<div class="w3-padding-small">
+							<p class="no-margin small">
+								TP <span class="fa fa-question-circle x-small"></span>
+							</p>
+							<p class="no-margin small" style="font-weight: 600">---</p>
+						</div>
+					</div>
+					<div class="dark-grey w3-round-small pointer"
+						style="margin-top: 1px">
+						<div class="w3-padding-small">
+							<p class="no-margin small">
+								SL <span class="fa fa-question-circle x-small"></span>
+							</p>
+							<p class="no-margin small" style="font-weight: 600">---</p>
+						</div>
+					</div>
+					<div class="w3-row dark-grey w3-round-small pointer"
+						style="margin-top: 12px">
+						<div class="w3-col s9 w3-padding-small"
+							style="border-right: 1px solid rgb(193, 211, 221)">
+							<p class="no-margin small">
+								Price <span class="fa fa-question-circle x-small"></span>
+							</p>
+							<p class="no-margin small"
+								style="font-weight: 600; margin-top: 4px">Market</p>
+						</div>
+						<div class="w3-col s3">
+							<div class="w3-center">
+								<span class="fa fa-plus pointer x-small w3-center"></span>
+							</div>
+							<div class="w3-center" style="margin-top: 2px">
+								<span class="fa fa-minus pointer x-small w3-center"></span>
+							</div>
+						</div>
+					</div>
+					<div class="w3-round pointer"
+						style="height: 120px; margin-top: 64px; background-color: green; padding-top: 36px;">
+						<div class="w3-center">
+							<p id="buy" class="no-margin w3-text-white x-big">Buy</p>
+							<p class="no-margin w3-text-white x-big" style="font-weight: 500">1.07578</p>
+						</div>
+					</div>
+					<div class="w3-row" style="width: 90%">
+						<div class="w3-col s6">
+							<p class="small no-margin-2">Spread</p>
+						</div>
+						<div class="w3-col s6">
+							<p class="w3-right small w3-text-dark no-margin-2">0.3</p>
+						</div>
+					</div>
+					<div class="w3-round pointer w3-red"
+						style="height: 120px; margin-top: 2px; padding-top: 36px";
+        >
+						<div class="w3-center">
+							<p id="sell" class="no-margin w3-text-dark x-big">Sell</p>
+							<p class="no-margin w3-text-dark x-big" style="font-weight: 500">
+								1.07578</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	</div>
@@ -518,9 +509,24 @@
 							</div>
 						</div>
 					</div>
-					<div class="small w3-margin w3-padding w3-center w3-round pointer"
-						style="border: 0.3px solid rgb(0, 50, 235); color: rgb(0, 50, 235);">
-						Copy</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="trade-modal" class="w3-modal w3-animate-opacity">
+		<div class="w3-modal-content w3-round"
+			style="width: 50%; margin-top: 100px; background-color: rgb(23, 27, 38)">
+			<div>
+				<div style="padding-top: 2px">
+					<div class="w3-padding-large">
+						<div style="margin: 4px 4px">
+							<span id="close-trade-modal"
+								class="fa fa-times w3-text-red w3-right pointer"></span>
+						</div>
+						<p class="large w3-text-white w3-center" style="font-weight: 500; margin: 24px 0px">
+							Fund your account to start trading</p>
+					</div>
 				</div>
 			</div>
 		</div>
