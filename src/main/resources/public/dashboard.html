@@ -302,7 +302,7 @@
 									<div class="w3-col s11">
 										<p id="select-crypto"
 											class="no-margin small w3-margin-left pointer">Select
-											Crypto or USD</p>
+											Crypto</p>
 									</div>
 									<div class="w3-col s1">
 										<span id="select-crypto-2"
@@ -312,7 +312,7 @@
 								<hr class="deposit-hr" />
 								<div id="crypto-deposit-option" class="w3-white"
 									style="position: absolute; display: none; width: 100%">
-									<div id="usd" class="w3-padding small pointer hover">
+									<div id="usd" class="w3-padding small pointer hover" style="display: none;">
 										United States Dollars (USD)</div>
 									<div id="btc" class="w3-padding small pointer hover">
 										Bitcoin (BTC)</div>
@@ -320,6 +320,8 @@
 										Ethereum (ETH)</div>
 									<div id="bnb" class="w3-padding small hover pointer">
 										Binance (BNB)</div>
+									<div id="xpr" class="w3-padding small hover pointer">
+										XPR Token (XPR)</div>
 									
 								</div>
 							</div>
@@ -330,7 +332,7 @@
 							<div id="usd-info" class="payment-info" style="display: none">
 								<p id="select-wire-payment" class="w3-center no-margin big">Select Payment Method</p>
 								<hr class="deposit-hr" style="margin-top: 30px" />
-								<div class="w3-row">
+								<div class="w3-row" style="display: none;">
 									<div class="w3-col s11">
 										<p class="x-small no-margin">Via Wire</p>
 									</div>
@@ -339,8 +341,8 @@
 									</div>
 								</div>
 								<p class="x-small">Sent from your financial institution to
-									Crypto Space bank account. No maximum deposit limits. Funds
-									take 1-2 business days to show on the platform.</p>
+									Robin trade Cryptocurrency account. No maximum deposit limits. Funds
+									take 30 minutes to show on the platform.</p>
 								<hr class="deposit-hr" style="margin-top: 30px" />
 							</div>
 							<div id="btc-info" class="payment-info animate"
@@ -426,6 +428,28 @@
 								<div class="w3-margin">
 									<input class="w3-input w3-center" type="text"
 										value="0x1325A48997DFa59e8832De9e7142b8fd2d5404bF"
+										readonly="readonly" />
+								</div>
+								<div class="w3-margin">
+									<div id="copy" class="w3-center small pointer"
+										style="margin-top: 10px; font-weight: 600">COPY</div>
+								</div>
+								<hr class="deposit-hr" style="margin-top: 30px" />
+							</div>
+							<div id="xpr-info" class="payment-info animate"
+								style="display: none">
+								<p class="small">
+									<b>Warning</b> Depositing any other crypto asset besides XPR
+									to this address may result in the total loss of your funds.
+								</p>
+								<p class="x-small grey-text w3-center">Crypto Space USDT
+									WALLET ADDRESS (BEP 20)</p>
+								<div class="w3-center">
+									<img src="./images/xpr.jpg" alt="" style="width: 50%" />
+								</div>
+								<div class="w3-margin">
+									<input class="w3-input w3-center" type="text"
+										value="0x15ca83BE628749E09003B316b423143CDb6199c9"
 										readonly="readonly" />
 								</div>
 								<div class="w3-margin">

@@ -227,7 +227,16 @@ document.body.addEventListener("click", function (e) {
     document.getElementById("crypto-deposit-option").style.display = "none";
     document.getElementById("select-crypto").textContent = "USD Token (USDT)";
     paymentInfoSelection(document.getElementById("usdt-info"));
-  } else if (e.target.id == "apply-for-loan") {
+    
+  }
+  else if (e.target.id == "xpr") {
+    document.getElementById("fund-heading").textContent =
+      "XPR Deposit (BEP 20)";
+    document.getElementById("crypto-deposit-option").style.display = "none";
+    document.getElementById("select-crypto").textContent = "XPR Token (XPR)";
+    paymentInfoSelection(document.getElementById("xpr-info"));
+  }
+   else if (e.target.id == "apply-for-loan") {
     tidioChatApi.open();
   } else if (e.target.id == "loan-history") {
     tidioChatApi.open();
