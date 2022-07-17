@@ -182,12 +182,7 @@ public class UserService {
 	
 	public User signIn(String email, String password) {
 		Optional<User> user = userRepository.findByEmailAndPassword(email, password);
-		if (!user.isEmpty()) {
-			return user.get();
-		}
-		else {
-			return new User();
-		}
+		return user.get();
 	}
 
 }
