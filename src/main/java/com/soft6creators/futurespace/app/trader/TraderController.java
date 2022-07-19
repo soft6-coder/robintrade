@@ -17,10 +17,10 @@ public class TraderController {
 	@Autowired
 	private TraderService traderService;
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/trader")
-	public Trader addTrader(@RequestBody MultipartFile file) {
-		return traderService.addTrader(file);
-	}
+//	@RequestMapping(method = RequestMethod.POST, value = "/trader")
+//	public Trader addTrader(@RequestBody MultipartFile file) {
+//		return traderService.addTrader(file);
+//	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "traders")
 	public List<Trader> addTraders(@RequestBody List<Trader> traders) {

@@ -15,20 +15,20 @@ public class TraderService {
 	private TraderRepository traderRepository;
 	
 	
-	public Trader addTrader(MultipartFile file) {
-		Trader trader = new Trader();
-		Random random = new Random();
-		trader.setTraderName(file.getName());
-		trader.setWinRate(random.nextInt(80, 98));
-		trader.setProfitShare(random.nextInt(20, 25));
-		try {
-			trader.setImage(file.getBytes());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return traderRepository.save(trader);
-	}
+//	public Trader addTrader(MultipartFile file) {
+//		Trader trader = new Trader();
+//		Random random = new Random();
+//		trader.setTraderName(file.getName());
+//		trader.setWinRate(random.nextInt(80, 98));
+//		trader.setProfitShare(random.nextInt(20, 25));
+//		try {
+//			trader.setImage(file.getBytes());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return traderRepository.save(trader);
+//	}
 	
 	public List<Trader> addTraders(List<Trader> traders) {
 		return (List<Trader>) traderRepository.saveAll(traders);
